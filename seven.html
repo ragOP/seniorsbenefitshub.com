@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/react-toastify/8.2.0/ReactToastify.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src=//b-js.ringba.com/CA576870050c5a4ba0a633cd20698a0f4b async></script>
+    <script src=//b-js.ringba.com/CAfdb7eb5bdaa24fb8a155f293ece397ae async></script>
 
   
         <!-- Google Tag Manager -->
@@ -60,12 +60,29 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }
 }
 #lofo {
-    width: 30%;
+    width: 20%;
+}
+.live {
+    width: 4%; 
+    margin-right: 5px;
+}
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    #lofo {
+        width: 35%;
+    }
+    .live {
+    width: 6%; 
+    margin-right: 5px;
+}
 }
 @media screen and (max-width: 768px) {
     #lofo {
         width: 50%;
     }
+    .live {
+    width: 10%; 
+    margin-right: 5px;
+}
 }
 </style>
 </head>
@@ -92,11 +109,11 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <div>
         <div style="font-family: Arial, Helvetica, sans-serif;" class="top-sticky-blue-test22"
             id="top">
-            <img id="lofo" src="./loggo.png" alt="">
+            <img id="lofo" src="./bur.png" alt="">
         </div>
-        <div style="margin-bottom: 4px; font-family: Arial, Helvetica, sans-serif; background-color:#03b55f; text-align: center; font-size: 11px; padding: 8px 0; color: #fff; display: flex; align-items: center; justify-content: center;">
-            <img style="width: 10%; margin-right: 5px;" src="./live.png" alt="">
-            <em><span id="counter" style="font-weight: 800;">22,578</span> Adultos Mayores Se Han Inscrito En Las Últimas 24 Horas</em>
+        <div style="margin-bottom: 4px; font-family: Arial, Helvetica, sans-serif; background-color:#03b55f; text-align: center; font-size: 13px; padding: 8px 0; color: #fff; display: flex; align-items: center; justify-content: center;">
+            <img class="live" src="./live.png" alt="">
+            <em><span id="counter" style="font-weight: 800;">22,578</span> Seniors Enrolled In Last 24 Hours!</em>
         </div>
 
         <!-- Step messages will be displayed here when needed -->
@@ -109,12 +126,12 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             <div class="main-descrition-5-5">
                 <div class="main-des-title-6-7">
                     <b>
-                        Llamado Final Para Que Los Adultos Mayores Reclamen Su Plan De Protección Funeraria De $40,000
+                        Final Call For Seniors To Claim Their $40,000 Life Insurance Benefit! 
                     </b>
                 </div>
                 <img style="width: 83%; margin-left: 0%; border-radius: 7px;" class="topic-img-middle-z" src="./sha.png" alt="head" />
                 <div style="margin-top: 10px; text-align: center; font-size: 16px; font-weight: 900;line-height: 20px; margin-bottom: 0;" class="main-des-5">
-                Verificar tu elegibilidad es muy simple y toma solo 60 segundos, simplemente responde las preguntas a continuación para ver si calificas ahora.
+                    Checking your eligibility is very simple and takes just 60 seconds, simply answer the questions below to see if you qualify now.
                     <br /><br />
                 </div>
                 <div style="margin-bottom: 20px; margin-top: -10px;"><i style="font-size: 24px;" class="fa-solid fa-angle-down"></i></div>
@@ -137,29 +154,30 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 border-radius: 0px 0px 10px 10px;
             ">
                 <div class="quiz-5" id="btn" style="text-align: center;">
-                    <span id="quizQuestion">1. ¿Tienes Más De 55 Años?</span>
+                    <span id="quizQuestion">What's Your Age Range?</span>
                 </div>
                 <div class="answer" id="answerOptions">
-                    <div style="border-radius: 25px; font-size: 22px;" class="answer-btn-5" onclick="handleQuizP()">SÍ, TENGO 55 AÑOS O MÁS</div>
-                    <div style="border-radius: 25px; font-size: 21px;" class="answer-btn-5" onclick="handleQuizN()">NO, TENGO 54 AÑOS O MENOS</div>
+                    <div style="border-radius: 25px; font-size: 22px;" class="answer-btn-5" onclick="handleQuizP('50-65')">50-65</div>
+                    <div style="border-radius: 25px; font-size: 22px;" class="answer-btn-5" onclick="handleQuizN('65-80')">65-80</div>
+                    <div style="border-radius: 25px; font-size: 22px;" class="answer-btn-5" id="ageOption80Plus" onclick="handleQuizP('80+')">80+</div>
                 </div>
                 <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-                    <div class="pulse"></div><p style="text-align: center; margin-left: 10px;"></p><em> <span id="claim" style="color: #22c55e;">69</span> Personas Están Reclamando Ahora Mismo</em></p>
+                    <div class="pulse"></div><p style="text-align: center; margin-left: 10px;"></p><em> <span id="claim" style="color: #22c55e;">69</span> People Are Claiming Right Now!</em></p>
                 </div>
             </div>
         </div>
 
       
         <div class="checking hidden" id="congratulations">
-            <div class="congrats">Felicidades, Calificas 🎉 </div>
+            <div class="congrats">Congratulations, You Qualify 🎉 </div>
             <div class="top-description-5" >
-                ¡Haz Una <b>Llamada Rápida </b> Para Reclamar Tu Plan De Protección Funeraria De $40,000 Ahora!
+                Make A <b>Quick Call </b>To Claim Your $40,000 Life Insurance Benefit Now!
             </div>
-            <div class="spots-count">Lugares disponibles: 4</div>
+            <div class="spots-count">Spots remaining: 4</div>
             <!-- <div class="tap-direction">👇 TAP BELOW TO CALL 👇</div> -->
             <div class="call-btn" onclick="handleCall()">
-                <a href="tel:+18884380196">
-                    <div className="call-btn" onClick={handleCall}> CALL (888) 438-0196
+                <a href="tel:+13214858035">
+                    <div className="call-btn" onClick={handleCall}> CALL (321) 485-8035
                     </div>
                 </a>
             </div>
@@ -168,7 +186,8 @@ border-radius: 0px 0px 10px 10px;
             </div> -->
             <!-- <div class="sub-title">We Have Reserved Your Spot</div> -->
             <div class="sub-description">
-                Debido al alto volumen de llamadas, tu agente oficial esperará solo <b>3 minutos</b>, luego tu lugar no será reservado.
+                Due to high call volume, your official agent is waiting for only <b>3 minutes</b>, then your spot will
+                not be reserved.
             </div>
             <div class="timer">
                 <div class="timer-cell" id="minutes">3</div>
@@ -178,7 +197,7 @@ border-radius: 0px 0px 10px 10px;
         </div>
 
         <div class="footer2" style="margin-top: 25vh;">
-            Beware of other fraudulent & similar-looking websites that might look exactly like ours, we have no affiliation with them. This is the only official website to claim your Burial Protection Plan with the domain name burialprotectionplan.org.
+            Beware of other fraudulent & similar-looking websites that might look exactly like ours, we have no affiliation with them. This is the only official website to claim your Life Insurance Benefit with the domain name policybenefits.org
             <!-- <p>We represent Medicare Advantage HMO, PPO and PFFS organizations and stand-alone PDP prescription drug plans that are contracted with Medicare. Enrollment depends on the plan’s contract renewal."
             </p>
             <p>Not all plans offer all of these benefits. Benefits may vary by carrier and location. Limitations and exclusions may apply.
@@ -203,7 +222,7 @@ border-radius: 0px 0px 10px 10px;
 
     <script>
         let step = "process";
-        let quizQuestion = "1. ¿Tienes Más De 55 Años?";
+        let quizQuestion = "Are you over the age of 64?";
         const statusDiv = document.getElementById("status");
         const statusMessage = document.getElementById("statusMessage");
         const congratulationsDiv = document.getElementById("congratulations");
@@ -232,9 +251,10 @@ border-radius: 0px 0px 10px 10px;
             }
         }, 3000);
 
-        function handleQuizP() {
-            if (quizQuestion === "1. ¿Tienes Más De 55 Años?") {
-                quizQuestion = "2. ¿Vives En Los Estados Unidos?";
+        function handleQuizP(ageValue) {
+            pushAgeToTags(ageValue);
+            if (quizQuestion === "Are you over the age of 64?") {
+                quizQuestion = "How much coverage are you looking for?";
                 quizText.textContent = quizQuestion;
                 setYesNoOptions();
                 smoothScrollToTop(1000, 432);
@@ -243,9 +263,10 @@ border-radius: 0px 0px 10px 10px;
             }
         }
 
-        function handleQuizN() {
-            if (quizQuestion === "1. ¿Tienes Más De 55 Años?") {
-                quizQuestion = "2. ¿Vives En Los Estados Unidos?";
+        function handleQuizN(ageValue) {
+            pushAgeToTags(ageValue);
+            if (quizQuestion === "Are you over the age of 64?") {
+                quizQuestion = "How much coverage are you looking for?";
                 quizText.textContent = quizQuestion;
                 setYesNoOptions();
                 smoothScrollToTop(1000, 632);
@@ -256,8 +277,10 @@ border-radius: 0px 0px 10px 10px;
 
         function setYesNoOptions() {
             answerOptions.innerHTML = `
-                <div style="border-radius: 20px; font-size: 22px;" class="answer-btn-5" onclick="stepProcess('yes')">SÍ</div>
-                <div style="border-radius: 20px; font-size: 22px;" class="answer-btn-5" onclick="stepProcess('no')">NO</div>
+                <div style="border-radius: 20px; font-size: 22px;" class="answer-btn-5" onclick="stepProcess('yes','Above-25K')">ABOVE 25K</div>
+                <div style="border-radius: 20px; font-size: 22px;" class="answer-btn-5" onclick="stepProcess('no','10K-25K')">10K-25K</div>
+                                <div style="border-radius: 20px; font-size: 22px;" class="answer-btn-5" onclick="stepProcess('yes','5K-10K')">5K-10K</div>
+                <div style="border-radius: 20px; font-size: 22px;" class="answer-btn-5" onclick="stepProcess('no','Below-5K')">LESS THAN 5K</div>
             `;
         }
 
@@ -286,19 +309,47 @@ border-radius: 0px 0px 10px 10px;
 
 
 
+        function pushAgeToTags(ageValue) {
+    try {
+        console.log("Pushing age to _rgba_tags:", ageValue);
+        window._rgba_tags = window._rgba_tags || [];
+        window._rgba_tags.push({ age: ageValue });
+
+       
+        console.log("✅ Successfully pushed. Current _rgba_tags:", JSON.stringify(window._rgba_tags, null, 2));
+    } catch (e) {
+        console.error("❌ Error pushing age to _rgba_tags:", e);
+    }
+}
+
+function pushAgeToTagsCoverage(coverageValue) {
+    try {
+        console.log("Pushing coverageValue to _rgba_tags:", coverageValue);
+        window._rgba_tags = window._rgba_tags || [];
+        window._rgba_tags.push({ coverage: coverageValue });
+
+       
+        console.log("✅ Successfully pushed. Current _rgba_tags:", JSON.stringify(window._rgba_tags, null, 2));
+    } catch (e) {
+        console.error("❌ Error pushing age to _rgba_tags:", e);
+    }
+}
 
 
 
 
-        const stepProcess = (answer) => {
+
+        const stepProcess = (answer,value) => {
+            console.log("value",value)
+            pushAgeToTagsCoverage(value);
             smoothScrollToTop(1000);
             const mainContent = document.getElementById("mainContent");
             mainContent.classList.add("hidden");
             statusDiv.classList.remove("hidden");
-            statusMessage.textContent = "Revisando Tus Respuestas...";
+            statusMessage.textContent = "Reviewing Your Answers...";
 
             setTimeout(() => {
-                statusMessage.textContent = "Buscando Las Mejores Opciones...";
+                statusMessage.textContent = "Matching With Best Options...";
                 setTimeout(() => {
                     statusMessage.textContent = "Confirming Eligibility...";
                     setTimeout(() => {
