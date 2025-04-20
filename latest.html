@@ -222,7 +222,7 @@ border-radius: 0px 0px 10px 10px;
 
     <script>
         let step = "process";
-        let quizQuestion = "Are you over the age of 64?";
+        let quizQuestion = "1 .Are you over the age of 64?";
         const statusDiv = document.getElementById("status");
         const statusMessage = document.getElementById("statusMessage");
         const congratulationsDiv = document.getElementById("congratulations");
@@ -253,8 +253,8 @@ border-radius: 0px 0px 10px 10px;
 
         function handleQuizP(ageValue) {
             pushAgeToTags(ageValue);
-            if (quizQuestion === "Are you over the age of 64?") {
-                quizQuestion = "Are you a U.S. Citizen?";
+            if (quizQuestion === "1 .Are you over the age of 64?") {
+                quizQuestion = "2. Are you a U.S. Citizen?";
                 quizText.textContent = quizQuestion;
                 setYesNoOptions();
                 smoothScrollToTop(1000, 432);
@@ -265,8 +265,8 @@ border-radius: 0px 0px 10px 10px;
 
         function handleQuizN(ageValue) {
             pushAgeToTags(ageValue);
-            if (quizQuestion === "Are you over the age of 64?") {
-                quizQuestion = "Are you a U.S. Citizen?";
+            if (quizQuestion === "1 .Are you over the age of 64?") {
+                quizQuestion = "2. Are you a U.S. Citizen?";
                 quizText.textContent = quizQuestion;
                 setYesNoOptions();
                 smoothScrollToTop(1000, 632);
