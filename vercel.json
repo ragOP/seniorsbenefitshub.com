@@ -30,6 +30,11 @@
         "destination": "/latest.html"
     
       },
+        {
+        "source": "/englf2",
+        "destination": "/new.html"
+    
+      },
          {
         "source": "/qualify",
         "destination": "/fab.html"
