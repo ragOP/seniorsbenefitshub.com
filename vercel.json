@@ -10,6 +10,12 @@
         "destination": "/second.html"
     
       },
+            {
+        "source": "/wrwr1",
+        "destination": "/diet.html"
+    
+      },
+
            {
         "source": "/spansf1",
         "destination": "/span.html"
