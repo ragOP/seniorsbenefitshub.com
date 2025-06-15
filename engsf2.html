@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benefits For Elderly</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/react-toastify/8.2.0/ReactToastify.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src=//b-js.ringba.com/CAfdb7eb5bdaa24fb8a155f293ece397ae async></script>
+
+
+
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-PKBQ2L5S');</script>
+        <!-- End Google Tag Manager -->
+
+
+
+
+    <style>
+        .hidden {
+            display: none;
+        }
+        .pulse {
+    animation: pulse 1s ease-in-out infinite;
+    background-color: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #22c55e80;
+    height: 10px;
+    width: 10px;
+}
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+#lofo {
+    width: 30%;
+}
+@media screen and (max-width: 768px) {
+    #lofo {
+        width: 50%;
+    }
+}
+</style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKBQ2L5S"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <style>
+        #image-container {
+            position: absolute;
+            top: 30px;
+            z-index: 10000;
+            width: 100%;
+            display: none;
+        }
+        #image-container img {
+            width: 100%;
+        }
+    </style>
+    <div id="image-container">
+        <img src="baarish.GIF" alt="" style="width: 100%;">
+    </div>
+    <div>
+        <div style="font-family: Arial, Helvetica, sans-serif;" class="top-sticky-blue-test22"
+            id="top">
+            <img id="lofo" src="./loggo.png" alt="">
+        </div>
+        <div style="margin-bottom: 4px; font-family: Arial, Helvetica, sans-serif; background-color:#03b55f; text-align: center; font-size: 13px; padding: 8px 0; color: #fff; display: flex; align-items: center; justify-content: center;">
+            <img style="width: 10%; margin-right: 5px;" src="./live.png" alt="">
+            <em><span id="counter" style="font-weight: 800;">22,578</span> Seniors Enrolled In Last 24 Hours!</em>
+        </div>
+
+        <!-- Step messages will be displayed here when needed -->
+        <div class="checking hidden" style="font-weight: 700;" id="status">
+            <span id="statusMessage"></span>
+        </div>
+
+        <!-- Main content of the survey -->
+        <div class="main-container-5" id="mainContent">
+            <div class="main-descrition-5-5">
+                <div class="main-des-title-6-7">
+                    <b>
+                        Final Call For Seniors To Claim Their  <span
+                            style="color: #03b55f;"> $40,000</span> Burial Protection Plan! 
+                    </b>
+                </div>
+                <img style="width: 83%; margin-left: 0%; border-radius: 7px;" class="topic-img-middle-z" src="./sf2.png" alt="head" />
+                <div style="margin-top: 10px; text-align: center; font-size: 16px; font-weight: 900;line-height: 20px; margin-bottom: 0;" class="main-des-5">
+                    Checking your eligibility is very simple and takes just 60 seconds, simply answer the questions below to see if you qualify now.
+                    <br /><br />
+                </div>
+                <div style="margin-bottom: 20px; margin-top: -10px;"><i style="font-size: 24px;" class="fa-solid fa-angle-down"></i></div>
+                <div style="background-color: #f1f1f1; height: 60px;">
+                    <div style="
+                    background-color: #045ab6;
+                    font-size: 14px;
+                    padding: 15px 5px;
+                    border-radius: 15px;
+                    color: #fff;
+                    box-shadow: 0px 5px 0px #03b55f;
+                    margin-bottom: 5px;">
+                        ANSWER THE QUESTION BELOW TO PROCEED:</b>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="survey" style="background-color: #f1f1f1; padding: 3px 20px 1px 20px;
+border-radius: 0px 0px 10px 10px;
+            ">
+                <div class="quiz-5" id="btn" style="text-align: center;">
+                    <span id="quizQuestion">1. Are you over 55?</span>
+                </div>
+                <div class="answer" id="answerOptions">
+                    <div style="border-radius: 25px; font-size: 22px;" class="answer-btn-5" onclick="handleQuizP()">YES, I’M 55 OR OLDER</div>
+                    <div style="border-radius: 25px; font-size: 22px;" class="answer-btn-5" onclick="handleQuizN()">NO, I’M 54 AND YOUNGER</div>
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+                    <div class="pulse"></div><p style="text-align: center; margin-left: 10px;"></p><em> <span id="claim" style="color: #22c55e;">69</span> People Are Claiming Right Now!</em></p>
+                </div>
+            </div>
+        </div>
+
+      
+        <div class="checking hidden" id="congratulations">
+            <div class="congrats">Congratulations, You Qualify 🎉 </div>
+            <div class="top-description-5" >
+                Make A <b>Quick Call</b> To Claim Your <b>$40,000</b> Burial Protection Plan Now!
+            </div>
+            <div class="spots-count">Spots remaining: 4</div>
+            <!-- <div class="tap-direction">👇 TAP BELOW TO CALL 👇</div> -->
+            <div class="call-btn" onclick="handleCall()">
+                <a href="tel:+13214858035">
+                    <div className="call-btn" onClick={handleCall}> CALL (321) 485-8035
+                    </div>
+                </a>
+            </div>
+            <!-- <div class="sub-description">
+                Make sure to ask for medicare benefit for your area in order to receive the <b>Highest Possible Allowance.</b>
+            </div> -->
+            <!-- <div class="sub-title">We Have Reserved Your Spot</div> -->
+            <div class="sub-description">
+                Due to high call volume, your official agent is waiting for only <b>3 minutes</b>, then your spot will
+                not be reserved.
+            </div>
+            <div class="timer">
+                <div class="timer-cell" id="minutes">3</div>
+                <div class="timer-cell">:</div>
+                <div class="timer-cell" id="seconds">00</div>
+            </div>
+        </div>
+
+        <div class="footer2" style="margin-top: 25vh;">
+            Beware of other fraudulent & similar-looking websites that might look exactly like ours, we have no affiliation with them. This is the only official website to claim your with the domain name policybenefits.org.
+            <!-- <p>We represent Medicare Advantage HMO, PPO and PFFS organizations and stand-alone PDP prescription drug plans that are contracted with Medicare. Enrollment depends on the plan’s contract renewal."
+            </p>
+            <p>Not all plans offer all of these benefits. Benefits may vary by carrier and location. Limitations and exclusions may apply.
+            </p>
+            <p>Enrollment in Medicare/Medicare Advantage may be limited to certain times of the year unless you qualify for a Special Enrollment Period
+
+            </p>
+            <p>americansbenefitschecker.com is not connected with or endorsed by the US government or Federal Medicare program. This website is a solicitation for insurance and Medicare Advantage, Part D or Medicare supplement insurance comparison services. Medicare supplement insurance is available to those age 65 or older enrolled in Medicare Parts A and B, and in some states to those under age 65 eligible to Medicare due to disability or end stage renal disease.
+            </p>
+            <p>We do not offer every plan available in your area. Currently we represent [insert number of organizations] organizations which offer [insert number of plans] products in your area. Please contact Medicare.gov, 1–800–MEDICARE, or your local State Health Insurance Program (SHIP) to get information on all of your options.</p> -->
+            <div class="terms2">
+                <a href="/terms.html">Terms & Conditions</a> |
+                <a href="/privacy.html">Privacy Policy</a>
+            </div>
+            <div style="width: 100%; height: 0.2px; background-color: black; margin-top: 15px;"></div>
+
+            <div class="copyright">
+                <!-- <p>G2 Licensed Agent : Gregory K. Teipelz</p>         -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let step = "process";
+        let quizQuestion = "Are you over the age of 64?";
+        const statusDiv = document.getElementById("status");
+        const statusMessage = document.getElementById("statusMessage");
+        const congratulationsDiv = document.getElementById("congratulations");
+        const quizText = document.getElementById("quizQuestion");
+        const answerOptions = document.getElementById("answerOptions");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
+        const counter = document.getElementById("counter");
+        const claim = document.getElementById("claim");
+        const imageContainer = document.getElementById("image-container")
+
+        setInterval(() => {
+            if (counter) { 
+            let previousNumber = parseInt(counter.innerText.replace(/,/g, '')); 
+            let randomIncrement = Math.floor(Math.random() * 3) + 1;
+            let newNumber = previousNumber + randomIncrement;
+            counter.innerText = newNumber.toLocaleString();
+            }
+        }, 3000);
+
+        setInterval(() => {
+            if (claim) { 
+                let previousNumber = parseInt(claim.innerText); 
+                let randomIncrement = Math.floor(Math.random() * 1) + 1;
+                claim.innerText = previousNumber + randomIncrement;
+            }
+        }, 3000);
+
+        function handleQuizP() {
+            if (quizQuestion === "Are you over the age of 64?") {
+                quizQuestion = "2. Do you live in the United States?";
+                quizText.textContent = quizQuestion;
+                setYesNoOptions();
+                smoothScrollToTop(1000, 432);
+            } else {
+                stepProcess("yes");
+            }
+        }
+
+        function handleQuizN() {
+            if (quizQuestion === "Are you over the age of 64?") {
+                quizQuestion = "2. Do you live in the United States?";
+                quizText.textContent = quizQuestion;
+                setYesNoOptions();
+                smoothScrollToTop(1000, 632);
+            } else {
+                stepProcess("no");
+            }
+        }
+
+        function setYesNoOptions() {
+            answerOptions.innerHTML = `
+                <div style="border-radius: 20px; font-size: 22px;" class="answer-btn-5" onclick="stepProcess('yes')">YES</div>
+                <div style="border-radius: 20px; font-size: 22px;" class="answer-btn-5" onclick="stepProcess('no')">NO</div>
+            `;
+        }
+
+        function smoothScrollToTop(duration, targetPosition = 0) {
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const run = ease(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+
+            function ease(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return (c / 2) * t * t + b;
+                t--;
+                return (-c / 2) * (t * (t - 2) - 1) + b;
+            }
+
+            requestAnimationFrame(animation);
+        }
+
+
+
+
+
+
+
+        const stepProcess = (answer) => {
+            smoothScrollToTop(1000);
+            const mainContent = document.getElementById("mainContent");
+            mainContent.classList.add("hidden");
+            statusDiv.classList.remove("hidden");
+            statusMessage.textContent = "Reviewing Your Answers...";
+
+            setTimeout(() => {
+                statusMessage.textContent = "Matching With Best Options...";
+                setTimeout(() => {
+                    statusMessage.textContent = "Confirming Eligibility...";
+                    setTimeout(() => {
+                        setStep("completed");
+                    }, 1500);
+                }, 1500);
+            }, 1500);
+        };
+
+        function setStep(newStep) {
+            step = newStep;
+            if (step === "completed") {
+                showCongratulations();
+            }
+        }
+
+        function showCongratulations() {
+
+            statusDiv.classList.add("hidden");
+            congratulationsDiv.classList.remove("hidden");
+            imageContainer.style.display = 'block';
+            startTimer();
+            setTimeout(() => {
+                imageContainer.style.display = 'none';
+            }, 2000)
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 100);
+        }
+
+        function startTimer() {
+            let totalSeconds = 180;
+            const timer = setInterval(() => {
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+                minutesEl.textContent = minutes;
+                secondsEl.textContent = seconds < 10 ? '0' + seconds : seconds;
+                totalSeconds--;
+
+                if (totalSeconds < 0) {
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
+
+        function handleCall() {
+            // Add any additional functionality for handling the call
+        }
+    </script>
+
+
+</body>
+
+</html>
