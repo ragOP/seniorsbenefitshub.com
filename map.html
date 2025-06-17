@@ -137,35 +137,35 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
         </div>
 
       
-        <div class="checking hidden" id="congratulations">
-            <div class="congrats">Felicidades, Calificas 🎉 </div>
-            <div class="top-description-5" >
-                ¡Haz Una <b>Llamada Rápida </b> Para Reclamar Tu Plan De Protección Funeraria De $40,000 Ahora!
+       <div class="checking hidden" id="congratulations">
+    <div class="congrats">Congratulations, You Qualify 🎉</div>
+    <div class="top-description-5">
+        Make a <b>Quick Call</b> Now to Claim Your $25,000 Funeral Protection Plan!
+    </div>
+    <div class="spots-count">Available Spots: 4</div>
+    <!-- <div class="tap-direction">👇 TAP BELOW TO CALL 👇</div> -->
+    <div class="call-btn" onclick="handleCall()">
+        <a href="tel:+18884380196">
+            <div className="call-btn" onClick={handleCall}> CALL (888) 438-0196
             </div>
-            <div class="spots-count">Lugares disponibles: 4</div>
-            <!-- <div class="tap-direction">👇 TAP BELOW TO CALL 👇</div> -->
-            <div class="call-btn" onclick="handleCall()">
-                <a href="tel:+18884380196">
-                    <div className="call-btn" onClick={handleCall}> CALL (888) 438-0196
-                    </div>
-                </a>
-            </div>
-            <!-- <div class="sub-description">
-                Make sure to ask for medicare benefit for your area in order to receive the <b>Highest Possible Allowance.</b>
-            </div> -->
-            <!-- <div class="sub-title">We Have Reserved Your Spot</div> -->
-            <div class="sub-description">
-                Debido al alto volumen de llamadas, tu agente oficial esperará solo <b>3 minutos</b>, luego tu lugar no será reservado.
-            </div>
-            <div class="timer">
-                <div class="timer-cell" id="minutes">3</div>
-                <div class="timer-cell">:</div>
-                <div class="timer-cell" id="seconds">00</div>
-            </div>
-        </div>
+        </a>
+    </div>
+    <!-- <div class="sub-description">
+        Make sure to ask for medicare benefit for your area in order to receive the <b>Highest Possible Allowance.</b>
+    </div> -->
+    <!-- <div class="sub-title">We Have Reserved Your Spot</div> -->
+    <div class="sub-description">
+        Due to high call volume, your official agent will wait only <b>3 minutes</b>, after which your spot will no longer be reserved.
+    </div>
+    <div class="timer">
+        <div class="timer-cell" id="minutes">3</div>
+        <div class="timer-cell">:</div>
+        <div class="timer-cell" id="seconds">00</div>
+    </div>
+</div>
 
         <div class="footer2" style="margin-top: 25vh;">
-            Beware of other fraudulent & similar-looking websites that might look exactly like ours, we have no affiliation with them. This is the only official website to claim your Burial Protection Plan with the domain name burialprotectionplan.org.
+            Beware of other fraudulent & similar-looking websites that might look exactly like ours, we have no affiliation with them. This is the only official website to claim your Burial Protection Plan with the domain name policybenefits.org.
          
             <div class="terms2">
                 <a href="/terms.html">Terms & Conditions</a> |
@@ -273,10 +273,10 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
             const mainContent = document.getElementById("mainContent");
             mainContent.classList.add("hidden");
             statusDiv.classList.remove("hidden");
-            statusMessage.textContent = "Revisando Tus Respuestas...";
+            statusMessage.textContent = "Reviewing Your Answers...";
 
             setTimeout(() => {
-                statusMessage.textContent = "Buscando Las Mejores Opciones...";
+                statusMessage.textContent = "Searching For The Best Options...";
                 setTimeout(() => {
                     statusMessage.textContent = "Confirming Eligibility...";
                     setTimeout(() => {
