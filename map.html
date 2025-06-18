@@ -92,7 +92,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <div>
         <div style="font-family: Arial, Helvetica, sans-serif; background: #000; color: #fff;" class="top-sticky-blue-test22" id="top">
             <!-- <img id="lofo" src="./loggo.png" alt=""> -->
-            <p style="font-size: 13px;">Final day to qualify & claim this Benefit</p>
+            <p style="font-size: 17px;">Final day to qualify & claim this Benefit</p>
         </div>
         <!-- <div style="margin-bottom: 4px; font-family: Arial, Helvetica, sans-serif; background-color:#03b55f; text-align: center; font-size: 11px; padding: 8px 0; color: #fff; display: flex; align-items: center; justify-content: center;">
             <img style="width: 10%; margin-right: 5px;" src="./live.png" alt="">
@@ -122,16 +122,19 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
 
          
                 <div class="quiz-5" id="btn" style="text-align: center;">
-                    <span id="quizQuestion">Are you over 50?</span>
+                    <span id="quizQuestion" style="font-size: 1.5em; font-weight: bold;">1 . Are you over 50?</span>
                 </div>
                 <div class="answer" id="answerOptions">
-                    <div style="border-radius: 25px; font-size: 22px; width: 50%;" class="answer-btn-5" onclick="handleQuizP()">Yes</div>
-                    <div style="border-radius: 25px; font-size: 21px;width: 50%" class="answer-btn-5" onclick="handleQuizN()">No</div>
+                    <div style="border-radius: 25px; font-size: 22px; width: 70%;" class="answer-btn-5" onclick="handleQuizP()">Yes</div>
+                    <div style="border-radius: 25px; font-size: 21px;width: 70%" class="answer-btn-5" onclick="handleQuizN()">No</div>
                 </div>
                 <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
                     <!-- <div class="pulse"> -->
 
-                    </div><p style="text-align: center; margin-left: 10px;"></p><em> Over <span id="claim" style="color: #22c55e;">69</span> People have claimed their benefit in last 24 hours.</em></p>
+                    </div>
+                    <p style="text-align: center; margin-left: 10px; max-width: 300px; margin-right: auto; margin-left: auto;">
+                        <em>Over <span id="claim" style="color: #22c55e;">69</span> People have claimed their benefit in last 24 hours.</em>
+                    </p>
                 </div>
            
         </div>
@@ -181,7 +184,7 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
 
     <script>
         let step = "process";
-        let quizQuestion = "Are you over 50?";
+        let quizQuestion = "1 . Are you over 50?";
         const statusDiv = document.getElementById("status");
         const statusMessage = document.getElementById("statusMessage");
         const congratulationsDiv = document.getElementById("congratulations");
@@ -211,8 +214,8 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
         }, 3000);
 
         function handleQuizP() {
-            if (quizQuestion === "Are you over 50?") {
-                quizQuestion = "Do you live in United States?";
+            if (quizQuestion === "1 . Are you over 50?") {
+                quizQuestion = "2. Do you live in United States?";
                 quizText.textContent = quizQuestion;
                 setYesNoOptions();
                 smoothScrollToTop(1000, 432);
@@ -222,8 +225,8 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
         }
 
         function handleQuizN() {
-            if (quizQuestion === "Are you over 50?") {
-                quizQuestion = "Do you live in United States?";
+            if (quizQuestion === "1 . Are you over 50?") {
+                quizQuestion = "2. Do you live in United States?";
                 quizText.textContent = quizQuestion;
                 setYesNoOptions();
                 smoothScrollToTop(1000, 632);
@@ -234,8 +237,8 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
 
         function setYesNoOptions() {
             answerOptions.innerHTML = `
-                <div style="border-radius: 20px; font-size: 22px;  width: 50%;" class="answer-btn-5" onclick="stepProcess('yes')">Yes</div>
-                <div style="border-radius: 20px; font-size: 22px; width: 50%;"  class="answer-btn-5" onclick="stepProcess('no')">NO</div>
+                <div style="border-radius: 20px; font-size: 22px;  width: 70%;" class="answer-btn-5" onclick="stepProcess('yes')">Yes</div>
+                <div style="border-radius: 20px; font-size: 22px; width: 70%;"  class="answer-btn-5" onclick="stepProcess('no')">NO</div>
             `;
         }
 
