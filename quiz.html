@@ -18,17 +18,7 @@
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-PKBQ2L5S');</script>
         <!-- End Google Tag Manager -->
-<!-- TikTok Pixel Code Start -->
-<script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
-;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
-  ttq.load('CTPDVQRC77UFAAV38UAG');
-  ttq.page();
-}(window, document, 'ttq');
-</script>
-<!-- TikTok Pixel Code End -->
+
 
 
 
@@ -195,13 +185,28 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
         </div>
 
       
-       <div class="checking hidden" id="congratulations">
+    
+        <div class="footer2" style="margin-top: 25vh;">
+            Beware of other fraudulent & similar-looking websites that might look exactly like ours, we have no affiliation with them. This is the only official website to claim your Burial Protection Plan with the domain name policybenefits.org.
+         
+            <div class="terms2">
+                <a href="/terms.html">Terms & Conditions</a> |
+                <a href="/privacy.html">Privacy Policy</a>
+            </div>
+            <div style="width: 100%; height: 0.2px; background-color: black; margin-top: 15px;"></div>
+
+            <div class="copyright">
+                <!-- <p>G2 Licensed Agent : Gregory K. Teipelz</p>         -->
+            </div>
+        </div>
+    </div>
+   <div class="checking hidden" id="congratulations">
     <div class="congrats">Congratulations, You Qualify 🎉</div>
     <div class="top-description-5">
         Make a <b>Quick Call</b> Now to Claim Your $25,000 Funeral Protection Plan!
     </div>
     <div class="spots-count">Available Spots: 4</div>
-    <!-- <div class="tap-direction">👇 TAP BELOW TO CALL 👇</div> -->
+    <!-- <div class="tap-direction">👇 TAP BELOW TO CfvzALL 👇</div> -->
     <div class="call-btn" onclick="handleCall()">
         <a href="tel:+18884380196">
             <div className="call-btn" onClick={handleCall}> CALL (888) 438-0196
@@ -222,26 +227,18 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
     </div>
 </div>
 
-        <div class="footer2" style="margin-top: 25vh;">
-            Beware of other fraudulent & similar-looking websites that might look exactly like ours, we have no affiliation with them. This is the only official website to claim your Burial Protection Plan with the domain name policybenefits.org.
-         
-            <div class="terms2">
-                <a href="/terms.html">Terms & Conditions</a> |
-                <a href="/privacy.html">Privacy Policy</a>
-            </div>
-            <div style="width: 100%; height: 0.2px; background-color: black; margin-top: 15px;"></div>
-
-            <div class="copyright">
-                <!-- <p>G2 Licensed Agent : Gregory K. Teipelz</p>         -->
-            </div>
-        </div>
-    </div>
-
     <script>
-        function handleNameAnswer(name) {
-  console.log("Name selected:", name); // optional debug
-  stepProcess(name); // continue to next phase
+    function handleNameAnswer(name) {
+    // Hide quiz instantly
+    document.getElementById("btn").classList.add("hidden");
+    answerOptions.classList.add("hidden");
+    
+    // Optional: store name if needed
+    localStorage.setItem("selected_beneficiary", name);
+
+    stepProcess(name);
 }
+
 
  function setNameOptions() {
     answerOptions.innerHTML = `
