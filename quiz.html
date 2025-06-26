@@ -27,7 +27,7 @@
          .start-button {
       background-color: #00c851; /* bright green */
       color: white;
-      padding: 16px 32px;
+      padding: 20px 40px;
       border: none;
       border-radius: 999px;
       font-size: 20px;
@@ -127,7 +127,7 @@
     <div>
         <div style="font-family: Arial, Helvetica, sans-serif; background: #000; color: #fff;" class="top-sticky-blue-test22" id="top">
             <!-- <img id="lofo" src="./loggo.png" alt=""> -->
-            <p style="font-size: 17px;">Final day to qualify & claim this Benefit</p>
+            <p style="font-size: 17px;">Call & Claim Your Plan Now!</p>
         </div>
 
 
@@ -150,7 +150,7 @@
 
                   <div class="main-des-title-6-7">
                     <b>
-You might qualify for the <span style="color: #22c55e; text-decoration: underline;">$25,000</span> Funeral Expense Coverage Benefit!
+You might qualify for the <span style="color: #22c55e; text-decoration: underline;">$25,000</span> Burial Protection Plan!
                     </b>
                 </div>
                  <div class="info-box">
@@ -167,11 +167,11 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
 
          
              <div class="quiz-5 hidden" id="btn" style="text-align: center;">
-                    <span id="quizQuestion" style="font-size: 1.5em; font-weight: bold;">1 . Are you over 50?</span>
+                    <span id="quizQuestion" style="font-size: 1.3em; font-weight: bold; margin-top: 10px;">1 . Are you over 50?</span>
 </div>
                 <div class="answer hidden" id="answerOptions">
-                    <div style="border-radius: 25px; font-size: 22px; width: 70%;" class="answer-btn-5" onclick="handleQuizP()">Yes</div>
-                    <div style="border-radius: 25px; font-size: 21px;width: 70%" class="answer-btn-5" onclick="handleQuizN()">No</div>
+                    <div style="border-radius: 25px; font-size: 22px; width: 80%;" class="answer-btn-5" onclick="handleQuizP()">Yes</div>
+                    <div style="border-radius: 25px; font-size: 21px;width: 80%" class="answer-btn-5" onclick="handleQuizN()">No</div>
                 </div>
                 <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
                     <!-- <div class="pulse"> -->
@@ -202,8 +202,8 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
     </div>
    <div class="checking hidden" id="congratulations">
     <div class="congrats">Congratulations, You Qualify 🎉</div>
-    <div class="top-description-5">
-        Make a <b>Quick Call</b> Now to Claim Your $25,000 Funeral Protection Plan!
+    <div class="top-description-5" style="font-size: 1.45rem;">
+        Make a <b>Quick Call</b> To Claim Your $25,000 Burial Protection Plan Now!
     </div>
     <div class="spots-count">Available Spots: 4</div>
     <!-- <div class="tap-direction">👇 TAP BELOW TO CfvzALL 👇</div> -->
@@ -242,10 +242,10 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
 
  function setNameOptions() {
     answerOptions.innerHTML = `
-        <div style="border-radius: 20px; font-size: 22px; width: 70%;" class="answer-btn-5" onclick="handleNameAnswer('Wife/Husband')">Wife/Husband</div>
-        <div style="border-radius: 20px; font-size: 22px; width: 70%;" class="answer-btn-5" onclick="handleNameAnswer('Child')">Child</div>
-                <div style="border-radius: 20px; font-size: 22px; width: 70%;" class="answer-btn-5" onclick="handleNameAnswer('Sibling')">Sibling</div>
-        <div style="border-radius: 20px; font-size: 22px; width: 70%;" class="answer-btn-5" onclick="handleNameAnswer('Not Sure')">Not Sure</div>
+        <div style="border-radius: 20px; font-size: 22px; width: 80%;" class="answer-btn-5" onclick="handleNameAnswer('Wife/Husband')">Wife/Husband</div>
+        <div style="border-radius: 20px; font-size: 22px; width: 80%;" class="answer-btn-5" onclick="handleNameAnswer('Child')">Child</div>
+                <div style="border-radius: 20px; font-size: 22px; width: 80%;" class="answer-btn-5" onclick="handleNameAnswer('Sibling')">Sibling</div>
+        <div style="border-radius: 20px; font-size: 22px; width: 80%;" class="answer-btn-5" onclick="handleNameAnswer('Not Sure')">Not Sure</div>
     `;
 }
 
@@ -337,8 +337,8 @@ function handleQuizN() {
 
     function setYesNoOptions() {
     answerOptions.innerHTML = `
-        <div style="border-radius: 20px; font-size: 22px; width: 70%;" class="answer-btn-5" onclick="handleQuizP()">Yes</div>
-        <div style="border-radius: 20px; font-size: 22px; width: 70%;" class="answer-btn-5" onclick="handleQuizN()">No</div>
+        <div style="border-radius: 20px; font-size: 22px; width: 80%;" class="answer-btn-5" onclick="handleQuizP()">Yes</div>
+        <div style="border-radius: 20px; font-size: 22px; width: 80%;" class="answer-btn-5" onclick="handleQuizN()">No</div>
     `;
 }
 
