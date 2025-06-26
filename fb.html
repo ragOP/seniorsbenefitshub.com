@@ -182,10 +182,13 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
             </div>
 
             <!-- loading -->
-            <div id="loading" class="d-none text-center">
-              <div class="alert alert-primary d-flex align-items-center justify-content-center mb-0 fs-5 fw-semibold">
-              </div>
-            </div>
+       <!-- loading -->
+<div id="loading" class="d-none text-center py-5">
+  <div class="alert alert-primary d-flex align-items-center justify-content-center mb-0 fs-5 fw-semibold">
+    <span id="loading-typed-text"></span>
+  </div>
+</div>
+
 <style>
     .call-btn2{
     font-size: 1.5rem;
@@ -277,27 +280,39 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
     </div>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    if (typeof Glide !== 'function') {
+     if (typeof Glide !== 'function') {
       console.error('❌ Glide is not loaded. Fix script order.');
       return;
     }
-
-    const CONFIG = {
+        const CONFIG = {
+      COUNTDOWN_DURATION: 2 * 60,
+      LOADING_DELAY: 2500,
+      TYPED_OPTIONS: {
+        strings: ["Confirming your eligibility..."],
+        backDelay: 1000,
+        backSpeed: 0,
+        typeSpeed: 5,
+        showCursor: false,
+      },
       GLIDE_OPTIONS: {
         swipeThreshold: false,
         dragThreshold: false,
         rewind: false,
         keyboard: false,
       },
-      LOADING_DELAY: 2500,
+   
     };
 
     const SELECTORS = {
       CAROUSEL: '.glide',
       RESULTS: '#results',
+      LOADING: '#loading',
+      LOADING_ALERT: '#loading-typed-text',
       QUIZ_HEADER: '#quiz-header',
       SLIDES: '.glide__slide',
-      BUTTONS: '.glide__slide .btn'
+      BUTTONS: '.glide__slide .btn',
+      MINUTES: '#minutes',
+      SECONDS: '#seconds'
     };
 
     const glide = new Glide(SELECTORS.CAROUSEL, CONFIG.GLIDE_OPTIONS).mount();
@@ -311,20 +326,36 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
         const isYes = button.value.toLowerCase() === 'yes';
         formValues[button.name] = isYes;
 
-        console.log('✅ Clicked:', button.name, button.value);
-
         if (slideNumber < slides.length) {
           glide.go('>');
         } else {
-          // Always show results (no redirects)
+         
+          // Show loading
           document.querySelector(SELECTORS.CAROUSEL).classList.add('d-none');
-          document.querySelector(SELECTORS.RESULTS).classList.remove('d-none');
-          document.querySelector(SELECTORS.QUIZ_HEADER).classList.add('d-none');
+          document.querySelector(SELECTORS.LOADING).classList.remove('d-none');
+
+          // Start typing animation
+          const typed = new Typed(SELECTORS.LOADING_ALERT, CONFIG.TYPED_OPTIONS);
+
+          // Show results after delay
+          setTimeout(() => {
+            typed.destroy();
+            document.querySelector(SELECTORS.LOADING).classList.add('d-none');
+            document.querySelector(SELECTORS.RESULTS).classList.remove('d-none');
+            document.querySelector(SELECTORS.QUIZ_HEADER).classList.add('d-none');
+            startCountdown();
+          }, CONFIG.LOADING_DELAY);
         }
       });
     });
+
+    
   });
 </script>
+
+<!-- Glide JS -->
+<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/glide.min.js"></script>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
