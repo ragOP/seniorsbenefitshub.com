@@ -372,23 +372,21 @@ function handleQuizN() {
 
 
 
-        const stepProcess = (answer) => {
-            smoothScrollToTop(1000);
-            const mainContent = document.getElementById("mainContent");
-            mainContent.classList.add("hidden");
-            statusDiv.classList.remove("hidden");
-            statusMessage.textContent = "Reviewing Your Answers...";
+       const stepProcess = (answer) => {
+    smoothScrollToTop(1000);
+    const mainContent = document.getElementById("mainContent");
+    mainContent.classList.add("hidden");
+    statusDiv.classList.remove("hidden");
+    statusMessage.textContent = "Reviewing Your Answers...";
 
-            setTimeout(() => {
-                statusMessage.textContent = "Searching For The Best Options...";
-                setTimeout(() => {
-                    statusMessage.textContent = "Confirming Eligibility...";
-                    setTimeout(() => {
-                        setStep("completed");
-                    }, 1500);
-                }, 1500);
-            }, 1500);
-        };
+    setTimeout(() => {
+        statusMessage.textContent = "Confirming Eligibility...";
+        setTimeout(() => {
+            setStep("completed");
+        }, 1500);
+    }, 1500);
+};
+
 
         function setStep(newStep) {
             step = newStep;
