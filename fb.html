@@ -92,7 +92,7 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
 </script>
 <script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/scripts/04b3eb47/cloudflare-static/mirage2.min.js"></script>
 
-<img alt="Smart Lifestyle Trends" class="img-fluid mx-auto d-block" src="./secc.png" width="248" height="248">
+<img alt="Smart Lifestyle Trends" class="img-fluid mx-auto d-block" src="./secc.png" width="278" height="270">
 
 
 <noscript>
@@ -101,7 +101,20 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
   </header>
   
 <style>
-
+ .timer{
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    background: transparent;
+    padding: 0.25rem 1rem;
+    color: red;
+    border: 2px dashed red;
+    margin-top: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+  }
     .top-sticky-blue-test22 {
     display: flex;
     justify-content: center;
@@ -149,7 +162,7 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
                 <ul class="glide__slides">
                   <li class="glide__slide">
                     <div>
-                      <h4 class="fs-4 fw-bold mb-3">Are You Over 50 Years Old?</h4>
+                      <h4 class="fs-4 fw-bold mb-3">1. Are You Over 50 Years Old?</h4>
                       <div class="row align-items-center">
                         <div class="col-12 col-md-6">
                           <button name="over-50" value="yes"
@@ -164,7 +177,7 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
                   </li>
                   <li class="glide__slide">
                     <div>
-                      <h4 class="fs-4 fw-bold mb-3">Are You a US Citizen?</h4>
+                      <h4 class="fs-4 fw-bold mb-3">2. Are You a US Citizen?</h4>
                       <div class="row align-items-center">
                         <div class="col-12 col-md-6">
                           <button name="us-citizen" value="yes"
@@ -231,6 +244,10 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
   animation: glow 1.5s infinite alternate;
  
   }
+   .highlight-text {
+
+      font-size: 2.0rem !important; /* 20% bigger than fs-4 (1.5rem × 1.2) */
+    }
 </style>
             <!-- results -->
             <div id="results" class="text-center d-none">
@@ -246,19 +263,11 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
         </a>
     </div>
 
-              <div>
-                <p class="my-2 fs-4 fw-bold">Agent will be available for</p>
-                <div class="countdown-container">
-                  <div class="countdown-item">
-                    <span id="minutes" class="number">0</span>
-                    <span class="label">Minutes</span>
-                  </div>
-                  <div class="countdown-item">
-                    <span id="seconds" class="number">00</span>
-                    <span class="label">Seconds</span>
-                  </div>
-                </div>
-              </div>
+             <div class="timer">
+                <div class="timer-cell" id="minutes">3</div>
+                <div class="timer-cell">:</div>
+                <div class="timer-cell" id="seconds">00</div>
+            </div>
             </div>
           </div>
       </div>
@@ -392,6 +401,21 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
     let timer;
     observer.observe(document.getElementById('results'), { attributes: true, attributeFilter: ['class'] });
   });
+       function startTimer() {
+            let totalSeconds = 180;
+            const timer = setInterval(() => {
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+                minutesEl.textContent = minutes;
+                secondsEl.textContent = seconds < 10 ? '0' + seconds : seconds;
+                totalSeconds--;
+
+                if (totalSeconds < 0) {
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
+        startTimer();
 </script>
 
     <!-- Put this before your <script> inside footer -->
