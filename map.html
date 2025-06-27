@@ -99,7 +99,7 @@
             <div class="main-descrition-5-5">
               
                 <img style="width: 55%; margin-left: 0%; border-radius: 7px;margin-top: 20px;" class="topic-img-middle-z" src="./map.png" alt="head" />
-                  <div class="main-des-title-6-7">
+                  <div class="main-des-title-6-7" style="margin-top: 20px;">
                     <b>
 You might qualify for the <span style="color: #22c55e; text-decoration: underline;">$25,000</span> Funeral Expense Coverage Benefit!
                     </b>
@@ -112,11 +112,11 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
 
          
                 <div class="quiz-5" id="btn" style="text-align: center;">
-                    <span id="quizQuestion" style="font-size: 1.5em; font-weight: bold;">1 . Are you over 50?</span>
+                    <span id="quizQuestion" style="font-size: 1.5em; font-weight: bold;margin-top: 10px;">1 . Are you over 50?</span>
                 </div>
                 <div class="answer" id="answerOptions">
-                    <div style="border-radius: 25px; font-size: 22px; width: 70%;" class="answer-btn-5" onclick="handleQuizP()">Yes</div>
-                    <div style="border-radius: 25px; font-size: 21px;width: 70%" class="answer-btn-5" onclick="handleQuizN()">No</div>
+                    <div style="border-radius: 25px; font-size: 22px; width: 80%;" class="answer-btn-5" onclick="handleQuizP()">Yes</div>
+                    <div style="border-radius: 25px; font-size: 21px;width: 80%" class="answer-btn-5" onclick="handleQuizN()">No</div>
                 </div>
                 <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
                     <!-- <div class="pulse"> -->
@@ -227,8 +227,8 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
 
         function setYesNoOptions() {
             answerOptions.innerHTML = `
-                <div style="border-radius: 20px; font-size: 22px;  width: 70%;" class="answer-btn-5" onclick="stepProcess('yes')">Yes</div>
-                <div style="border-radius: 20px; font-size: 22px; width: 70%;"  class="answer-btn-5" onclick="stepProcess('no')">NO</div>
+                <div style="border-radius: 20px; font-size: 22px;  width: 80%;" class="answer-btn-5" onclick="stepProcess('yes')">Yes</div>
+                <div style="border-radius: 20px; font-size: 22px; width: 80%;"  class="answer-btn-5" onclick="stepProcess('no')">NO</div>
             `;
         }
 
@@ -269,7 +269,7 @@ You might qualify for the <span style="color: #22c55e; text-decoration: underlin
             statusMessage.textContent = "Reviewing Your Answers...";
 
             setTimeout(() => {
-                statusMessage.textContent = "Searching For The Best Options...";
+                // statusMessage.textContent = "Searching For The Best Options...";
                 setTimeout(() => {
                     statusMessage.textContent = "Confirming Eligibility...";
                     setTimeout(() => {

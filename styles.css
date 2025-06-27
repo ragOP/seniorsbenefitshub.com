@@ -294,7 +294,7 @@ a{
   @media (max-width: 768px) { /* Adjust the breakpoint as needed */
     .main-des-title-6-7 {
     // margin-top: -0.1rem;
-      font-size: 1.6rem; /* Reduce the font size for smaller screens */
+      font-size: 1.7rem; /* Reduce the font size for smaller screens */
       line-height: 1.2; /* Adjust the line height as needed */
     }
   }
