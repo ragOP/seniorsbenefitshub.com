@@ -204,7 +204,7 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
 
 <style>
     .call-btn2{
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     line-height: 2rem;
     color: white;
     text-transform: capitalize;
@@ -248,13 +248,66 @@ window.__mirage2 = {petok:"P1P5hZ9HYvkI30_0OhlNfjjs7pPyCEWd8C3MZd7D4gc-1800-0.0.
 
       font-size: 2.0rem !important; /* 20% bigger than fs-4 (1.5rem × 1.2) */
     }
+    .checking {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #e9f2ff;
+    border-top: 2px solid rgb(59 130 246);
+    margin: 1rem;
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    color: #1f2937;
+}
+@media (max-width: 768px) {
+    .top-description-5 {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+    }
+}
+
+.top-description-5 {
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 500;
+    background-color: rgb(254 240 138);
+}
+.congrats {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: rgb(34 197 94);
+    font-weight: 700;
+}
+.spots-count {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    background-color: rgb(253 224 71);
+    margin: 1rem auto;
+    border-radius: 0.5rem;
+    width: max-content;
+}
+    @media (max-width: 768px) {
+    .congrats {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+    }
+
+}
 </style>
             <!-- results -->
-            <div id="results" class="text-center d-none">
-              <h4 class="fs-2 fw-bold" style="color: #006600;">Congratulations, You Qualify!</h4>
-              <p class="fs-4 fw-semibold mb-2 mt-2 highlight-text">Make A Quick Call To Claim Your $25,000 Burial Protection Plan Now!
-              </p>
-              <p class="fs-5 mb-0">Call Now To Lock In Your Coverage Amount</p>
+            <div id="results" class="checking text-center d-none" style="background-color: #e9f2ff;border-top: 2px solid rgb(59 130 246);">
+            <div class="congrats">Congratulations, You Qualify 🎉 </div>
+           
+    <div class="top-description-5" >
+                Make A <b>Quick Call</b> To Claim Your <b>$25,000</b> Burial Protection Plan Now!
+            </div>
+            <div class="spots-count">Spots remaining: 4</div>
+              <!-- <p class="fs-5 mb-0">Call Now To Lock In Your Coverage Amount</p> -->
 
               <div class="call-btn2" onclick="handleCall()">
         <a href="tel:+18884380196">
