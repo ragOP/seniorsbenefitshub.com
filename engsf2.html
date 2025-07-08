@@ -31,10 +31,24 @@
             background-color: aqua;
             max-width: 500px; /* Control the white box width */
             margin: 0 auto; /* Center horizontally */
+           
             background: #ffffff; /* White box */
-            border-radius: 8px;
+        
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .logoss{
+            width: 80% !important;
+         
+        }
+        .paddu{
+            padding: 30px 20px 30px 10px;
+        }
+        .btns{
+              font-size: 1.5rem !important;
+      line-height: 1.5rem !important;
+            padding: 20px 10px !important;
+            
         }
     }
 </style>
@@ -101,7 +115,7 @@
     <div>
         <div style="font-family: Arial, Helvetica, sans-serif;" class="top-sticky-blue-test22"
             id="top">
-            <img id="lofo" src="./bur.png" alt="">
+            <img   class="logoss"   id="lofo" src="./bur.png" alt="">
         </div>
         <div style="margin-bottom: 4px; font-family: Arial, Helvetica, sans-serif; background-color:#03b55f; text-align: center; font-size: 13px; padding: 8px 0; color: #fff; display: flex; align-items: center; justify-content: center;">
             <img style="width: 10%; margin-right: 5px;" src="./live.png" alt="">
@@ -116,20 +130,22 @@
         <!-- Main content of the survey -->
         <div class="main-container-5" id="mainContent">
             <div class="main-descrition-5-5">
-                <div class="main-des-title-6-7">
+                <div class="main-des-title-6-7 paddu">
                     <b>
                         Final Call For Seniors To Claim Their  <span
                             style="color: #03b55f;"> $25,000</span> Burial Protection Plan! 
                     </b>
                 </div>
                 <img style="width: 83%; margin-left: 0%; border-radius: 7px;" class="topic-img-middle-z" src="./ai.gif" alt="head" />
-                <div style="margin-top: 10px; text-align: center; font-size: 16px; font-weight: 900;line-height: 20px; margin-bottom: 0;" class="main-des-5">
+                <div style="margin-top: 10px; text-align: center; font-size: 16px; font-weight: 900;line-height: 20px; margin-bottom: 0;" class="main-des-5 paddu">
                     Checking your eligibility is very simple and takes just 60 seconds, simply answer the questions below to see if you qualify now.
                     <br /><br />
                 </div>
                 <div style="margin-bottom: 20px; margin-top: -10px;"><i style="font-size: 24px;" class="fa-solid fa-angle-down"></i></div>
-                <div style="background-color: #f1f1f1; height: 60px;">
-                    <div style="
+                <div style="background-color: #f1f1f1; height: 60px;" class="paddu">
+                    <div 
+                    class="paddu"
+                    style="
                     background-color: #045ab6;
                     font-size: 14px;
                     padding: 15px 5px;
@@ -150,8 +166,8 @@ border-radius: 0px 0px 10px 10px;
                     <span id="quizQuestion">1. Are you over 55?</span>
                 </div>
                 <div class="answer" id="answerOptions">
-                    <div style="border-radius: 25px; font-size: 22px;" class="answer-btn-5" onclick="handleQuizP()">YES, I’M 55 OR OLDER</div>
-                    <div style="border-radius: 25px; font-size: 22px;" class="answer-btn-5" onclick="handleQuizN()">NO, I’M 54 AND YOUNGER</div>
+                    <div style="border-radius: 25px; font-size: 22px;" class="answer-btn-5 btns" onclick="handleQuizP()">YES, I’M 55 OR OLDER</div>
+                    <div style="border-radius: 25px; font-size: 22px;" class="answer-btn-5 btns" onclick="handleQuizN()">NO, I’M 54 AND YOUNGER</div>
                 </div>
                 <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
                     <div class="pulse"></div><p style="text-align: center; margin-left: 10px;"></p><em> <span id="claim" style="color: #22c55e;">69</span> People Are Claiming Right Now!</em></p>
