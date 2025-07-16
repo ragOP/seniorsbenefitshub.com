@@ -1,6 +1,7 @@
 html {
   font-size: 0.5vw;
   font-family: Arial, Helvetica, sans-serif;
+
 }
 
 * {
@@ -11,7 +12,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #f5f5f5;
+  /* background-color: #b22222; */
+  background-image: url('./17580.jpg');
   line-height: 1.4;
 }
 
