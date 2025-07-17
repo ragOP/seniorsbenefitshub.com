@@ -201,7 +201,7 @@ body {
 
     @keyframes scaleUp {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+      50% { transform: scale(1.03); }
     }
     .glow {
   box-shadow:
@@ -244,18 +244,17 @@ body {
   border-radius: 2.5em;
   text-align: center;
   font-size: 2.8em;
- margin: 0.1em ;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
   border: none;
-  box-shadow: 0 0.3em 0.6em rgba(22, 163, 74, 0.3);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-     transition: all 0.3s ease;
-     
-      box-shadow: var(--shadow-4);
-      animation: var(--anim-4);
+  box-shadow: 0 0.3em 0.6em rgba(22, 163, 74, 0.3);
+  animation: scaleUp 2s infinite;
+  max-width: 95%;
+  width: 100%;
+  margin: 0.3em auto;
+  transition: all 0.3s ease;
 }
 
 .div16:hover {
@@ -448,6 +447,9 @@ body {
 .div27 a:hover {
   text-decoration: underline;
 }
+.div99{
+ 
+}
 
 #image-container {
   position: fixed;
@@ -546,11 +548,13 @@ body {
   }
 
   .div19 {
-    font-size: 2em;
+    font-size: 1.8em;
+  
   }
 
   .div20 {
     font-size: 1.7em;
+      margin-top: 0.7em;
   }
 
   .div21 {
