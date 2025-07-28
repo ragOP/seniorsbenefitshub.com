@@ -24,18 +24,17 @@ html {
 
 .div3 {
   display: flex;
-  flex-direction: column;
-  gap: 0.3em;
-  align-items: flex-start;
+  justify-content: flex-start; 
+  align-items: center;
+  padding-left: 1em; 
 }
 
 .div38 {
-  width: 20%;
-  height: 100%;
+  height: 60px;       
+  width: auto;   
   object-fit: contain;
-  padding: 1em;
- 
 }
+
 
 .div39 {
   font-size: 1.2em;
@@ -561,8 +560,8 @@ html {
   }
 
   .div38 {
-    width: 60%;
-    height: 100%;
+     height: 40px;        /* Adjust height as needed */
+  width: auto;   
     padding: 0.5em;
     
    
