@@ -26,6 +26,7 @@ html {
   display: flex;
   flex-direction: column;
   gap: 0.3em;
+  align-items: flex-start;
 }
 
 .div38 {
@@ -33,6 +34,7 @@ html {
   height: 100%;
   object-fit: contain;
   padding: 1em;
+ 
 }
 
 .div39 {
@@ -562,6 +564,8 @@ html {
     width: 60%;
     height: 100%;
     padding: 0.5em;
+    
+   
   }
 
   .div5 {
