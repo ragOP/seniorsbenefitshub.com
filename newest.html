@@ -129,10 +129,10 @@
           "Okay, let me ask you a couple of simple questions. Who is your beneficiary?",
         options: ["Kid(s)", "Spouse", "Other"],
       },
-      {
-        agent: "Last question. How old are you?",
-        options: "input",
-      },
+     {
+        agent: "Do you live in the United States?",
+        options: ["Yes", "No"],
+      }
     ];
 
     document.querySelectorAll(".div23, .div24, .div25").forEach((button) => {
@@ -269,43 +269,30 @@
       });
     }
 
-    function showFinalOffer() {
+   function showFinalOffer() {
       setTimeout(() => {
         const userOptions = document.getElementById("userOptions");
-        if(userAge > 55 ){
-          addMessage("Congratulations! 🎁🎉", "agent");
+
+        addMessage("Congratulations! 🎁🎉", "agent");
+        setTimeout(() => {
+          addMessage("You're pre-qualified for a $25,000 Funeral Benefit Coverage.", "agent");
           setTimeout(() => {
-            addMessage("You're pre-qualified for a $25,000 Funeral Benefit Coverage.", "agent");
+            addMessage("Make a quick call to claim your $25,000 Funeral Benefit Coverage!", "agent");
             setTimeout(() => {
-              addMessage("Make a quick call to claim your $25,000 Funeral Benefit Coverage!", "agent");
+              startCountdown();
               setTimeout(() => {
-                startCountdown();
-                setTimeout(() => {
-                  userOptions.innerHTML = `
-                    <div class="div43">
-                        <img src="./mary.png" alt="Mary" class="div32" />
-                        <a href="tel:+13214858035" style="text-decoration: none; color: inherit;">
-                          <button class="option-button">
-                            1-321-485-8035
-                          </button>
-                        </a>
-                    </div>
-                    `;
-                }, 1500);
+                userOptions.innerHTML = `
+                  <div class="div43">
+                      <img src="./mary.png" alt="Mary" class="div32" />
+                      <a href="tel:+13214858035" style="text-decoration: none; color: inherit;">
+                        <button class="option-button">1-321-485-8035</button>
+                      </a>
+                  </div>
+                `;
               }, 1500);
             }, 1500);
           }, 1500);
-        }else{
-          // Keep the same for users 50 and under
-          userOptions.innerHTML = `
-            <div class="div43">
-                <img src="./mary.png" alt="Mary" class="div32" />
-              <button class="option-button">
-                Check Your Offer!
-              </button>
-            </div>
-            `;
-        } 
+        }, 1500);
       }, 1500);
     }
 
