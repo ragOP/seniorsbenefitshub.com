@@ -60,6 +60,11 @@ html {
   line-height: 1.2;
   margin-bottom: 1rem;
 }
+@media (max-width: 48em) {
+  .div6 {
+    margin-bottom: 0.5rem;
+  }
+}
 
 .div7 {
   background-color: #fde047;
@@ -69,7 +74,8 @@ html {
 }
 
 .div8 {
-  margin: 2rem 0;
+margin: 1rem 0 0.5rem;
+
   text-align: center;
 }
 
@@ -156,7 +162,7 @@ html {
 .div20 {
   background-color: #ffffff;
   text-align: center;
-  margin: 2em 0;
+  /* margin: 2em 0; */
 }
 
 .div21 {
@@ -172,6 +178,8 @@ html {
   justify-content: center;
   gap: 1em;
   flex-wrap: wrap;
+   margin-top: -1.5em;
+
 }
 
 .div23,
@@ -569,7 +577,7 @@ html {
   }
 
   .div5 {
-    margin-top: 8%;
+    margin-top: 4%;
   }
 
   .div39 {
@@ -692,7 +700,7 @@ html {
     font-size: 1.8em;
     padding: 1em 1.2em;
     width: 100%;
-    margin-bottom: 0.5em;
+    /* margin-bottom: 0.5em; */
   }
 
   .div22 {
