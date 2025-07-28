@@ -76,6 +76,7 @@ html {
 .div9 {
   width: 100%;
   height: auto;
+  border-radius: .5em;
 }
 
 .div10,
@@ -84,7 +85,7 @@ html {
   font-size: 3.2em;
   color: #000000;
   line-height: 1.5;
-  margin-top: 1.1em;
+  /* margin-top: .8em; */
 }
 
 .div11 span {
@@ -682,7 +683,7 @@ html {
   }
 
   .div21 {
-    font-size: 1.8em;
+    font-size: 2.2em;
   }
 
   .div23,
