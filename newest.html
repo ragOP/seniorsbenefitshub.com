@@ -41,7 +41,7 @@
           $25,000 final expense benefit!
         </div>
       </div>
-
+      
       <div class="div20">
         <h2 class="div21">Please Select Your Age:</h2>
         <div class="div22">
@@ -59,7 +59,10 @@
             Qualify For!
           </h1>
           <div class="div40">
-            <span class="div41">●</span>
+            <span class="status-wrapper">
+                <span class="div41"></span>
+                <span class="div411"></span>
+              </span>              
             <span class="div42">Mary is online</span>
           </div>
         </div>
@@ -170,6 +173,7 @@
     function addMessage(text, sender) {
       const chatMessages = document.getElementById("chatMessages");
       const messageDiv = document.createElement("div");
+      const lastMessage = chatMessages.lastElementChild;
       messageDiv.className = `message ${sender}`;
 
       if (sender === "agent") {
@@ -187,7 +191,20 @@
       }
 
       chatMessages.appendChild(messageDiv);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      console.log(currentStep);
+     
+      if (lastMessage &&  currentStep >= 2) {
+        console.log("scrolling");
+        lastMessage.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    function scrollToBottom() {
+      const lastMessage2 = document.getElementById("lastMessage");
+      setTimeout(() => {
+        lastMessage2.scrollTop = lastMessage2.scrollHeight;
+      }, 100);
     }
 
     function showOptions(options) {
