@@ -411,6 +411,9 @@ html {
   gap: 0.8em;
   align-items: flex-start;
   margin-left: 3.8em;
+  /* background-color: #e9ecef;
+  padding: 1em;
+  border-radius: 1em; */
 }
 
 .option-button {
@@ -471,6 +474,7 @@ html {
   align-items: flex-start;
   justify-content: center;
   border-radius: 1em;
+  width: 100%;
 }
 
 .age-input {

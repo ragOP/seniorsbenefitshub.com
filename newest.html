@@ -100,6 +100,7 @@
   <script>
     let currentStep = 0;
     let userResponses = {};
+    let userAge;
 
     const chatFlow = [
       {
@@ -244,9 +245,9 @@
 
       confirmBtn.addEventListener("click", () => {
         const age = ageInput.value;
+        userAge = age;
         addMessage(age, "user");
         userResponses.userAge = age;
-
         userOptions.innerHTML = "";
         currentStep++;
 
@@ -259,7 +260,30 @@
     function showFinalOffer() {
       setTimeout(() => {
         const userOptions = document.getElementById("userOptions");
-        userOptions.innerHTML = `
+        if(userAge > 50 ){
+          addMessage("Congratulations! 🎁🎉", "agent");
+          setTimeout(() => {
+            addMessage("You're pre-qualified for a $25,000 Final Expense Benefit.", "agent");
+            setTimeout(() => {
+              addMessage("Make a quick call to claim your $25,000 Final Expense Benefit!", "agent");
+              setTimeout(() => {
+                addMessage("Your spot is being held for <span style='color: red; font-weight: bold;'>1:48</span>", "agent");
+                setTimeout(() => {
+                  userOptions.innerHTML = `
+                    <div class="div43">
+                        <img src="./mary.png" alt="Mary" class="div32" />
+                      <button class="option-button">
+                        1-725-344-1626
+                      </button>
+                    </div>
+                    `;
+                }, 1500);
+              }, 1500);
+            }, 1500);
+          }, 1500);
+        }else{
+          // Keep the same for users 50 and under
+          userOptions.innerHTML = `
             <div class="div43">
                 <img src="./mary.png" alt="Mary" class="div32" />
               <button class="option-button">
@@ -267,6 +291,7 @@
               </button>
             </div>
             `;
+        } 
       }, 1500);
     }
   </script>
