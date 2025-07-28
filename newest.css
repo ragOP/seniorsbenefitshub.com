@@ -553,7 +553,7 @@ html {
   }
 
   .div2 {
-    padding: 0.5em;
+    padding: 0.1em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -563,7 +563,7 @@ html {
   .div38 {
      height: 60px;        /* Adjust height as needed */
   width: auto;   
-    padding: 0.5em;
+    padding: 0.1em;
     
    
   }
