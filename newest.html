@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>$25,000 Final Expense Coverage</title>
+    <link rel="stylesheet" href="./newest.css" />
+  </head>
+  <body>
+    <div class="div2">
+      <div class="div3">
+        <img src="./loggo.png" alt="logo" class="div38" />
+      </div>
+    </div>
+
+    <div class="div1">
+      <div class="div4">
+        <div class="div5">
+          <h1 class="div6">
+            🇺🇸 BREAKING: <span class="div7">$25,000</span> FINAL EXPENSE
+            COVERAGE BENEFIT FOR SENIORS!
+          </h1>
+        </div>
+
+        <div class="div8">
+          <img src="./chw.jpg" alt="check" class="div9" />
+        </div>
+
+        <div class="div10">
+          Last warning: If you did not get your $25,000 funeral benefit this
+          week, pay close attention because you might miss out on one of the
+          biggest benefits of the year!
+        </div>
+        <div class="div11">
+          <span>Seniors born between 1940 and 1975</span> are getting a once in
+          a lifetime chance to get up to $25,000 to pay for the cost of their
+          funeral and unpaid debt!
+        </div>
+        <div class="div12">
+          SELECT YOUR AGE and answer 3 questions to see if you qualify for up to
+          $25,000 final expense benefit!
+        </div>
+      </div>
+
+      <div class="div20">
+        <h2 class="div21">Please Select Your Age:</h2>
+        <div class="div22">
+          <button class="div23">50-65</button>
+          <button class="div24">66-79</button>
+          <button class="div25">80+</button>
+        </div>
+      </div>
+
+      <!-- Chat Interface Section -->
+      <div class="div26" id="chatInterface" style="display: none">
+        <div class="div27">
+          <h1 class="div28">
+            Claim Up To $25,000 Final Expense Benefit Today. See How Much You
+            Qualify For!
+          </h1>
+          <div class="div40">
+            <span class="div41">●</span>
+            <span class="div42">Mary is online</span>
+          </div>
+        </div>
+
+        <div class="div29">
+          <div class="div30">
+            <!-- <div class="div31">
+                   <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiNGRkYwQjMiLz4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyMCIgcj0iOCIgZmlsbD0iIzMzMyIvPgo8cGF0aCBkPSJNMTAgNDBDMTAgMzAgMTYuNSAyNSAyNSA0MEMzMy41IDI1IDQwIDMwIDQwIDQwIiBmaWxsPSIjMzMzIi8+Cjwvc3ZnPgo=" alt="Mary" class="div32" />
+                   <div class="div33">
+                     <span class="div34">Mary</span>
+                     <span class="div35">is online</span>
+                   </div>
+                 </div> -->
+          </div>
+
+          <div class="div36" id="chatMessages"></div>
+
+          <div class="div37" id="userOptions"></div>
+        </div>
+      </div>
+
+      <div class="div13">
+        <div class="div14">
+          <p class="div15">
+            Beware of other fraudulent & similar-looking websites that might
+            look exactly like ours, we have no affiliation with them. This is
+            the only official website to claim your Final Expense Benefit
+            Benefit with the domain name
+          </p>
+          <p class="div16">policybenefits.org</p>
+          <div class="div17">
+            <a href="./terms.html">Terms & Conditions</a>
+            <span class="div18">|</span>
+            <a href="./privacy.html">Privacy Policy</a>
+          </div>
+        </div>
+        <div class="div19"></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    let currentStep = 0;
+    let userResponses = {};
+
+    const chatFlow = [
+      {
+        agent: "Hello 👋",
+        options: null,
+      },
+      {
+        agent:
+          "I'm Mary. This will only take a minute. Want to see if you qualify for up to $25,000 Final Expense Benefit? Just tap 'Yes' to find out!",
+        options: ["Yes"],
+      },
+      {
+        agent:
+          "Okay, let me ask you a couple of simple questions. Who is your beneficiary?",
+        options: ["Kid(s)", "Spouse", "Other"],
+      },
+      {
+        agent: "Last question. How old are you?",
+        options: "input",
+      },
+    ];
+
+    document.querySelectorAll(".div23, .div24, .div25").forEach((button) => {
+      button.addEventListener("click", function () {
+        const selectedAge = this.textContent;
+        userResponses.age = selectedAge;
+        document.querySelector(".div4").style.display = "none";
+        document.querySelector(".div20").style.display = "none";
+        document.getElementById("chatInterface").style.display = "block";
+        startChat();
+      });
+    });
+
+    function startChat() {
+      currentStep = 0;
+      showNextMessage();
+    }
+
+    function showNextMessage() {
+      if (currentStep >= chatFlow.length) {
+        showFinalOffer();
+        return;
+      }
+
+      const step = chatFlow[currentStep];
+
+      addMessage(step.agent, "agent");
+
+      setTimeout(() => {
+        if (step.options) {
+          if (step.options === "input") {
+            showAgeInput();
+          } else {
+            showOptions(step.options);
+          }
+        } else {
+          setTimeout(() => {
+            currentStep++;
+            showNextMessage();
+          }, 1500);
+        }
+      }, 1000);
+    }
+
+    function addMessage(text, sender) {
+      const chatMessages = document.getElementById("chatMessages");
+      const messageDiv = document.createElement("div");
+      messageDiv.className = `message ${sender}`;
+
+      if (sender === "agent") {
+        messageDiv.innerHTML = `
+           <img src="./mary.png" alt="Mary" class="div32" />
+           <div class="message-bubble">${text}</div>
+         `;
+      } else {
+        messageDiv.innerHTML = `
+          <div class="message-avatar">
+            <img src="./user.png" alt="User" class="div32" />
+          </div>
+          <div class="message-bubble">${text}</div>
+        `;
+      }
+
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showOptions(options) {
+      const userOptions = document.getElementById("userOptions");
+      userOptions.innerHTML = "";
+
+      options.forEach((option) => {
+        const button = document.createElement("button");
+        button.className = "option-button";
+        button.textContent = option;
+        button.addEventListener("click", () => {
+          // Add user response to chat
+          addMessage(option, "user");
+
+          // Store response
+          if (currentStep === 2) {
+            userResponses.beneficiary = option;
+          }
+
+          // Clear options and proceed
+          userOptions.innerHTML = "";
+          currentStep++;
+
+          setTimeout(() => {
+            showNextMessage();
+          }, 1000);
+        });
+        userOptions.appendChild(button);
+      });
+    }
+
+    function showAgeInput() {
+      const userOptions = document.getElementById("userOptions");
+      userOptions.innerHTML = `
+        <div class="input-container">
+          <input type="text" class="age-input" placeholder="Enter Your Age" />
+          <button class="option-button small">Confirm</button>
+        </div>
+      `;
+
+      const confirmBtn = userOptions.querySelector(".option-button");
+      const ageInput = userOptions.querySelector(".age-input");
+
+      confirmBtn.addEventListener("click", () => {
+        const age = ageInput.value;
+        addMessage(age, "user");
+        userResponses.userAge = age;
+
+        userOptions.innerHTML = "";
+        currentStep++;
+
+        setTimeout(() => {
+          showNextMessage();
+        }, 1000);
+      });
+    }
+
+    function showFinalOffer() {
+      setTimeout(() => {
+        const userOptions = document.getElementById("userOptions");
+        userOptions.innerHTML = `
+            <div class="div43">
+                <img src="./mary.png" alt="Mary" class="div32" />
+              <button class="option-button">
+                Check Your Offer!
+              </button>
+            </div>
+            `;
+      }, 1500);
+    }
+  </script>
+</html>
