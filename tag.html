@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lander Tag Checker (Render BE)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #333;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 80%;
+      margin-right: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    pre {
+      background: #222;
+      color: #0f0;
+      padding: 15px;
+      border-radius: 5px;
+      white-space: pre-wrap;
+      margin-top: 20px;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .loader {
+      font-style: italic;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔍 Lander Tag Checker</h2>
+  <input type="text" id="urlInput" placeholder="Enter full website URL (https://...)" />
+  <button onclick="checkTags()">Check</button>
+  <div id="status"></div>
+  <pre id="result"></pre>
+
+  <script>
+    async function checkTags() {
+      const url = document.getElementById('urlInput').value.trim();
+      const status = document.getElementById('status');
+      const result = document.getElementById('result');
+
+      result.textContent = "";
+      status.textContent = "";
+
+      // Validate URL
+      if (!url.startsWith("http://") && !url.startsWith("https://")) {
+        status.innerHTML = "<div class='error'>❌ Please enter a valid URL starting with http:// or https://</div>";
+        return;
+      }
+
+      status.innerHTML = "<div class='loader'>⏳ Checking...</div>";
+
+      try {
+        const res = await fetch("https://tagcheckerbe.onrender.com/check", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url })
+        });
+
+        if (!res.ok) {
+          const error = await res.json();
+          status.innerHTML = `<div class='error'>❌ Server Error: ${error.error || res.statusText}</div>`;
+          return;
+        }
+
+        const data = await res.json();
+
+        // Handle empty or malformed response
+        if (!data || typeof data !== 'object') {
+          status.innerHTML = "<div class='error'>❌ Invalid response from server.</div>";
+          return;
+        }
+
+        status.innerHTML = "<div class='success'>✅ Scan complete!</div>";
+        result.textContent = JSON.stringify(data, null, 2);
+
+      } catch (err) {
+        console.error(err);
+        status.innerHTML = `<div class='error'>❌ Network error: ${err.message}</div>`;
+      }
+    }
+  </script>
+
+</body>
+</html>
