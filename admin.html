@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <title>Admin – Live Alerts (Chime)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Socket.IO client -->
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
     <style>
       :root { --bg:#0b0f17; --card:#121826; --muted:#94a3b8; --text:#e5e7eb; --accent:#60a5fa; --ok:#22c55e; --warn:#f59e0b; }
@@ -22,7 +21,6 @@
       button.primary{border-color:var(--accent)}
       button.ok{border-color:var(--ok)}
       button.warn{border-color:var(--warn)}
-      button.muted{color:var(--muted)}
       input[type="text"]{width:100%}
       .inline{display:flex;gap:8px;align-items:center}
       .inline>*{flex:1}
@@ -35,7 +33,6 @@
       .v{word-break:break-word}
       .pill{padding:2px 8px;border-radius:999px;border:1px solid #1f2937;font-size:12px}
       .state{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-      .sp{height:1px;background:#1f2937;margin:16px -16px}
       .help{color:var(--muted);font-size:12px}
       @media (max-width:900px){.row{grid-template-columns:1fr}}
     </style>
@@ -51,7 +48,6 @@
 
     <div class="container">
       <div class="row">
-        <!-- SOUND -->
         <div class="card">
           <h3>Sound Settings</h3>
           <div class="controls" style="margin-bottom:10px;">
@@ -63,36 +59,18 @@
               <input id="vol" type="range" min="0" max="1" step="0.01" value="0.9" />
             </span>
           </div>
-
-          <div class="sp"></div>
-
-          <div style="display:grid; gap:8px;">
-            <label for="sound-url">
-              Remote Sound URL (optional). Leave blank to use local <code>sound.mp3</code> in the same folder.
-            </label>
-            <div class="inline">
-              <input id="sound-url" type="text" placeholder="https://cdn.example.com/chime.mp3" />
-              <button id="btn-save-url">Use URL</button>
-              <button id="btn-clear-url" class="muted">Clear</button>
-            </div>
-            <div class="help">
-              Default is local <code>sound.mp3</code>. If you paste a URL, it takes priority. If it fails/CORS blocks, we fall back to a built-in beep.
-            </div>
-          </div>
+          <div class="help">Chime will play <strong>only</strong> for events with type <code>call_click</code>.</div>
         </div>
 
-        <!-- CONNECTION -->
         <div class="card">
           <h3>Connection</h3>
           <div style="display:grid; gap:8px;">
-            <label for="socket-url">Socket Server URL (your backend origin)</label>
+            <label for="socket-url">Socket Server URL</label>
             <div class="inline">
               <input id="socket-url" type="text" />
               <button id="btn-reconnect">Reconnect</button>
             </div>
-            <div class="help">
-              Use the same origin you POST to: e.g. <code>http://localhost:9005</code> (or your deployed HTTPS domain).
-            </div>
+            <div class="help">Example: <code>http://localhost:9005</code></div>
           </div>
         </div>
       </div>
@@ -103,131 +81,102 @@
       </div>
     </div>
 
-    <!-- Local sound (same folder) -->
+    <!-- Use your local sound file in the SAME folder -->
     <audio id="chime" src="sound.mp3" preload="auto"></audio>
 
     <script>
-      // ===== CONFIG =====
-      const DEFAULT_SOCKET_URL = "http://localhost:9005"; // change if needed
-      const LS = {
-        soundUrl: "admin_alerts_sound_url",
-        socketUrl: "admin_alerts_socket_url",
-        volume: "admin_alerts_volume",
-        muted: "admin_alerts_muted",
-      };
+      const DEFAULT_SOCKET_URL = "http://localhost:9005";
+      let socket=null, soundEnabled=false, muted=false, volume=0.9;
 
-      // ===== STATE / EL =====
-      let socket = null, soundEnabled = false, muted = false, volume = 0.9;
-      const elChime = document.getElementById("chime");
-      const elSoundState = document.getElementById("sound-state");
-      const elSocketState = document.getElementById("socket-state");
-      const elEvents = document.getElementById("events");
-      const elBtnEnable = document.getElementById("btn-enable");
-      const elBtnTest = document.getElementById("btn-test");
-      const elBtnMute = document.getElementById("btn-mute");
-      const elVol = document.getElementById("vol");
-      const elSoundUrl = document.getElementById("sound-url");
-      const elBtnSaveUrl = document.getElementById("btn-save-url");
-      const elBtnClearUrl = document.getElementById("btn-clear-url");
-      const elSocketUrl = document.getElementById("socket-url");
-      const elBtnReconnect = document.getElementById("btn-reconnect");
+      const elChime=document.getElementById("chime");
+      const elSoundState=document.getElementById("sound-state");
+      const elSocketState=document.getElementById("socket-state");
+      const elEvents=document.getElementById("events");
+      const elBtnEnable=document.getElementById("btn-enable");
+      const elBtnTest=document.getElementById("btn-test");
+      const elBtnMute=document.getElementById("btn-mute");
+      const elVol=document.getElementById("vol");
+      const elSocketUrl=document.getElementById("socket-url");
+      const elBtnReconnect=document.getElementById("btn-reconnect");
 
-      // ===== Load persisted =====
-      const savedUrl = localStorage.getItem(LS.soundUrl) || "";
-      const savedSocket = localStorage.getItem(LS.socketUrl) || DEFAULT_SOCKET_URL;
-      const savedVol = parseFloat(localStorage.getItem(LS.volume) || "0.9");
-      const savedMuted = localStorage.getItem(LS.muted) === "1";
-
-      // If user saved a remote URL earlier, use it; otherwise we keep local sound.mp3
-      if (savedUrl) elChime.src = savedUrl;
-      elSoundUrl.value = savedUrl;
-      elSocketUrl.value = savedSocket;
-      elVol.value = isFinite(savedVol) ? savedVol : 0.9;
+      elSocketUrl.value = localStorage.getItem("admin_alerts_socket_url") || DEFAULT_SOCKET_URL;
+      elVol.value = localStorage.getItem("admin_alerts_volume") || "0.9";
       volume = parseFloat(elVol.value);
-      muted = !!savedMuted;
+      muted = localStorage.getItem("admin_alerts_muted") === "1";
       updateSoundState();
 
-      // ===== Sound helpers =====
-      function updateSoundState(){ elSoundState.textContent = "Sound: " + (soundEnabled ? (muted ? "enabled (muted)" : "enabled") : "disabled"); }
+      function updateSoundState(){
+        elSoundState.textContent = "Sound: " + (soundEnabled ? (muted ? "enabled (muted)" : "enabled") : "disabled");
+      }
+
       async function playChime(){
-        if (!soundEnabled) return;
-        try {
+        if(!soundEnabled) return;
+        try{
           elChime.volume = muted ? 0 : volume;
           await elChime.play();
-        } catch {
-          // Fallback beep
+        }catch{
+          // fallback beep
           try{
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const o = ctx.createOscillator(), g = ctx.createGain();
-            o.type = "sine"; o.frequency.setValueAtTime(880, ctx.currentTime);
-            o.connect(g); g.connect(ctx.destination);
-            const base = muted ? 0.0 : Math.max(0.0001, volume * 0.2);
+            const ctx = new (window.AudioContext||window.webkitAudioContext)();
+            const o=ctx.createOscillator(), g=ctx.createGain();
+            o.type="sine"; o.frequency.value=880; o.connect(g); g.connect(ctx.destination);
+            const base = muted?0.0:Math.max(0.0001, volume*0.2);
             g.gain.setValueAtTime(0.0001, ctx.currentTime);
-            g.gain.exponentialRampToValueAtTime(base, ctx.currentTime + 0.01);
-            o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18); o.stop(ctx.currentTime + 0.2);
+            g.gain.exponentialRampToValueAtTime(base, ctx.currentTime+0.01);
+            o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+0.18); o.stop(ctx.currentTime+0.2);
           }catch(e){ console.warn("WebAudio beep failed:", e); }
         }
       }
 
-      // ===== Socket.io =====
       function connectSocket(url){
-        if (socket) try{ socket.close(); }catch{}
-        elSocketState.textContent = "Socket: connecting…";
+        if(socket) try{ socket.close(); }catch{}
+        elSocketState.textContent="Socket: connecting…";
         socket = io(url, { transports:["websocket"], withCredentials:true });
-        socket.on("connect", ()=>{ elSocketState.textContent = "Socket: connected ("+socket.id+")"; });
-        socket.on("disconnect", (r)=>{ elSocketState.textContent = "Socket: disconnected ("+r+")"; });
-        socket.on("connect_error", (e)=>{ elSocketState.textContent = "Socket: error"; console.error(e); });
-        socket.on("site:event", (payload)=>{ renderEvent(payload); playChime(); });
+        socket.on("connect", ()=>{ elSocketState.textContent="Socket: connected ("+socket.id+")"; });
+        socket.on("disconnect", (r)=>{ elSocketState.textContent="Socket: disconnected ("+r+")"; });
+        socket.on("connect_error", (e)=>{ elSocketState.textContent="Socket: error"; console.error(e); });
+
+        // Only chime on call_click
+        socket.on("site:event", (payload)=>{
+          renderEvent(payload);
+          if (payload && payload.type === "call_click") {
+            playChime();
+          }
+        });
       }
 
       function renderEvent(p){
-        const card = document.createElement("div"); card.className="event";
-        const when = new Date(p.at || Date.now()).toLocaleString();
-        const type = p.type || "unknown"; const who = p.who || "n/a";
-        const meta = p.meta ? JSON.stringify(p.meta, null, 2) : "{}";
+        const card=document.createElement("div"); card.className="event";
+        const when=new Date(p.at||Date.now()).toLocaleString();
+        const meta=p.meta?JSON.stringify(p.meta,null,2):"{}";
         card.innerHTML = `
           <div class="meta">${when}</div>
           <div class="kvs">
-            <div class="k">Type</div><div class="v">${esc(type)}</div>
-            <div class="k">Who</div><div class="v">${esc(who)}</div>
+            <div class="k">Type</div><div class="v">${esc(p.type||"unknown")}</div>
+            <div class="k">Who</div><div class="v">${esc(p.who||"n/a")}</div>
             <div class="k">Meta</div><div class="v"><pre style="margin:0;white-space:pre-wrap">${esc(meta)}</pre></div>
           </div>`;
         elEvents.prepend(card);
       }
       function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 
-      // ===== UI hooks =====
+      // UI
       elBtnEnable.onclick = async () => {
-        soundEnabled = true; updateSoundState();
-        try { elChime.volume = muted?0:volume; await elChime.play(); elChime.pause(); elChime.currentTime = 0; } catch {}
+        soundEnabled=true; updateSoundState();
+        try{ elChime.volume=muted?0:volume; await elChime.play(); elChime.pause(); elChime.currentTime=0; }catch{}
       };
-      elBtnTest.onclick = () => { soundEnabled = true; updateSoundState(); playChime(); };
-      elBtnMute.onclick = () => { muted = !muted; localStorage.setItem(LS.muted, muted?"1":"0"); updateSoundState(); };
-      elVol.oninput = () => { volume = parseFloat(elVol.value); localStorage.setItem(LS.volume, String(volume)); };
+      elBtnTest.onclick = ()=>{ soundEnabled=true; updateSoundState(); playChime(); };
+      elBtnMute.onclick = ()=>{ muted=!muted; localStorage.setItem("admin_alerts_muted", muted?"1":"0"); updateSoundState(); };
+      elVol.oninput = ()=>{ volume=parseFloat(elVol.value); localStorage.setItem("admin_alerts_volume", String(volume)); };
 
-      elBtnSaveUrl.onclick = () => {
-        const url = (elSoundUrl.value || "").trim();
-        localStorage.setItem(LS.soundUrl, url);
-        if (url) elChime.src = url; else elChime.src = "sound.mp3";
-        alert("Sound source set.");
-      };
-      elBtnClearUrl.onclick = () => {
-        localStorage.removeItem(LS.soundUrl);
-        elSoundUrl.value = "";
-        elChime.src = "sound.mp3";
-        alert("Reverted to local sound.mp3");
-      };
-
-      elBtnReconnect.onclick = () => {
-        const url = (elSocketUrl.value || "").trim() || DEFAULT_SOCKET_URL;
-        localStorage.setItem(LS.socketUrl, url);
+      elBtnReconnect.onclick = ()=>{
+        const url=(elSocketUrl.value||"").trim() || DEFAULT_SOCKET_URL;
+        localStorage.setItem("admin_alerts_socket_url", url);
         connectSocket(url);
       };
 
-      // ===== Boot =====
-      connectSocket(savedSocket);
-      // Optional: request Notification permission
-      if ("Notification" in window && Notification.permission === "default") { Notification.requestPermission().catch(()=>{}); }
+      // boot
+      connectSocket(elSocketUrl.value);
     </script>
   </body>
 </html>
