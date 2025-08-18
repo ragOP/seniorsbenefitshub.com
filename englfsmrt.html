@@ -2,288 +2,319 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Policy Benefits</title>
-    <link rel="stylesheet" href="englf3.css" />
-    <link
-      rel="stylesheet"
+
+    <!-- Icons -->
+    <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
       integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-       
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- Ringba (unchanged) -->
     <script src=//b-js.ringba.com/CAfdb7eb5bdaa24fb8a155f293ece397ae async></script>
-        <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PKBQ2L5S');</script>
-<!-- End Google Tag Manager -->
-  <!-- TikTok Pixel Code Start -->
-<script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
-;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
-  ttq.load('CV0AU8BC77UBQA5N4G9G');
-  ttq.page();
-}(window, document, 'ttq');
-</script>
-<!-- TikTok Pixel Code End -->
-</head>
 
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-PKBQ2L5S');
+    </script>
+    <!-- End Google Tag Manager -->
 
+    <!-- TikTok Pixel -->
+    <script>
+      !function (w, d, t) {
+        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+        ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],
+        ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat([].slice.call(arguments,0)))}};
+        for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+        ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},
+        ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;
+          ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};
+          n=document.createElement("script"),n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;
+          e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)
+        };
+        ttq.load('CV0AU8BC77UBQA5N4G9G'); ttq.page();
+      }(window, document, 'ttq');
+    </script>
+    <!-- End TikTok Pixel -->
 
+    <!-- Minimal inline CSS for full, standalone file -->
+    <style>
+      :root{
+        --bg:#0b0f17; --card:#121826; --muted:#94a3b8; --text:#e5e7eb;
+        --accent:#60a5fa; --ok:#22c55e; --warn:#f59e0b;
+      }
+      *{box-sizing:border-box}
+      body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+      a{color:inherit;text-decoration:none}
+      img{max-width:100%;height:auto}
 
+      .container{max-width:960px;margin:0 auto;padding:16px}
+      .bar{display:flex;align-items:center;gap:12px;background:#0e1525;border:1px solid #1f2937;padding:10px 14px;border-radius:12px}
+      .bar img{height:26px}
+      .counter{margin-top:10px;display:flex;align-items:center;gap:10px;background:#0e1525;border:1px solid #1f2937;padding:10px 14px;border-radius:12px}
+      .hero{margin-top:16px;background:linear-gradient(180deg,#0f172a, #0b1020);border:1px solid #1f2937;border-radius:16px;padding:20px;position:relative;overflow:hidden}
+      .hero-title{font-size:1.35rem;font-weight:700;text-align:center;line-height:1.4}
+      .hero-sub{margin-top:10px;text-align:center;color:#cbd5e1}
+      .arrow-section{margin:8px auto 0; text-align:center; color:#94a3b8}
+      .card{margin-top:14px;background:var(--card);border:1px solid #1f2937;border-radius:16px;padding:18px}
+      .q-title{font-size:1.1rem;font-weight:700;margin-bottom:10px}
+      .options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+      .btn{background:#101826;border:1px solid #263145;color:#e2e8f0;border-radius:12px;padding:12px 14px;text-align:center;cursor:pointer;transition:.18s transform, .18s box-shadow}
+      .btn:hover{transform:translateY(-1px); box-shadow:0 8px 20px rgba(0,0,0,.25)}
+      .activity{display:flex;align-items:center;gap:10px;margin-top:12px;color:#94a3b8}
+      .activity .dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
 
+      /* Status + Congrats */
+      .hidden{display:none}
+      .status,.congrats{margin-top:16px;background:#0e1525;border:1px solid #1f2937;border-radius:16px;padding:18px}
+      .status-text{display:block;text-align:center;font-weight:600}
+      .cong-title{font-size:1.3rem;font-weight:800;text-align:center}
+      .cong-sub{margin:8px auto 0;max-width:680px;text-align:center;color:#cbd5e1}
+      .spots{margin-top:6px;text-align:center;color:#facc15;font-weight:700}
+      .cta{margin:16px auto 0;max-width:420px}
+      .cta .cta-btn{
+        display:block;width:100%;text-align:center;padding:14px 18px;border-radius:14px;
+        background:linear-gradient(180deg,#1f6feb,#2563eb);color:white;font-weight:800;
+        border:none;cursor:pointer; box-shadow:0 10px 24px rgba(37,99,235,.35);
+      }
+      .cta .cta-btn.shimmer{position:relative;overflow:hidden}
+      .cta .cta-btn.shimmer::after{
+        content:""; position:absolute; top:0; left:-150%;
+        width:50%; height:100%; transform:skewX(-18deg);
+        background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+        animation:shine 2.4s infinite;
+      }
+      @keyframes shine{0%{left:-150%}60%{left:180%}100%{left:180%}}
+      .timer{display:flex;justify-content:center;gap:6px;margin-top:10px;font-weight:800}
+      .legal{margin:18px auto 0;max-width:900px;text-align:center;color:#8da0b5;font-size:.9rem}
+      .footer{margin:12px auto 0; text-align:center}
+      .footer a{color:#8fb8ff}
+      .gif-wrap{display:none; margin-top:10px;text-align:center}
 
+      .brand-row{display:flex;align-items:center;gap:10px;margin-top:14px}
+      .brand-row img{height:24px}
+      .pill{padding:6px 10px;border:1px dashed #334155;border-radius:999px;font-size:.85rem;color:#cbd5e1}
+    </style>
+  </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKBQ2L5S"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    <div class="div1" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-      <!-- <img src="./bur.png" alt="Policy Benefits" /> -->
-      <img src="./bur.png" alt="Policy Benefits" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
+    <!-- GTM (noscript) -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKBQ2L5S" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
 
-    </div>
-    <div class="div2" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-      <img src="./live.png" alt="Live" />
-      <span
-        ><strong id="counter">22,563</strong> Seniors Enrolled In Last 24
-        Hours!</span
-      >
-    </div>
-
-    <div class="div6" >
-      <div class="div7">
-        <div class="div8" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-          Final Call For Seniors To Claim Their $25,000 Funeral Benefit
-          Coverage!
-        </div>
-        <img class="div9" src="./ai.gif" alt="Money in hand" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
-        <div class="div10">
-          Checking your eligibility is very simple and takes just 60 seconds,
-          simply answer the questions below to see if you qualify now.
-        </div>
-        <div class="arrow-section">
-          <i class="fa-solid fa-angle-down"></i>
-        </div>
-        <div class="div11">
-          <div class="div12">Answer The Question Below To Proceed:</div>
-        </div>
+    <div class="container">
+      <!-- top bars -->
+      <div class="bar" onclick="smoothScrollTo(1000, 0)" style="cursor:pointer">
+        <img src="./bur.png" alt="Policy Benefits"/>
+        <strong>PolicyBenefits.org</strong>
+        <span class="pill">Official Site</span>
       </div>
-      <div class="div13">
-        <div class="div14">
-          <span id="quizQuestion">1. What's Your Age Range?</span>
+
+      <div class="counter" onclick="smoothScrollTo(1000, 0)" style="cursor:pointer">
+        <img src="./live.png" alt="Live"/>
+        <span><strong id="counter">22,563</strong> Seniors Enrolled In Last 24 Hours!</span>
+      </div>
+
+      <!-- hero -->
+      <div class="hero">
+        <div class="hero-title">
+          Final Call For Seniors To Claim Their $25,000 Funeral Benefit Coverage!
         </div>
-        <div class="div15" id="answerOptions">
-          <div class="div16" onclick="handleQuizP('50-65')">50-65</div>
-          <div class="div16" onclick="handleQuizN('65-80')">65-80</div>
-          <div class="div16" id="ageOption80Plus" onclick="handleQuizP('80+')">
-            80+
+        <div class="hero-sub">
+          Checking your eligibility is very simple and takes just 60 seconds — answer below to see if you qualify.
+        </div>
+        <div class="arrow-section"><i class="fa-solid fa-angle-down"></i></div>
+
+        <!-- quiz card -->
+        <div class="card" id="quizCard">
+          <div class="q-title"><span id="quizQuestion">1. What’s Your Age Range?</span></div>
+          <div class="options" id="answerOptions">
+            <!-- NEW: Under 50 disqualify path -->
+            <div class="btn" onclick="selectAge('UNDER_50')">Under 50</div>
+            <div class="btn" onclick="selectAge('50_65')">50–65</div>
+            <div class="btn" onclick="selectAge('65_80')">65–80</div>
+            <div class="btn" onclick="selectAge('80_PLUS')">80+</div>
+          </div>
+          <div class="activity"><span class="dot"></span>
+            <em><span id="claim">72</span> People Are Claiming Right Now!</em>
           </div>
         </div>
-        <div class="div17">
-          <div class="div18"></div>
-          <span
-            ><em
-              ><span id="claim">72</span> People Are Claiming Right Now!</em
-            ></span
-          >
+      </div>
+
+      <!-- status -->
+      <div class="status hidden" id="statusBox">
+        <span class="status-text" id="statusMessage">Reviewing Your Answers...</span>
+      </div>
+
+      <!-- congrats: qualified -->
+      <div class="congrats hidden" id="congratsQualified">
+        <div class="cong-title">Congratulations, You Qualify 🎉</div>
+        <div class="cong-sub">
+          Make a <b>quick connection</b> to claim your <b>$25,000 Funeral Benefit Coverage</b> now.
+        </div>
+        <div class="spots">Spots remaining: 4</div>
+        <div class="cta">
+          <!-- No 'CALL' word per requirement -->
+          <a class="cta-btn shimmer" id="ctaQualified" href="tel:+13214858035">Tap To Connect (321) 485-8035</a>
+        </div>
+        <div class="cong-sub">Due to high volume, your official agent is reserved for only <b>3 minutes</b>.</div>
+        <div class="timer"><div id="qMin">2</div><div>:</div><div id="qSec">52</div></div>
+        <div class="gif-wrap" id="gifQualified"><img src="baarish.GIF" alt=""/></div>
+      </div>
+
+      <!-- congrats: DISQUALIFY path with $500 card -->
+      <div class="congrats hidden" id="congratsDisqualify">
+        <div class="cong-title">Sorry, You Don’t Qualify — BUT! 🎁</div>
+        <div class="cong-sub">
+          We found out you qualify for a <b>Spending Allowance Card worth $500/month</b>.
+          Tap below to connect and learn how to claim it.
+        </div>
+        <div class="spots">Limited availability</div>
+        <div class="cta">
+          <!-- Uses provided DID and no 'CALL' word -->
+          <a class="cta-btn shimmer" id="ctaDisq" href="tel:+18336638513">Tap To Connect (833) 663-8513</a>
+        </div>
+        <div class="cong-sub">Your dedicated specialist is available for the next <b>3 minutes</b>.</div>
+        <div class="timer"><div id="dMin">2</div><div>:</div><div id="dSec">52</div></div>
+        <div class="gif-wrap" id="gifDisq"><img src="baarish.GIF" alt=""/></div>
+      </div>
+
+      <!-- footer -->
+      <div class="legal">
+        Beware of fraudulent look-alike sites. This is the only official website to claim your Final Expense Benefit:
+        <b>policybenefits.org</b>
+        <div class="footer" style="margin-top:10px">
+          <a href="/terms.html">Terms &amp; Conditions</a> |
+          <a href="/privacy.html">Privacy Policy</a>
         </div>
       </div>
     </div>
-    <div class="div4 div5" id="status">
-      <span id="statusMessage"></span>
-    </div>
-    <div class="div4 div5" id="congratulations">
-      <div class="div19">Congratulations, You Qualify 🎉</div>
-      <div class="div20">
-        Make A <span>Quick Call</span> To Claim Your $25,000 Funeral Benefit Coverage Now!
-      </div>
-      <div class="div21">Spots remaining: 4</div>
-      <div class="div99"> <h2>Tap Below To Call Now! 👇</h2></div>
 
-     
-      <div class="div22 glow shimmer" onclick="handleCall()">
-        <a href="tel:+13214858035">CALL (321) 485-8035</a>
-      </div>
-      <div class="div23">
-        Due to high call volume, your official agent is waiting for only
-        <strong>3 minutes</strong>, then your spot will not be reserved.
-      </div>
-      <div class="div24">
-        <div class="div25" id="minutes">2</div>
-        <div class="div25">:</div>
-        <div class="div25" id="seconds">52</div>
-      </div>
-    </div>
-    <div class="div26">
-      Beware of other fraudulent & similar-looking websites that might look
-      exactly like ours, we have no affiliation with them. This is the only
-      official website to claim your Final Expense Benefit with the domain name
-      policybenefits.org
+    <script>
+      /* --------- counters --------- */
+      const counterEl = document.getElementById("counter");
+      const claimEl = document.getElementById("claim");
+      const maxCounter = 22570, maxClaim = 75;
 
-      <div class="div27">
-        <a href="/terms.html">Terms & Conditions</a> |
-        <a href="/privacy.html">Privacy Policy</a>
-      </div>
-    </div>
-    <div id="image-container">
-      <img src="baarish.GIF" alt="" />
-    </div>
+      setInterval(() => {
+        const n = parseInt(counterEl.innerText.replace(/,/g,""),10);
+        if(n < maxCounter){
+          const next = Math.min(maxCounter, n + (1 + Math.floor(Math.random()*3)));
+          counterEl.innerText = next.toLocaleString();
+        }
+      }, 3000);
 
-  <script>
-  let step = "process";
-  let quizQuestion = "1. Are you over the age of 64?";
-  const statusDiv = document.getElementById("status");
-  const statusMessage = document.getElementById("statusMessage");
-  const congratulationsDiv = document.getElementById("congratulations");
-  const quizText = document.getElementById("quizQuestion");
-  const answerOptions = document.getElementById("answerOptions");
-  const minutesEl = document.getElementById("minutes");
-  const secondsEl = document.getElementById("seconds");
-  const counter = document.getElementById("counter");
-  const claim = document.getElementById("claim");
-  const imageContainer = document.getElementById("image-container");
+      setInterval(() => {
+        const n = parseInt(claimEl.innerText,10);
+        if(n < maxClaim){
+          const next = Math.min(maxClaim, n + (1 + Math.floor(Math.random()*2)));
+          claimEl.innerText = next;
+        }
+      }, 3000);
 
-  const maxCounterValue = 22570;
-  const maxClaimValue = 75;
-
-  setInterval(() => {
-    if (counter) {
-      let previousNumber = parseInt(counter.innerText.replace(/,/g, ""));
-      if (previousNumber < maxCounterValue) {
-        let randomIncrement = Math.floor(Math.random() * 3) + 1;
-        let newNumber = previousNumber + randomIncrement;
-        if (newNumber > maxCounterValue) newNumber = maxCounterValue;
-        counter.innerText = newNumber.toLocaleString();
+      /* --------- smooth scroll --------- */
+      function smoothScrollTo(duration, targetY=0){
+        const startY = window.pageYOffset;
+        const dist = targetY - startY;
+        let start = null;
+        function step(ts){
+          if(start === null) start = ts;
+          const t = ts - start;
+          const progress = t / duration;
+          const ease = progress < .5 ? 2*progress*progress : -1 + (4 - 2*progress)*progress;
+          window.scrollTo(0, startY + dist * Math.min(1, Math.max(0, ease)));
+          if(t < duration) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
       }
-    }
-  }, 3000);
 
-  setInterval(() => {
-    if (claim) {
-      let previousNumber = parseInt(claim.innerText);
-      if (previousNumber < maxClaimValue) {
-        let randomIncrement = Math.floor(Math.random() * 2) + 1;
-        let newNumber = previousNumber + randomIncrement;
-        if (newNumber > maxClaimValue) newNumber = maxClaimValue;
-        claim.innerText = newNumber;
+      /* --------- quiz flow --------- */
+      const quizCard = document.getElementById("quizCard");
+      const quizQuestion = document.getElementById("quizQuestion");
+      const answerOptions = document.getElementById("answerOptions");
+      const statusBox = document.getElementById("statusBox");
+      const statusMessage = document.getElementById("statusMessage");
+
+      const congratsQualified = document.getElementById("congratsQualified");
+      const congratsDisqualify = document.getElementById("congratsDisqualify");
+
+      let path = "qualified"; // or "disqualify"
+
+      function selectAge(code){
+        // NEW: Under 50 goes to disqualify track at the end
+        if(code === "UNDER_50"){
+          path = "disqualify";
+          // ask one more question (US Citizen) to keep flow consistent & engagement
+          quizQuestion.textContent = "2. Are you a U.S. Citizen?";
+          renderYesNo();
+          smoothScrollTo(800, quizCard.offsetTop - 12);
+          return;
+        }
+        // other ages proceed on qualified track
+        path = "qualified";
+        quizQuestion.textContent = "2. Are you a U.S. Citizen?";
+        renderYesNo();
+        smoothScrollTo(800, quizCard.offsetTop - 12);
       }
-    }
-  }, 3000);
 
-  function handleQuizP(ageValue) {
-    if (quizQuestion === "1. Are you over the age of 64?") {
-      quizQuestion = "2. Are you a U.S. Citizen?";
-      quizText.textContent = quizQuestion;
-      setYesNoOptions();
-      smoothScrollToTop(1000, 432);
-    } else {
-      stepProcess("yes");
-    }
-  }
-
-  function handleQuizN(ageValue) {
-    if (quizQuestion === "1. Are you over the age of 64?") {
-      quizQuestion = "2. Are you a U.S. Citizen?";
-      quizText.textContent = quizQuestion;
-      setYesNoOptions();
-      smoothScrollToTop(1000, 632);
-    } else {
-      stepProcess("no");
-    }
-  }
-
-  function setYesNoOptions() {
-    answerOptions.innerHTML = `
-      <div class="div16" onclick="stepProcess('yes','Above-25K')">Yes</div>
-      <div class="div16" onclick="stepProcess('no','No')">No</div>
-    `;
-  }
-
-  function smoothScrollToTop(duration, targetPosition = 0) {
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    let startTime = null;
-
-    function animation(currentTime) {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const run = ease(timeElapsed, startPosition, distance, duration);
-      window.scrollTo(0, run);
-      if (timeElapsed < duration) requestAnimationFrame(animation);
-    }
-
-    function ease(t, b, c, d) {
-      t /= d / 2;
-      if (t < 1) return (c / 2) * t * t + b;
-      t--;
-      return (-c / 2) * (t * (t - 2) - 1) + b;
-    }
-
-    requestAnimationFrame(animation);
-  }
-
-  const stepProcess = (answer, value) => {
-    smoothScrollToTop(1000);
-    const mainContent = document.querySelector(".div6");
-    mainContent.classList.add("div5");
-    statusDiv.classList.remove("div5");
-    statusMessage.textContent = "Reviewing Your Answers...";
-
-    setTimeout(() => {
-      statusMessage.textContent = "Verifying Availability...";
-      setTimeout(() => {
-        statusMessage.textContent = "Confirming Eligibility...";
-        setTimeout(() => {
-          setStep("completed");
-        }, 1500);
-      }, 1500);
-    }, 1500);
-  };
-
-  function setStep(newStep) {
-    step = newStep;
-    if (step === "completed") {
-      showCongratulations();
-    }
-  }
-
-  function showCongratulations() {
-    statusDiv.classList.add("div5");
-    congratulationsDiv.classList.remove("div5");
-    imageContainer.style.display = "block";
-    startTimer();
-    setTimeout(() => {
-      imageContainer.style.display = "none";
-    }, 2000);
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 100);
-  }
-
-  function startTimer() {
-    let totalSeconds = 172;
-    const timer = setInterval(() => {
-      const minutes = Math.floor(totalSeconds / 60);
-      const seconds = totalSeconds % 60;
-      minutesEl.textContent = minutes;
-      secondsEl.textContent = seconds < 10 ? "0" + seconds : seconds;
-      totalSeconds--;
-
-      if (totalSeconds < 0) {
-        clearInterval(timer);
+      function renderYesNo(){
+        answerOptions.innerHTML = `
+          <div class="btn" onclick="finishFlow('yes')">Yes</div>
+          <div class="btn" onclick="finishFlow('no')">No</div>
+        `;
       }
-    }, 1000);
-  }
 
-  function handleCall() {}
-</script>
+      function finishFlow(answer){
+        // show status animations then end screen based on path
+        quizCard.classList.add("hidden");
+        statusBox.classList.remove("hidden");
+        statusMessage.textContent = "Reviewing Your Answers...";
+        smoothScrollTo(600, statusBox.offsetTop - 10);
 
+        setTimeout(()=>{ statusMessage.textContent = "Verifying Availability..."; }, 1100);
+        setTimeout(()=>{ statusMessage.textContent = "Confirming Eligibility..."; }, 2300);
+        setTimeout(()=>{
+          statusBox.classList.add("hidden");
+          if(path === "disqualify"){
+            showDisqualify();
+          } else {
+            showQualified();
+          }
+        }, 3600);
+      }
+
+      /* --------- timers --------- */
+      function startTimer(minEl, secEl, startSeconds=172){
+        let t = startSeconds;
+        const tick = setInterval(()=>{
+          const m = Math.floor(t/60), s = t%60;
+          minEl.textContent = m;
+          secEl.textContent = s < 10 ? ("0"+s) : s;
+          t--;
+          if(t < 0) clearInterval(tick);
+        }, 1000);
+      }
+
+      function showQualified(){
+        congratsQualified.classList.remove("hidden");
+        document.getElementById("gifQualified").style.display = "block";
+        startTimer(document.getElementById("qMin"), document.getElementById("qSec"));
+        setTimeout(()=>{ document.getElementById("gifQualified").style.display = "none"; }, 2000);
+        smoothScrollTo(600, 0);
+      }
+
+      function showDisqualify(){
+        congratsDisqualify.classList.remove("hidden");
+        document.getElementById("gifDisq").style.display = "block";
+        startTimer(document.getElementById("dMin"), document.getElementById("dSec"));
+        setTimeout(()=>{ document.getElementById("gifDisq").style.display = "none"; }, 2000);
+        smoothScrollTo(600, 0);
+      }
+    </script>
   </body>
 </html>
