@@ -5,6 +5,12 @@
         "destination": "/first.html"
     
       },
+        
+         {
+        "source": "/englist1",
+        "destination": "/pan.html"
+    
+      },
       {
         "source": "/englf3",
         "destination": "/englf3.html"
