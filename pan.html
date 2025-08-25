@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Top 5 Reasons Every American Over 50 Should Get Final Expense Coverage</title>
+
+  <style>
+    :root{
+      --ink:#111;
+      --muted:#555;
+      --rule:#e6e6e6;
+      --cta:#00b050;
+      --cta-dark:#009246;
+      --max: 760px;
+      --hi:#fff4a3; /* soft yellow highlight */
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height:100%; }
+    body {
+      margin:0;
+      color:var(--ink);
+      background:#fff;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.66;
+    }
+    img { max-width:100%; height:auto; display:block; }
+    a { color: inherit; }
+
+    .banner {
+      background: linear-gradient(90deg, #003f91, #006cb8);
+      color: #fff;
+      text-align: center;
+      padding: 10px 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .banner .logo {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .banner .logo img{
+      width: clamp(160px, 55vw, 360px);
+      height:auto;
+      margin-top: 6px;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.25));
+    }
+
+    .sub-banner {
+      background-color: #00b050;
+      color:#fff;
+      text-align:center;
+      font-size: clamp(13px, 3.2vw, 15px);
+      padding: 6px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+    }
+    .sub-banner img{
+      width: clamp(14px, 4vw, 18px);
+      height:auto;
+      position: relative;
+      top: 1px;
+      flex-shrink: 0;
+    }
+    .sub-banner em{
+      font-style: normal;
+      letter-spacing:.2px;
+    }
+    .sub-banner strong{
+      font-weight: 800;
+    }
+
+    .article{
+      width:min(100%, var(--max));
+      margin-inline:auto;
+      padding: clamp(14px, 3vw, 22px);
+    }
+
+    h1{
+      font-size: clamp(28px, 5.2vw, 42px);
+      line-height: 1.2;
+      margin: 20px 0 14px;
+      font-weight: 700;
+    }
+    .mark{
+      background: var(--hi);
+      border-radius: 6px;
+      padding: .08em .35em;
+      box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    }
+    .parenthetical{
+      font-style: italic;
+      font-size: clamp(15px, 3.5vw, 18px);
+      color:#222;
+      margin: 0 0 20px;
+    }
+
+    .rule {
+      border: 0;
+      border-top: 3px solid #ccc;
+      margin: 30px 0;
+      height: 0;
+      box-shadow: 0 2px 3px rgba(0,0,0,.08);
+    }
+
+    .hero{
+      margin: 24px 0;
+      border-radius: 12px; overflow: hidden;
+      box-shadow: 0 2px 14px rgba(0,0,0,.08);
+    }
+
+    .lede{
+      font-size: clamp(17px, 3.8vw, 20px);
+      line-height: 1.7;
+      margin: 18px 0;
+    }
+
+    .article p{
+      font-size: clamp(16px, 3.6vw, 18px);
+      margin: 16px 0;
+    }
+
+    .cta{
+      margin: 32px auto;
+      text-align:center;
+      padding: 20px;
+      border:1px solid var(--rule);
+      border-radius: 14px;
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px; text-decoration:none; font-weight:700;
+      background: var(--cta); color:#fff; border-radius: 12px;
+      padding: 16px 22px; font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      box-shadow: 0 0 12px 4px rgba(0,176,80,0.6);
+      transition: transform .06s ease, background .2s ease, box-shadow .25s ease;
+    }
+    .btn:hover{ 
+      background: var(--cta-dark); 
+      box-shadow: 0 0 18px 6px rgba(0,176,80,0.8);
+    }
+    .btn:active{ transform: translateY(1px); }
+
+    .note{ color:#666; font-size: 13px; margin-top:12px; }
+
+    .reasons{ margin-top: 24px; }
+    .reason{ margin: 40px 0; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+    .reason:last-child{ border-bottom: none; }
+    .reason h2{
+      font-size: clamp(20px, 4.4vw, 28px);
+      line-height:1.3;
+      margin: 0 0 18px;
+      font-weight:700;
+    }
+    .reason .rimg{ border-radius: 12px; overflow:hidden; margin:18px 0 22px; box-shadow: 0 2px 10px rgba(0,0,0,.07); }
+
+    .sticky-cta{
+      position: fixed; left:0; right:0; bottom:0; z-index: 50;
+      background:#fff; border-top: 1px solid var(--rule);
+      padding: 12px 14px;
+      transform: translateY(100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform .25s ease, opacity .25s ease, visibility .25s step-end;
+    }
+    .sticky-cta.show{
+      transform: translateY(0%);
+      opacity: 1;
+      visibility: visible;
+      transition: transform .25s ease, opacity .25s ease, visibility 0s;
+    }
+    .sticky-cta .btn{ width:100%; border-radius: 12px; padding: 14px; font-size: 17px; }
+    .spacer{ height:72px; }
+
+    @media (min-width: 820px){
+      .sticky-cta{ display:none; }
+      .spacer{ display:none; }
+    }
+  </style>
+ <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-PKBQ2L5S');</script>
+        <!-- End Google Tag Manager -->  </head>
+<body>
+
+  <header class="banner">
+    <div class="logo">
+      <img src="bur.png" alt="Final Expense Coverage - PriorityBenefits" />
+    </div>
+  </header>
+
+  <div class="sub-banner">
+       <img style="width: 10%; margin-right: 5px;" src="./live.png" alt="" />
+    <em><strong id="enrollment-count">22,578</strong> People Enrolled In Last 24 Hours!</em>
+  </div>
+
+  <article class="article">
+    <h1><span class="mark">Top 5 Reasons</span> Every American Over 50 Should Get Their Final Expense Coverage Today!</h1>
+    <p class="parenthetical">(Reason <strong>#5</strong> Will Shock You)</p>
+    <hr class="rule" />
+
+    <figure class="hero">
+      <img src="RAN.png" alt="Families planning final expenses" />
+    </figure>
+
+    <p class="lede">
+      Most Americans don’t realize it — but the greatest financial burden their family will ever face may come the very moment they pass away. We’re not talking about retirement plans, taxes, or mortgages. We’re talking about the cost of dying.
+    </p>
+
+    <p>Funeral homes don’t wait. Cemeteries don’t wait. Hospitals don’t wait. The bills come due instantly — at the exact time when your loved ones are at their weakest.</p>
+
+    <p>That’s why Final Expense Coverage exists. It’s not about “insurance” in the traditional sense. It’s about giving your family dignity, relief, and breathing room when they’ll need it most.</p>
+
+    <section class="reasons">
+      <div class="reason" id="r1">
+        <h2>1. Funerals Aren’t Just Expensive… They’re Crushing</h2>
+        <div class="rimg"><img src="1.png" alt="Funeral costs illustration"></div>
+        <p>The average funeral now costs <strong>$9,000–$12,000</strong>. That doesn’t include the headstone, flowers, obituary notices, or the pastor’s honorarium.</p>
+        <p>Many families are blindsided, maxing out credit cards or draining savings just to cover the basics. One widow told us she had to take out a loan against her home just to bury her husband. That’s not the kind of memory you want to leave behind.</p>
+      </div>
+
+      <div class="reason" id="r2">
+        <h2>2. Grief + Debt = Family Chaos</h2>
+        <div class="rimg"><img src="2.png" alt="Family disagreements"></div>
+        <p>If you’ve ever seen what happens to a family when money is on the line, you know the truth: funerals bring out fights.</p>
+        <p>Brothers and sisters stop speaking. Kids blame each other. Some push for cremation because it’s cheaper. Others feel guilty and insist on a proper burial.</p>
+        <p>Coverage eliminates all of that. It means there’s money in place — instantly — so your family can grieve in peace, not argue over bills.</p>
+      </div>
+
+      <div class="reason" id="r3">
+        <h2>3. You Don’t Have to Be Rich or Perfectly Healthy</h2>
+        <div class="rimg"><img src="3.png" alt="Easy qualification"></div>
+        <p>Traditional life insurance can be a nightmare. Health exams. Blood tests. Weeks of waiting.</p>
+        <p>Final Expense Coverage is different. Most Americans over 50 qualify instantly — even with health conditions. It’s quick, it’s simple, and you’ll know your options in minutes just by calling.</p>
+      </div>
+
+      <div class="reason" id="r4">
+        <h2>4. Leave Something Behind That Matters</h2>
+        <div class="rimg"><img src="4.png" alt="Leave a legacy"></div>
+        <p>Imagine your kids gathering after you’re gone. Do you want them passing around envelopes of debt… or receiving a check that gives them stability?</p>
+        <p>This program doesn’t just pay for funeral costs. It can also cover unpaid medical bills, leftover credit cards, and even leave extra money behind for your loved ones. That’s the kind of legacy that lasts.</p>
+      </div>
+
+      <div class="reason" id="r5">
+        <h2>5. The Window May Be Closing Faster Than You Think</h2>
+        <div class="rimg"><img src="5.png" alt="Time sensitive"></div>
+        <p>Here’s what most seniors don’t know: programs like this can change overnight. Costs can rise. States can tighten eligibility. Or the program may vanish entirely.</p>
+        <p>We’ve seen too many families regret waiting “just a little longer.” By then it was too late.</p>
+      </div>
+    </section>
+
+    <div class="cta">
+      <a class="btn" href="tel:+13214858035">📞 Call (321) 485-8035</a>
+      <div class="note">Licensed representatives are standing by to help.</div>
+    </div>
+
+    <p class="note" style="text-align:center">
+      Beware of similar-looking sites; we are not affiliated with them. This is the only official PriorityBenefits page.
+    </p>
+
+    <div class="spacer"></div>
+  </article>
+
+  <div class="sticky-cta" id="stickyCta">
+    <a class="btn" href="tel:+13214858035">📞 Tap to Call Now</a>
+  </div>
+
+  <script>
+    (function(){
+      const target = document.querySelector('#r2');
+      const bar = document.getElementById('stickyCta');
+      if (!target || !bar) return;
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if (entry.isIntersecting) {
+            bar.classList.add('show');
+          } else {
+            if (window.scrollY < entry.target.offsetTop - 100) {
+              bar.classList.remove('show');
+            }
+          }
+        });
+      }, { threshold:0.4, rootMargin:'0px 0px -20% 0px' });
+      io.observe(target);
+    })();
+
+    (function(){
+      const el = document.getElementById('enrollment-count');
+      if (!el) return;
+      let current = Number(el.textContent.replace(/,/g,'')) || 22578;
+      function fmt(n){ return n.toLocaleString('en-US'); }
+      setInterval(()=>{ current += Math.floor(Math.random()*3)+1; el.textContent = fmt(current); },3000);
+    })();
+  </script>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKBQ2L5S"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
