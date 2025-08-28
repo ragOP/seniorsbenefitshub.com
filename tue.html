@@ -68,7 +68,7 @@
       padding: clamp(14px, 3vw, 22px);
     }
 
-    .kicker{ text-align:center; font-size: 20px !important; margin: 5px 5% 10px !important; }
+    .kicker{ text-align:center; font-size: 20px !important; margin: 5px 5% 10px !important; line-height: 1.2; }
     h1{
       font-size: clamp(28px, 5.2vw, 42px);
       line-height: 1.2;
@@ -133,25 +133,75 @@
     .cta{
       margin: 32px auto;
       text-align:center;
-      padding: 20px;
-      border:1px solid var(--rule);
-      border-radius: 14px;
+      padding: 24px;
+      background: #e8f5e8;
+      border-radius: 16px;
+      border: 2px solid #d4edda;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .cta-header{
+      font-weight: 700;
+      font-size: 18px;
+      color: #000;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       gap:10px; text-decoration:none; font-weight:700;
-      background: var(--cta); color:#fff; border-radius: 12px;
-      padding: 16px 22px; font-size: 18px;
+      background: linear-gradient(135deg, #00b050, #009246);
+      color:#fff; border-radius: 16px;
+      padding: 10px 32px; font-size: 20px;
       font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      box-shadow: 0 0 12px 4px rgba(0,176,80,0.6);
+      box-shadow: 0 4px 15px rgba(0,176,80,0.4);
       transition: transform .06s ease, background .2s ease, box-shadow .25s ease;
+      margin-bottom: 8px;
+      width: 100%;
+      max-width: 300px;
+      flex-direction: column;
     }
     .btn:hover{ 
-      background: var(--cta-dark); 
-      box-shadow: 0 0 18px 6px rgba(0,176,80,0.8);
+      background: linear-gradient(135deg, #009246, #007a3d); 
+      box-shadow: 0 6px 20px rgba(0,176,80,0.6);
     }
     .btn:active{ transform: translateY(1px); }
+
+    .btn-subtitle{
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      margin-top: -4px;
+      text-align: center;
+    }
+
+    .urgency-message{
+      color: #000;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 12px 0;
+      line-height: 1.4;
+    }
+
+    .timer-container{
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .timer{
+      background: transparent;
+      color: #ff0000;
+      font-size: 24px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 2px dotted #ff0000;
+      font-family: 'Courier New', monospace;
+    }
 
     .note{ color:#666; font-size: 13px; margin-top:12px; }
 
@@ -169,21 +219,45 @@
     .cost-callout b{ color:#d90000;}
 
     .sticky-cta{
-      position: fixed; left:0; right:0; bottom:0; z-index: 50;
-      background:#fff; border-top: 1px solid var(--rule);
-      padding: 12px 14px;
+      position: fixed; left:0; right:0; bottom:-10px; z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
       transform: translateY(100%);
       opacity: 0;
       visibility: hidden;
       transition: transform .25s ease, opacity .25s ease, visibility .25s step-end;
     }
+
     .sticky-cta.show{
       transform: translateY(0%);
       opacity: 1;
       visibility: visible;
       transition: transform .25s ease, opacity .25s ease, visibility 0s;
     }
-    .sticky-cta .btn{ width:100%; border-radius: 12px; padding: 14px; font-size: 17px; }
+    .sticky-cta .btn{ 
+      background: linear-gradient(135deg, #00b050, #009246);
+      color: white;
+      border: none;
+      border-radius: 15px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: none;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 200px;
+    }
+    .sticky-cta .btn .subtitle {
+      font-size: 10px;
+      font-style: italic;
+      font-weight: normal;
+      margin-top: -2px;
+    }
     .spacer{ height:72px; }
 
     @media (min-width: 820px){
@@ -286,9 +360,20 @@
       </div>
     </section>
 
+    <div class="cta-about" style="text-align:center; font-size:12px; font-weight:600; color:#000; margin:10px 0 10px; padding:1px 0; text-wrap: wrap; background-color: #fbf38b; width:100%;">
+      <p>Free, No-Obligation Consultation With a Licensed Final Expense Coverage Specialist</p>
+    </div>
+
     <div class="cta">
-      <a class="btn" href="tel:+13214858035">📞 Call (321) 485-8035</a>
-      <div class="note">Licensed representatives are standing by to help.</div>
+      <div class="cta-header">Tap Below To CALL</div>
+      <a class="btn" href="tel:+13214858035">
+        <span>CALL (321) 485-8035</span>
+        <div class="btn-subtitle">Free, No-Obligation Help — Available Now</div>
+      </a>
+      <div class="urgency-message">Due to high call volume, your official agent is waiting for only 7 minutes, then your spot will not be reserved.</div>
+      <div class="timer-container">
+        <div class="timer" id="countdown">7:00</div>
+      </div>
     </div>
 
     <p class="note" style="text-align:center">
@@ -299,7 +384,10 @@
   </article>
 
   <div class="sticky-cta" id="stickyCta">
-    <a class="btn" href="tel:+13214858035">📞 Tap to Call Now</a>
+    <a class="btn" href="tel:+18442321211">
+      CALL (844) 232-1211
+      <div class="subtitle">Call Now - Connect With A Licensed Agent!</div>
+    </a>
   </div>
 
   <script>
@@ -327,6 +415,34 @@
       let current = Number(el.textContent.replace(/,/g,'')) || 22578;
       function fmt(n){ return n.toLocaleString('en-US'); }
       setInterval(()=>{ current += Math.floor(Math.random()*3)+1; el.textContent = fmt(current); },3000);
+    })();
+
+    // Countdown timer
+    (function(){
+      const countdownEl = document.getElementById('countdown');
+      if (!countdownEl) return;
+      
+             let minutes = 7;
+       let seconds = 0;
+      
+      function updateTimer() {
+        if (seconds === 0) {
+          if (minutes === 0) {
+                         // Reset timer when it reaches 0
+             minutes = 7;
+             seconds = 0;
+          } else {
+            minutes--;
+            seconds = 59;
+          }
+        } else {
+          seconds--;
+        }
+        
+        countdownEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      }
+      
+      setInterval(updateTimer, 1000);
     })();
   </script>
     <!-- Google Tag Manager (noscript) -->
