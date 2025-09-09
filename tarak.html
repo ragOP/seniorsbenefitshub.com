@@ -12,7 +12,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <script src="//b-js.ringba.com/CAfdb7eb5bdaa24fb8a155f293ece397ae" async></script>
+    <script
+      src="//b-js.ringba.com/CAfdb7eb5bdaa24fb8a155f293ece397ae"
+      async
+    ></script>
 
     <!-- Google Tag Manager -->
     <script>
@@ -104,18 +107,33 @@
 
     <!-- Realtime notify helper (define BEFORE app logic) -->
     <script>
-      const BACKEND_URL = "https://socket-realtime-notification.onrender.com"; // or your deployed URL
-      const ADMIN_SECRET = "super-long-random-secret-here";
+      const BACKEND_URL = "https://benefit-notification.onrender.com"; // or your deployed URL
+      const ADMIN_SECRET = "change-me";
       async function notifyAdmin(type, meta = {}) {
         try {
           await fetch(BACKEND_URL + "/api/event", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "x-button-secret": ADMIN_SECRET
+              "x-button-secret": ADMIN_SECRET,
             },
             body: JSON.stringify({ type, who: "policybenefits-landing", meta }),
-            keepalive: true
+            keepalive: true,
+          });
+        } catch (e) {
+          console.warn("notifyAdmin failed:", e);
+        }
+      }
+      async function firebaseNotification(tel) {
+        console.log(tel, "<<<<<<<");
+        try {
+          await fetch(BACKEND_URL + "/send-call-notification", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(tel),
+            keepalive: true,
           });
         } catch (e) {
           console.warn("notifyAdmin failed:", e);
@@ -127,24 +145,55 @@
   <body>
     <!-- GTM noscript -->
     <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKBQ2L5S"
-              height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PKBQ2L5S"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe>
     </noscript>
 
-    <div class="div1" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-      <img src="./bur.png" alt="Policy Benefits" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
+    <div
+      class="div1"
+      onclick="smoothScrollToTop(1000, 432)"
+      style="cursor: pointer"
+    >
+      <img
+        src="./bur.png"
+        alt="Policy Benefits"
+        onclick="smoothScrollToTop(1000, 432)"
+        style="cursor: pointer"
+      />
     </div>
-    <div class="div2" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
+    <div
+      class="div2"
+      onclick="smoothScrollToTop(1000, 432)"
+      style="cursor: pointer"
+    >
       <img src="./live.png" alt="Live" />
-      <span><strong id="counter">22,563</strong> Seniors Enrolled In Last 24 Hours!</span>
+      <span
+        ><strong id="counter">22,563</strong> Seniors Enrolled In Last 24
+        Hours!</span
+      >
     </div>
 
     <div class="div6">
       <div class="div7">
-        <div class="div8" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-          Final Call For Citizens Over 50 To Claim Their $25,000 Burial Protection Plan!
+        <div
+          class="div8"
+          onclick="smoothScrollToTop(1000, 432)"
+          style="cursor: pointer"
+        >
+          Final Call For Citizens Over 50 To Claim Their $25,000 Burial
+          Protection Plan!
         </div>
-        <img class="div9" src="./ai.gif" alt="Money in hand" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
+        <img
+          class="div9"
+          src="./ai.gif"
+          alt="Money in hand"
+          onclick="smoothScrollToTop(1000, 432)"
+          style="cursor: pointer"
+        />
         <div class="div10">
           Checking your eligibility is very simple and takes just 60 seconds,
           simply answer the questions below to see if you qualify now.
@@ -164,11 +213,17 @@
         <div class="div15" id="answerOptions">
           <div class="div16" onclick="handleQuizP('50-65')">50-65</div>
           <div class="div16" onclick="handleQuizN('65-80')">65-80</div>
-          <div class="div16" id="ageOption80Plus" onclick="handleQuizP('80+')">80+</div>
+          <div class="div16" id="ageOption80Plus" onclick="handleQuizP('80+')">
+            80+
+          </div>
         </div>
         <div class="div17">
           <div class="div18"></div>
-          <span><em><span id="claim">72</span> People Are Claiming Right Now!</em></span>
+          <span
+            ><em
+              ><span id="claim">72</span> People Are Claiming Right Now!</em
+            ></span
+          >
         </div>
       </div>
     </div>
@@ -180,7 +235,8 @@
     <div class="div4 div5" id="congratulations">
       <div class="div19">Congratulations, You Qualify 🎉</div>
       <div class="div20">
-        Make A <span>Quick Call</span> To Claim Your $25,000 Funeral Benefit Coverage Now!
+        Make A <span>Quick Call</span> To Claim Your $25,000 Funeral Benefit
+        Coverage Now!
       </div>
       <div class="div21">Spots remaining: 4</div>
       <div class="div99"><h2>Tap Below To Call Now! 👇</h2></div>
@@ -233,9 +289,14 @@
       // live counters
       setInterval(() => {
         if (counter) {
-          const previousNumber = parseInt(counter.innerText.replace(/,/g, ""), 10);
+          const previousNumber = parseInt(
+            counter.innerText.replace(/,/g, ""),
+            10
+          );
           const randomIncrement = Math.floor(Math.random() * 3) + 1;
-          counter.innerText = (previousNumber + randomIncrement).toLocaleString();
+          counter.innerText = (
+            previousNumber + randomIncrement
+          ).toLocaleString();
         }
       }, 3000);
 
@@ -276,12 +337,16 @@
         const yes = document.createElement("div");
         yes.className = "div16";
         yes.textContent = "Yes";
-        yes.onclick = function () { stepProcess("yes", "Above-25K"); };
+        yes.onclick = function () {
+          stepProcess("yes", "Above-25K");
+        };
 
         const no = document.createElement("div");
         no.className = "div16";
         no.textContent = "No";
-        no.onclick = function () { stepProcess("no", "No"); };
+        no.onclick = function () {
+          stepProcess("no", "No");
+        };
 
         answerOptions.appendChild(yes);
         answerOptions.appendChild(no);
@@ -339,8 +404,12 @@
         imageContainer.style.display = "block";
         startTimer();
 
-        setTimeout(() => { imageContainer.style.display = "none"; }, 2000);
-        setTimeout(() => { window.scrollTo({ top: 0, behavior: "smooth" }); }, 100);
+        setTimeout(() => {
+          imageContainer.style.display = "none";
+        }, 2000);
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }, 100);
       }
 
       function startTimer() {
@@ -349,7 +418,8 @@
           const minutes = Math.floor(totalSeconds / 60);
           const seconds = totalSeconds % 60;
           minutesEl.textContent = String(minutes);
-          secondsEl.textContent = seconds < 10 ? "0" + seconds : String(seconds);
+          secondsEl.textContent =
+            seconds < 10 ? "0" + seconds : String(seconds);
           totalSeconds--;
           if (totalSeconds < 0) clearInterval(timer);
         }, 1000);
@@ -357,12 +427,20 @@
 
       window.handleCall = function () {
         // ✅ ONLY this triggers an admin notification
+        firebaseNotification({
+          tel: callLink ? callLink.getAttribute("href") : "tel:+13214858035",
+        });
         notifyAdmin("call_click", {
           tel: callLink ? callLink.getAttribute("href") : "tel:+13214858035",
-          page: location.href
+          page: location.href,
         });
-        try { if (callLink) callLink.click(); else window.location.href = "tel:+13214858035"; }
-        catch (e) { window.location.href = "tel:+13214858035"; }
+
+        try {
+          if (callLink) callLink.click();
+          else window.location.href = "tel:+13214858035";
+        } catch (e) {
+          window.location.href = "tel:+13214858035";
+        }
       };
     </script>
   </body>
