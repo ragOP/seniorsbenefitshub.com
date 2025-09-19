@@ -297,7 +297,7 @@
       function handleQuizP(ageValue) {
         // When question is the Age question, push the selected age as a Ringba tag
         if (quizText && /age/i.test(quizText.textContent)) {
-          pushRingbaTag('age_range', ageValue || 'selected_yes');
+          pushRingbaTag('age', ageValue || 'selected_yes');
         }
         if (quizQuestion === "1. Are you over the age of 64?") {
           quizQuestion = "2. Are you a U.S. Citizen?";
@@ -311,7 +311,7 @@
 
       function handleQuizN(ageValue) {
         if (quizText && /age/i.test(quizText.textContent)) {
-          pushRingbaTag('age_range', ageValue || 'selected_no');
+          pushRingbaTag('age', ageValue || 'selected_no');
         }
         if (quizQuestion === "1. Are you over the age of 64?") {
           quizQuestion = "2. Are you a U.S. Citizen?";
