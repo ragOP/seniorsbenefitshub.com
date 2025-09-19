@@ -12,58 +12,145 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-        <script src=//b-js.ringba.com/CAfdb7eb5bdaa24fb8a155f293ece397ae async></script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PKBQ2L5S');</script>
-<!-- End Google Tag Manager -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "sd8b13254n");
-</script>
-  <!-- TikTok Pixel Code Start -->
-<script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
-;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
-  ttq.load('CV0AU8BC77UBQA5N4G9G');
-  ttq.page();
-}(window, document, 'ttq');
-</script>
-<!-- TikTok Pixel Code End -->
-</head>
 
+    <!-- ========= RINGBA: Number Pool / Tag Pipe ========= -->
+    <!-- We attach onload/onerror to detect ad-block or network issues -->
+    <script
+      id="ringba-script"
+      src="//b-js.ringba.com/CAfdb7eb5bdaa24fb8a155f293ece397ae"
+      async
+      onload="window.__ringbaLoaded=true; console.log('[Ringba] script loaded');"
+      onerror="window.__ringbaBlocked=true; console.warn('[Ringba] script blocked or failed to load');"
+    ></script>
 
+    <!-- Initialize the tag buffer & state BEFORE any pushes -->
+    <script>
+      // global states
+      window._rgba_tags = window._rgba_tags || [];                 // Ringba tag array (or placeholder)
+      window.__ringbaTagQueue = window.__ringbaTagQueue || [];     // our local queue (always safe)
+      window.__ringbaLoaded = window.__ringbaLoaded || false;      // set true by script onload
+      window.__ringbaBlocked = window.__ringbaBlocked || false;    // set true by script onerror
 
+      // flush queued tags into Ringba when possible
+      function __flushRingbaQueue() {
+        try {
+          if (!Array.isArray(window._rgba_tags)) {
+            // some implementations redefine _rgba_tags to an object with a custom push; still fine
+            if (typeof window._rgba_tags?.push !== 'function') return false;
+          }
+          while (window.__ringbaTagQueue.length) {
+            var item = window.__ringbaTagQueue.shift();
+            window._rgba_tags.push(item);
+            console.log('[Ringba] tag flushed →', item);
+          }
+          return true;
+        } catch (e) {
+          console.warn('[Ringba] flush error', e);
+          return false;
+        }
+      }
 
+      // poll for readiness (script loaded & push method available)
+      (function __watchRingbaReady(){
+        var tries = 0;
+        var maxTries = 120; // ~60s at 500ms
+        var iv = setInterval(function(){
+          tries++;
+          var canPush = !!(window._rgba_tags && typeof window._rgba_tags.push === 'function');
+          if (canPush) {
+            __flushRingbaQueue();
+            clearInterval(iv);
+          }
+          if (tries >= maxTries) {
+            clearInterval(iv);
+            if (!canPush) {
+              console.warn('[Ringba] still not ready after waiting — likely blocked.');
+            }
+          }
+        }, 500);
+      })();
 
+      // public helper to push tags safely at any time
+      function pushRingbaTag(key, value) {
+        var obj = {};
+        obj[key] = value;
+        try {
+          // always add to our queue (so we can replay later if needed)
+          window.__ringbaTagQueue.push(obj);
+          console.log('[Ringba] tag queued →', obj);
+          // attempt immediate flush if push exists
+          if (window._rgba_tags && typeof window._rgba_tags.push === 'function') {
+            __flushRingbaQueue();
+          }
+        } catch (e) {
+          console.warn('[Ringba] push error', e);
+        }
+        // update debug panel
+        if (window.__updateRingbaDebug) window.__updateRingbaDebug();
+      }
+
+      // tiny debug API for console
+      window.showRingbaState = function(){
+        return {
+          ringbaLoaded: window.__ringbaLoaded,
+          ringbaBlocked: window.__ringbaBlocked,
+          hasPush: !!(window._rgba_tags && typeof window._rgba_tags.push === 'function'),
+          _rgba_tags: window._rgba_tags,
+          localQueue: window.__ringbaTagQueue.slice()
+        };
+      };
+    </script>
+    <!-- ========= END RINGBA ========= -->
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-PKBQ2L5S');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "sd8b13254n");
+    </script>
+
+    <!-- TikTok Pixel -->
+    <script>
+      !function (w, d, t) {
+        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+        ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+        var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o[e]=n||{};n=document.createElement("script")
+        ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+        ttq.load('CV0AU8BC77UBQA5N4G9G');
+        ttq.page();
+      }(window, document, 'ttq');
+    </script>
+    <!-- End TikTok Pixel -->
+  </head>
 
   <body>
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKBQ2L5S"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    <div class="div1" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-      <!-- <img src="./bur.png" alt="Policy Benefits" /> -->
-      <img src="./bur.png" alt="Policy Benefits" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKBQ2L5S"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
+    <div class="div1" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
+      <img src="./bur.png" alt="Policy Benefits" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
     </div>
+
     <div class="div2" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
       <img src="./live.png" alt="Live" />
-      <span
-        ><strong id="counter">22,563</strong> Seniors Enrolled In Last 24
-        Hours!</span
-      >
+      <span><strong id="counter">22,563</strong> Seniors Enrolled In Last 24 Hours!</span>
     </div>
 
-    <div class="div6" >
+    <div class="div6">
       <div class="div7">
         <div class="div8" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
           Final Call For Citizens Over 50 To Claim Their $25,000 Burial Protection Plan! 
@@ -80,37 +167,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="div12">Answer The Question Below To Proceed:</div>
         </div>
       </div>
+
       <div class="div13">
         <div class="div14">
           <span id="quizQuestion">1. What's Your Age Range?</span>
         </div>
         <div class="div15" id="answerOptions">
+          <!-- Your options (unchanged), now push tags -->
           <div class="div16" onclick="handleQuizP('50-65')">50-65</div>
           <div class="div16" onclick="handleQuizN('65-80')">65-80</div>
-          <div class="div16" id="ageOption80Plus" onclick="handleQuizP('80+')">
-            80+
-          </div>
+          <div class="div16" id="ageOption80Plus" onclick="handleQuizP('80+')">80+</div>
         </div>
         <div class="div17">
           <div class="div18"></div>
-          <span
-            ><em
-              ><span id="claim">72</span> People Are Claiming Right Now!</em
-            ></span
-          >
+          <span><em><span id="claim">72</span> People Are Claiming Right Now!</em></span>
         </div>
       </div>
     </div>
+
     <div class="div4 div5" id="status">
       <span id="statusMessage"></span>
     </div>
+
     <div class="div4 div5" id="congratulations">
       <div class="div19">Congratulations, You Qualify 🎉</div>
       <div class="div20">
         Make A <span>Quick Call</span> To Claim Your $25,000 Funeral Benefit Coverage Now!
       </div>
       <div class="div21">Spots remaining: 4</div>
-            <div class="div99"> <h2>Tap Below To Call Now! 👇</h2></div>
+      <div class="div99"><h2>Tap Below To Call Now! 👇</h2></div>
       <div class="div22" onclick="handleCall()">
         <a href="tel:+13214858035">CALL (321) 485-8035</a>
       </div>
@@ -124,22 +209,61 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="div25" id="seconds">52</div>
       </div>
     </div>
+
     <div class="div26">
       Beware of other fraudulent & similar-looking websites that might look
       exactly like ours, we have no affiliation with them. This is the only
       official website to claim your Final Expense Benefit with the domain name
       policybenefits.org
-
       <div class="div27">
         <a href="/terms.html">Terms & Conditions</a> |
         <a href="/privacy.html">Privacy Policy</a>
       </div>
     </div>
+
     <div id="image-container">
       <img src="baarish.GIF" alt="" />
     </div>
 
+    <!-- ====== DEBUG PANEL (toggleable) ====== -->
+    <style>
+      #ringba-debug {
+        position: fixed; right: 12px; bottom: 12px; z-index: 9999;
+        background: rgba(15,15,15,.9); color:#fff; padding:10px 12px;
+        border-radius:10px; font: 12px/1.3 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        max-width: 300px; display:none;
+      }
+      #ringba-debug pre{white-space:pre-wrap;word-break:break-word;margin:6px 0 0}
+      #ringba-debug button{margin-left:8px}
+    </style>
+    <div id="ringba-debug">
+      <div><strong>Ringba Debug</strong>
+        <button onclick="document.getElementById('ringba-debug').style.display='none'">Hide</button>
+      </div>
+      <pre id="ringba-debug-pre"></pre>
+    </div>
     <script>
+      // keyboard: press backtick ` to toggle debug panel
+      document.addEventListener('keydown', function(e){
+        if(e.key === '`'){ 
+          var box = document.getElementById('ringba-debug');
+          box.style.display = (box.style.display==='block'?'none':'block');
+          if (window.__updateRingbaDebug) window.__updateRingbaDebug();
+        }
+      });
+      window.__updateRingbaDebug = function(){
+        var pre = document.getElementById('ringba-debug-pre');
+        if (!pre) return;
+        var state = window.showRingbaState();
+        pre.textContent = JSON.stringify(state, null, 2);
+      };
+      // auto-initialize debug content once
+      setTimeout(window.__updateRingbaDebug, 1000);
+    </script>
+    <!-- ====== END DEBUG ====== -->
+
+    <script>
+      // ===== Your original logic (untouched) =====
       let step = "process";
       let quizQuestion = "1. Are you over the age of 64?";
       const statusDiv = document.getElementById("status");
@@ -152,6 +276,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const counter = document.getElementById("counter");
       const claim = document.getElementById("claim");
       const imageContainer = document.getElementById("image-container");
+
       setInterval(() => {
         if (counter) {
           let previousNumber = parseInt(counter.innerText.replace(/,/g, ""));
@@ -160,6 +285,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           counter.innerText = newNumber.toLocaleString();
         }
       }, 3000);
+
       setInterval(() => {
         if (claim) {
           let previousNumber = parseInt(claim.innerText);
@@ -169,6 +295,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }, 3000);
 
       function handleQuizP(ageValue) {
+        // When question is the Age question, push the selected age as a Ringba tag
+        if (quizText && /age/i.test(quizText.textContent)) {
+          pushRingbaTag('age_range', ageValue || 'selected_yes');
+        }
         if (quizQuestion === "1. Are you over the age of 64?") {
           quizQuestion = "2. Are you a U.S. Citizen?";
           quizText.textContent = quizQuestion;
@@ -180,6 +310,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
 
       function handleQuizN(ageValue) {
+        if (quizText && /age/i.test(quizText.textContent)) {
+          pushRingbaTag('age_range', ageValue || 'selected_no');
+        }
         if (quizQuestion === "1. Are you over the age of 64?") {
           quizQuestion = "2. Are you a U.S. Citizen?";
           quizText.textContent = quizQuestion;
@@ -192,16 +325,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       function setYesNoOptions() {
         answerOptions.innerHTML = `
-                <div class="div16" onclick="stepProcess('yes','Above-25K')">Yes</div>
-                <div class="div16" onclick="stepProcess('no','No')">No</div>
-            `;
+          <div class="div16" onclick="stepProcess('yes','Above-25K')">Yes</div>
+          <div class="div16" onclick="stepProcess('no','No')">No</div>
+        `;
       }
 
       function smoothScrollToTop(duration, targetPosition = 0) {
         const startPosition = window.pageYOffset;
         const distance = targetPosition - startPosition;
         let startTime = null;
-
         function animation(currentTime) {
           if (startTime === null) startTime = currentTime;
           const timeElapsed = currentTime - startTime;
@@ -209,14 +341,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           window.scrollTo(0, run);
           if (timeElapsed < duration) requestAnimationFrame(animation);
         }
-
         function ease(t, b, c, d) {
           t /= d / 2;
           if (t < 1) return (c / 2) * t * t + b;
           t--;
           return (-c / 2) * (t * (t - 2) - 1) + b;
         }
-
         requestAnimationFrame(animation);
       }
 
@@ -226,7 +356,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         mainContent.classList.add("div5");
         statusDiv.classList.remove("div5");
         statusMessage.textContent = "Reviewing Your Answers...";
-
         setTimeout(() => {
           statusMessage.textContent = "Verifying Availability...";
           setTimeout(() => {
@@ -250,9 +379,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         congratulationsDiv.classList.remove("div5");
         imageContainer.style.display = "block";
         startTimer();
-        setTimeout(() => {
-          imageContainer.style.display = "none";
-        }, 2000);
+        setTimeout(() => { imageContainer.style.display = "none"; }, 2000);
         setTimeout(() => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }, 100);
@@ -266,14 +393,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           minutesEl.textContent = minutes;
           secondsEl.textContent = seconds < 10 ? "0" + seconds : seconds;
           totalSeconds--;
-
-          if (totalSeconds < 0) {
-            clearInterval(timer);
-          }
+          if (totalSeconds < 0) clearInterval(timer);
         }, 1000);
       }
 
       function handleCall() {}
+      // ===== End original logic =====
     </script>
   </body>
 </html>
