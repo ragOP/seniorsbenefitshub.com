@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="keywords"
+      content="final expense benefits, burial insurance, funeral costs, end of life expenses, life insurance benefits, qualify for benefits"
+    />
+    <link rel="icon" type="image/jpeg" href="icon.jpg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --sage: #ccc9a1;
+        --nyanza: #f0ffce;
+        --chestnut: #a53f2b;
+        --seal-brown: #4c230a;
+        --black-bean: #280004;
+        --white: #ffffff;
+        --sage-light: #e1deb8;
+        --sage-dark: #b5b28a;
+        --chestnut-light: #c4563e;
+        --shadow: rgba(40, 0, 4, 0.15);
+        --shadow-light: rgba(40, 0, 4, 0.08);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(
+          135deg,
+          var(--nyanza) 0%,
+          var(--sage-light) 100%
+        );
+        color: var(--black-bean);
+        line-height: 1.6;
+        min-height: 100vh;
+      }
+
+      /* Mobile-first Alert Banner */
+      .alert-banner {
+        background: linear-gradient(
+          90deg,
+          var(--chestnut) 0%,
+          var(--chestnut-light) 100%
+        );
+        color: var(--white);
+        padding: 0.75rem 1rem;
+        text-align: center;
+        font-size: 0.85rem;
+        font-weight: 600;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .alert-banner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        animation: shimmer 3s infinite;
+      }
+
+      /* Modern Card-based Header */
+      .hero-section {
+        padding: 2rem 1rem 1rem 1rem;
+        text-align: center;
+      }
+
+      .hero-card {
+        background: var(--white);
+        border-radius: 24px;
+        padding: 2rem 1.5rem;
+        box-shadow: 0 8px 32px var(--shadow), 0 4px 16px var(--shadow-light);
+        border: 2px solid var(--sage);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(
+          90deg,
+          var(--chestnut),
+          var(--sage),
+          var(--chestnut)
+        );
+        background-size: 200% 100%;
+        animation: gradientMove 4s ease-in-out infinite;
+      }
+
+      .hero-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--black-bean);
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        color: var(--seal-brown);
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+      }
+
+      .benefit-amount {
+        display: inline-block;
+        background: linear-gradient(
+          135deg,
+          var(--chestnut),
+          var(--chestnut-light)
+        );
+        color: var(--white);
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 16px rgba(165, 63, 43, 0.3);
+        animation: pulse 2s infinite;
+      }
+
+      /* Revolutionary Quiz Container */
+      .quiz-wrapper {
+        padding: 0 1rem 2rem 1rem;
+      }
+
+      .quiz-container {
+        background: var(--white);
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: 0 12px 48px var(--shadow), 0 8px 24px var(--shadow-light);
+        border: 3px solid var(--sage);
+        position: relative;
+      }
+
+      /* Innovative Progress System */
+      .progress-header {
+        background: linear-gradient(
+          135deg,
+          var(--seal-brown),
+          var(--black-bean)
+        );
+        color: var(--white);
+        padding: 1.5rem 1.5rem 2rem 1.5rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .progress-circles {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .progress-circle {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        position: relative;
+        transition: all 0.4s ease;
+      }
+
+      .progress-circle.active {
+        background: var(--nyanza);
+        box-shadow: 0 0 20px rgba(240, 255, 206, 0.6);
+        transform: scale(1.3);
+      }
+
+      .progress-circle.completed {
+        background: var(--sage);
+        box-shadow: 0 0 15px rgba(204, 201, 161, 0.5);
+      }
+
+      .step-indicator {
+        font-size: 0.9rem;
+        font-weight: 600;
+        opacity: 0.9;
+      }
+
+      /* Revolutionary Question Cards */
+      .question-container {
+        padding: 2rem 1.5rem;
+        min-height: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .question-step {
+        display: none;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+      }
+
+      .question-step.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .question-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .question-number {
+        display: inline-block;
+        background: var(--sage);
+        color: var(--seal-brown);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        line-height: 40px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 12px var(--shadow-light);
+      }
+
+      .question-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--black-bean);
+        line-height: 1.3;
+        margin-bottom: 0.5rem;
+      }
+
+      .question-subtitle {
+        font-size: 0.9rem;
+        color: var(--seal-brown);
+        opacity: 0.8;
+      }
+
+      /* Modern Answer Buttons */
+      .answer-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .answer-option {
+        background: linear-gradient(135deg, var(--white), var(--sage-light));
+        border: 2px solid var(--sage);
+        border-radius: 16px;
+        padding: 1.25rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-family: "Inter", sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--black-bean);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .answer-option::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(165, 63, 43, 0.1),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .answer-option:hover::before {
+        left: 100%;
+      }
+
+      .answer-option:hover {
+        border-color: var(--chestnut);
+        background: linear-gradient(135deg, var(--nyanza), var(--sage));
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px var(--shadow);
+      }
+
+      .answer-option:active {
+        transform: translateY(0);
+      }
+
+      .answer-text {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .answer-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--sage);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        font-weight: 800;
+        color: var(--seal-brown);
+      }
+
+      .answer-arrow {
+        color: var(--chestnut);
+        font-size: 1.2rem;
+        font-weight: 800;
+        transition: transform 0.3s ease;
+      }
+
+      .answer-option:hover .answer-arrow {
+        transform: translateX(4px);
+      }
+
+      /* Loading Animation Redesign */
+      .loading-container {
+        text-align: center;
+        padding: 2rem 1.5rem;
+      }
+
+      .loading-animation {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 2rem auto;
+      }
+
+      .loading-ring {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 3px solid transparent;
+        border-radius: 50%;
+        animation: spin 2s linear infinite;
+      }
+
+      .loading-ring:nth-child(1) {
+        border-top-color: var(--chestnut);
+        animation-duration: 2s;
+      }
+
+      .loading-ring:nth-child(2) {
+        width: 70%;
+        height: 70%;
+        top: 15%;
+        left: 15%;
+        border-top-color: var(--sage);
+        animation-duration: 1.5s;
+        animation-direction: reverse;
+      }
+
+      .loading-ring:nth-child(3) {
+        width: 40%;
+        height: 40%;
+        top: 30%;
+        left: 30%;
+        border-top-color: var(--seal-brown);
+        animation-duration: 1s;
+      }
+
+      .loading-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--black-bean);
+        margin-bottom: 1.5rem;
+      }
+
+      .status-list {
+        text-align: left;
+        max-width: 320px;
+        margin: 0 auto 1.5rem auto;
+      }
+
+      .status-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.75rem;
+        background: linear-gradient(135deg, var(--nyanza), var(--sage-light));
+        border-radius: 12px;
+        border-left: 4px solid var(--sage);
+        transition: all 0.4s ease;
+      }
+
+      .status-item.completed {
+        background: linear-gradient(135deg, var(--sage-light), var(--sage));
+        border-left-color: var(--chestnut);
+        transform: scale(1.02);
+      }
+
+      .status-icon-circle {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        font-weight: 800;
+        background: var(--white);
+        color: var(--seal-brown);
+        box-shadow: 0 2px 8px var(--shadow-light);
+      }
+
+      .status-item.completed .status-icon-circle {
+        background: var(--chestnut);
+        color: var(--white);
+      }
+
+      .status-text {
+        flex: 1;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--black-bean);
+      }
+
+      .status-result {
+        font-weight: 800;
+        transition: all 0.3s ease;
+      }
+
+      .status-result.eligible {
+        color: var(--chestnut);
+      }
+
+      .status-result.low {
+        color: var(--chestnut);
+      }
+
+      .status-result.reserved {
+        color: var(--chestnut);
+      }
+
+      /* Results Section */
+      .result-container {
+        text-align: center;
+        padding: 2rem 1.5rem;
+      }
+
+      .result-badge {
+        display: inline-block;
+        background: linear-gradient(
+          135deg,
+          var(--chestnut),
+          var(--chestnut-light)
+        );
+        color: var(--white);
+        padding: 0.5rem 1.25rem;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 16px rgba(165, 63, 43, 0.3);
+      }
+
+      .result-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--black-bean);
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+
+      .result-description {
+        font-size: 1rem;
+        color: var(--seal-brown);
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+      }
+
+      .cta-instruction {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--black-bean);
+        margin-bottom: 1.5rem;
+      }
+
+      /* Revolutionary CTA Button */
+      .cta-button {
+        background: linear-gradient(
+          135deg,
+          var(--chestnut),
+          var(--chestnut-light)
+        );
+        color: var(--white);
+        border: none;
+        border-radius: 20px;
+        padding: 1.25rem 2rem;
+        font-family: "Poppins", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 8px 32px rgba(165, 63, 43, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .cta-button:hover::before {
+        left: 100%;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(165, 63, 43, 0.4);
+      }
+
+      .cta-button:active {
+        transform: translateY(-1px);
+      }
+
+      .phone-icon {
+        width: 24px;
+        height: 24px;
+        animation: shake 3s infinite;
+      }
+
+      .cta-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .phone-number {
+        font-size: 1.2rem;
+        font-weight: 900;
+        letter-spacing: 0.05em;
+      }
+
+      .cta-text {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        font-weight: 600;
+      }
+
+      /* Modern Footer */
+      .footer-section {
+        background: linear-gradient(
+          135deg,
+          var(--black-bean),
+          var(--seal-brown)
+        );
+        color: var(--white);
+        margin-top: 3rem;
+      }
+
+      .footer-content {
+        padding: 2.5rem 1rem 1.5rem 1rem;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-column {
+        text-align: center;
+      }
+
+      .footer-column h3 {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--sage);
+        margin-bottom: 1rem;
+      }
+
+      .footer-list {
+        list-style: none;
+      }
+
+      .footer-list li {
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .footer-list li::before {
+        content: "•";
+        color: var(--sage);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(204, 201, 161, 0.2);
+      }
+
+      .footer-links a {
+        color: var(--sage);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--nyanza);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding: 1rem;
+        border-top: 1px solid rgba(204, 201, 161, 0.2);
+        font-size: 0.8rem;
+        color: var(--sage-light);
+      }
+
+      /* Security Badge */
+      .security-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+        padding: 0.75rem 1rem;
+        background: rgba(204, 201, 161, 0.1);
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--sage);
+      }
+
+      /* Animations */
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      @keyframes gradientMove {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateX(-2px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateX(2px);
+        }
+      }
+
+      /* Responsive Design for larger screens */
+      @media (min-width: 768px) {
+        .hero-section {
+          padding: 3rem 2rem 2rem 2rem;
+        }
+
+        .hero-card {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 3rem 2.5rem;
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .quiz-wrapper {
+          padding: 0 2rem 3rem 2rem;
+        }
+
+        .quiz-container {
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        .footer-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .footer-column {
+          text-align: left;
+        }
+      }
+
+      /* Hide elements for specific steps */
+      .question-step#finalCTA .progress-header,
+      .question-step#loadingStep .progress-header,
+      .question-step#sorryStep .progress-header {
+        display: none;
+      }
+
+      .quiz-container:has(#finalCTA.active) .progress-header,
+      .quiz-container:has(#loadingStep.active) .progress-header,
+      .quiz-container:has(#sorryStep.active) .progress-header {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Alert Banner -->
+    <div class="alert-banner">
+      🚨 Limited Time: Americans 55+ May Qualify for $50K Benefits
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-card">
+        <h1 class="hero-title">Secure Your Family's Future Today</h1>
+        <p class="hero-subtitle">
+          Quick eligibility check for comprehensive final expense coverage
+        </p>
+        <div class="benefit-amount">Up to $50,000 Coverage</div>
+      </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section class="quiz-wrapper">
+      <div class="quiz-container">
+        <!-- Progress Header -->
+        <div class="progress-header">
+          <div class="progress-circles">
+            <div class="progress-circle active" id="circle1"></div>
+            <div class="progress-circle" id="circle2"></div>
+            <div class="progress-circle" id="circle3"></div>
+            <div class="progress-circle" id="circle4"></div>
+          </div>
+          <div class="step-indicator" id="stepIndicator">Step 1 of 3</div>
+        </div>
+
+        <!-- Question Container -->
+        <div class="question-container">
+          <!-- Question 1 -->
+          <div class="question-step active" id="step1">
+            <div class="question-header">
+              <div class="question-number">1</div>
+              <h3 class="question-title">What's your current age range?</h3>
+              <p class="question-subtitle">
+                This helps us determine your eligibility tier
+              </p>
+            </div>
+            <div class="answer-grid">
+              <button class="answer-option" onclick="nextQuestion(1, 'yes')">
+                <div class="answer-text">
+                  <div class="answer-icon">✓</div>
+                  <span>Between 55 and 75 years old</span>
+                </div>
+                <div class="answer-arrow">→</div>
+              </button>
+              <button class="answer-option" onclick="nextQuestion(1, 'no')">
+                <div class="answer-text">
+                  <div class="answer-icon">✗</div>
+                  <span>Outside this age range</span>
+                </div>
+                <div class="answer-arrow">→</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="question-step" id="step2">
+            <div class="question-header">
+              <div class="question-number">2</div>
+              <h3 class="question-title">Banking Information</h3>
+              <p class="question-subtitle">Required for premium payments</p>
+            </div>
+            <div class="answer-grid">
+              <button class="answer-option" onclick="nextQuestion(2, 'yes')">
+                <div class="answer-text">
+                  <div class="answer-icon">🏦</div>
+                  <span>Yes, I have an active checking account</span>
+                </div>
+                <div class="answer-arrow">→</div>
+              </button>
+              <button class="answer-option" onclick="nextQuestion(2, 'no')">
+                <div class="answer-text">
+                  <div class="answer-icon">✗</div>
+                  <span>No, I don't have one</span>
+                </div>
+                <div class="answer-arrow">→</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="question-step" id="step3">
+            <div class="question-header">
+              <div class="question-number">3</div>
+              <h3 class="question-title">Current Coverage Status</h3>
+              <p class="question-subtitle">
+                Help us understand your existing protection
+              </p>
+            </div>
+            <div class="answer-grid">
+              <button class="answer-option" onclick="nextQuestion(3)">
+                <div class="answer-text">
+                  <div class="answer-icon">📋</div>
+                  <span>Yes, I have current life insurance</span>
+                </div>
+                <div class="answer-arrow">→</div>
+              </button>
+              <button class="answer-option" onclick="nextQuestion(3)">
+                <div class="answer-text">
+                  <div class="answer-icon">🆕</div>
+                  <span>No, I need new coverage</span>
+                </div>
+                <div class="answer-arrow">→</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Loading Step -->
+          <div class="question-step" id="loadingStep">
+            <div class="loading-container">
+              <div class="loading-animation">
+                <div class="loading-ring"></div>
+                <div class="loading-ring"></div>
+                <div class="loading-ring"></div>
+              </div>
+              <h3 class="loading-title">Processing Your Application</h3>
+              <div class="status-list">
+                <div class="status-item" id="status1">
+                  <div class="status-icon-circle">1</div>
+                  <div class="status-text">
+                    Eligibility Status:
+                    <span class="status-result" id="eligibilityResult"></span>
+                  </div>
+                </div>
+                <div class="status-item" id="status2">
+                  <div class="status-icon-circle">2</div>
+                  <div class="status-text">
+                    Agent Availability:
+                    <span class="status-result" id="availabilityResult"></span>
+                  </div>
+                </div>
+                <div class="status-item" id="status3">
+                  <div class="status-icon-circle">3</div>
+                  <div class="status-text">
+                    Securing Your Spot:
+                    <span class="status-result" id="reservingResult"></span>
+                  </div>
+                </div>
+              </div>
+              <p
+                style="
+                  font-size: 0.9rem;
+                  color: var(--seal-brown);
+                  opacity: 0.8;
+                "
+              >
+                Please hold while we connect you with a specialist...
+              </p>
+            </div>
+          </div>
+
+          <!-- Sorry Step -->
+          <div class="question-step" id="sorryStep">
+            <div class="result-container">
+              <div
+                class="result-badge"
+                style="background: linear-gradient(135deg, #dc2626, #991b1b)"
+              >
+                Application Status
+              </div>
+              <h3 class="result-title">We're Sorry</h3>
+              <p class="result-description">
+                Based on your responses, you don't meet our current eligibility
+                requirements for this final expense program.
+              </p>
+              <p
+                style="
+                  font-size: 0.9rem;
+                  color: var(--seal-brown);
+                  opacity: 0.8;
+                  margin-top: 1.5rem;
+                "
+              >
+                Requirements may change in the future. Thank you for your
+                interest.
+              </p>
+            </div>
+          </div>
+
+          <!-- Success Step -->
+          <div class="question-step" id="finalCTA">
+            <div class="result-container">
+              <div class="result-badge">Congratulations!</div>
+              <h3 class="result-title">You're Pre-Qualified!</h3>
+              <p class="result-description">
+                Based on your answers, you may qualify for up to $25,000 in
+                final expense benefits at an affordable monthly rate.
+              </p>
+              <p class="cta-instruction">
+                Connect with a licensed specialist now to confirm your
+                eligibility:
+              </p>
+
+              <a href="tel:+18556940234" class="cta-button">
+                <svg
+                  class="phone-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+                <div class="cta-content">
+                  <div class="phone-number">855-694-0234</div>
+                  <div class="cta-text">Call Now for Free Quote</div>
+                </div>
+              </a>
+
+              <div class="security-badge">
+                🔒 Your information is completely secure & protected
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+      <div class="footer-content">
+        <div class="footer-grid">
+          <div class="footer-column">
+            <h3>About Our Service</h3>
+            <ul class="footer-list">
+              <li>Licensed insurance marketplace</li>
+              <li>Connect with local agents</li>
+              <li>Compare multiple quotes</li>
+              <li>No obligation consultations</li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Important Disclaimers</h3>
+            <ul class="footer-list">
+              <li>Results may vary by individual</li>
+              <li>Rates depend on health & age</li>
+              <li>Not all applicants qualify</li>
+              <li>Subject to underwriting approval</li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Your Rights</h3>
+            <ul class="footer-list">
+              <li>No purchase required to compare</li>
+              <li>Cancel anytime during free look</li>
+              <li>Licensed agent assistance</li>
+              <li>Transparent pricing always</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <a href="https://savingshero.org/privacy.html">Privacy Policy</a>
+          <a href="https://savingshero.org/terms.html">Terms of Service</a>
+          <a href="https://savingshero.org/contact.html">Contact Us</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          © 2025 SavingsHero.org - We help you find affordable insurance
+          solutions through our licensed partner network.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      let currentStep = 1;
+      const totalSteps = 4;
+
+      // Update progress circles
+      function updateProgressCircles() {
+        for (let i = 1; i <= 4; i++) {
+          const circle = document.getElementById(`circle${i}`);
+          if (i < currentStep) {
+            circle.className = "progress-circle completed";
+          } else if (i === currentStep) {
+            circle.className = "progress-circle active";
+          } else {
+            circle.className = "progress-circle";
+          }
+        }
+
+        // Update step indicator
+        const stepIndicator = document.getElementById("stepIndicator");
+        if (currentStep <= 3) {
+          stepIndicator.textContent = `Step ${currentStep} of 3`;
+        }
+      }
+
+      function nextQuestion(stepNumber, answer) {
+        // Hide current step
+        document.getElementById(`step${stepNumber}`).classList.remove("active");
+
+        // Check if user answered "no" to qualifying questions
+        if ((stepNumber === 1 || stepNumber === 2) && answer === "no") {
+          // Show sorry step for disqualification
+          document.getElementById("sorryStep").classList.add("active");
+          currentStep = 5; // Set to sorry step
+
+          // Track disqualification event
+          if (typeof gtag !== "undefined") {
+            gtag("event", "quiz_disqualified", {
+              event_category: "quiz",
+              event_label: `step_${stepNumber}_no`,
+              value: stepNumber,
+            });
+          }
+          return;
+        }
+
+        // Show next step
+        if (stepNumber < 3) {
+          document
+            .getElementById(`step${stepNumber + 1}`)
+            .classList.add("active");
+          currentStep = stepNumber + 1;
+        } else {
+          // Show loading step first
+          document.getElementById("loadingStep").classList.add("active");
+          currentStep = 4;
+
+          // Start the loading animation sequence
+          startLoadingSequence();
+        }
+
+        // Update progress
+        updateProgressCircles();
+
+        // Track progress event
+        if (typeof gtag !== "undefined") {
+          gtag("event", "quiz_progress", {
+            event_category: "quiz",
+            event_label: `step_${currentStep}`,
+            value: currentStep,
+          });
+        }
+      }
+
+      // Loading sequence functionality
+      function startLoadingSequence() {
+        // Animate status items sequentially
+        setTimeout(() => {
+          document.getElementById("status1").classList.add("completed");
+          document.getElementById("eligibilityResult").textContent = "Eligible";
+          document
+            .getElementById("eligibilityResult")
+            .classList.add("eligible");
+        }, 800);
+
+        setTimeout(() => {
+          document.getElementById("status2").classList.add("completed");
+          document.getElementById("availabilityResult").textContent =
+            "Available Now";
+          document.getElementById("availabilityResult").classList.add("low");
+        }, 1800);
+
+        setTimeout(() => {
+          document.getElementById("status3").classList.add("completed");
+          document.getElementById("reservingResult").textContent = "Reserved";
+          document.getElementById("reservingResult").classList.add("reserved");
+        }, 2800);
+
+        // After 4 seconds, show final CTA
+        setTimeout(() => {
+          document.getElementById("loadingStep").classList.remove("active");
+          document.getElementById("finalCTA").classList.add("active");
+        }, 4000);
+      }
+
+      // Initialize on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        updateProgressCircles();
+      });
+    </script>
+  </body>
+</html>
