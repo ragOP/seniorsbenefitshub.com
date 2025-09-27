@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Final Expense Benefits — Quick Match</title>
+  <meta name="description" content="Check eligibility for up to $50,000 in final expense benefits. Two quick questions, instant result, talk to a licensed specialist." />
+  <meta name="keywords" content="final expense benefits, burial insurance, funeral costs, end of life expenses, qualify for benefits" />
+  <link rel="icon" href="icon.jpg" type="image/jpeg" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root{
+      /* Fresh light palette */
+      --ink:#0f172a;           /* text */
+      --muted:#475569;         /* secondary text */
+      --line:#e5e7eb;          /* borders */
+      --card:#ffffff;          /* cards */
+      --bg:#f8fafc;            /* page base */
+
+      --accent:#7c3aed;        /* purple */
+      --accent-2:#22c55e;      /* green */
+      --accent-3:#06b6d4;      /* cyan */
+      --accent-warm:#f59e0b;   /* amber */
+
+      --glass: rgba(255,255,255,.55);
+
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+
+      --shadow-1: 0 12px 40px rgba(2,6,23,.10);
+      --shadow-2: 0 8px 26px rgba(2,6,23,.08);
+      --ring: 0 0 0 6px rgba(124,58,237,.12);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink); background:
+        radial-gradient(1200px 600px at 0% -10%, rgba(124,58,237,.18), transparent 50%),
+        radial-gradient(900px 500px at 110% 20%, rgba(34,197,94,.18), transparent 50%),
+        linear-gradient(180deg, var(--bg), #eef2ff 30%, var(--bg) 70%);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    /* Floating blobs */
+    .blob{
+      position:fixed; z-index:-1; filter:blur(40px); opacity:.55; pointer-events:none;
+      border-radius:50%;
+      animation:float 12s ease-in-out infinite alternate;
+    }
+    .b1{ width:420px; height:420px; background:#c4b5fd; top:-120px; left:-120px }
+    .b2{ width:360px; height:360px; background:#a7f3d0; bottom:10%; right:-120px; animation-duration:14s }
+    @keyframes float { to{ transform:translateY(25px) translateX(15px) } }
+
+    /* Top bar */
+    .notice{
+      position:sticky; top:0; z-index:40;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      background: linear-gradient(90deg, #a78bfa, #22d3ee, #86efac);
+      color:#0b1220; font-weight:900; letter-spacing:.25px;
+      padding:.8rem 1rem; box-shadow: var(--shadow-2); overflow:hidden;
+    }
+    .notice span{ position:relative; z-index:2 }
+    .notice::after{
+      content:""; position:absolute; inset:0; transform:translateX(-100%);
+      background:linear-gradient(120deg, transparent, rgba(255,255,255,.65), transparent);
+      animation:shine 3.2s linear infinite;
+    }
+    @keyframes shine { to{ transform:translateX(100%) } }
+
+    /* Container */
+    .wrap{ max-width:1120px; margin:0 auto; padding:24px; }
+
+    /* Header + Hero */
+    .hero{
+      display:grid; gap:24px; grid-template-columns:1fr; margin-top:18px;
+    }
+    @media(min-width:960px){ .hero{ grid-template-columns:1.05fr .95fr; align-items:stretch } }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-1);
+    }
+
+    .brand{
+      display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 18px 0 18px;
+    }
+    .brand-left{ display:flex; align-items:center; gap:12px }
+    .brand-badge{
+      width:46px; height:46px; border-radius:14px; display:grid; place-items:center;
+      font-weight:900; color:#fff; background: linear-gradient(135deg, var(--accent), var(--accent-3));
+      box-shadow: var(--ring);
+    }
+    .brand h1{ margin:0; font-family:Poppins, Inter, sans-serif; font-size:1.25rem }
+    .brand small{ display:block; color:var(--muted) }
+
+    .hero-card{ padding:22px 22px 26px 22px }
+    .headline{
+      font-family:Poppins, Inter, sans-serif; font-weight:900; line-height:1.15;
+      font-size: clamp(1.6rem, 3vw, 2.1rem); margin:12px 0 8px;
+      background: linear-gradient(90deg, #111827, #6d28d9 55%, #0f766e 100%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sub{ color:#475569; font-weight:600; margin-bottom:16px }
+
+    .benefit{
+      display:inline-flex; align-items:center; gap:10px; padding:10px 14px;
+      border-radius:999px; background:linear-gradient(180deg, rgba(124,58,237,.12), rgba(6,182,212,.12));
+      border:1px solid #e2e8f0; font-weight:800; letter-spacing:.3px;
+    }
+    .benefit .dot{ width:10px; height:10px; border-radius:50%; background:conic-gradient(#22c55e, #06b6d4, #a78bfa) }
+
+    /* Quiz */
+    .quiz{ display:flex; flex-direction:column; overflow:hidden }
+    .progress{
+      padding:16px 18px; border-bottom:1px solid var(--line);
+      background: linear-gradient(180deg,#fff, rgba(255,255,255,.75));
+      position:relative;
+    }
+    .steps-bar{
+      height:10px; border-radius:999px; background:#f1f5f9; border:1px solid var(--line);
+      overflow:hidden; position:relative;
+    }
+    .steps-fill{
+      height:100%; width:0%;
+      background:linear-gradient(90deg, #a78bfa, #06b6d4, #22c55e);
+      transition: width .45s cubic-bezier(.22,.8,.26,.99);
+      box-shadow: inset 0 0 10px rgba(124,58,237,.25);
+    }
+    .step-dots{ margin-top:10px; display:flex; gap:10px; justify-content:center }
+    .dot{ width:10px;height:10px;border-radius:999px;background:#cbd5e1; transition:.2s }
+    .dot.active{ background:#06b6d4; transform:scale(1.1) }
+    .dot.done{ background:#22c55e }
+
+    .stage{ padding:22px; min-height:340px; display:grid; place-items:center; position:relative }
+    .view{ width:100%; max-width:560px; display:none; opacity:0; transform:translateY(8px);
+           transition: opacity .35s ease, transform .35s ease }
+    .view.active{ display:block; opacity:1; transform:translateY(0) }
+
+    .q-head{ text-align:center; margin-bottom:18px }
+    .q-num{ width:42px; height:42px; border-radius:50%; display:grid; place-items:center; font-weight:900;
+            background:linear-gradient(135deg, #ede9fe, #cffafe); border:1px solid #e5e7eb }
+    .q-title{ font-family:Poppins; font-weight:800; font-size:1.25rem; margin:12px 0 6px }
+    .q-sub{ color:var(--muted); font-size:.96rem }
+
+    .answers{ display:grid; gap:12px }
+    .btn{
+      width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px;
+      background:linear-gradient(180deg, #ffffff, #fbfdff);
+      border:1px solid var(--line); border-radius: var(--radius-lg);
+      padding:14px 16px; cursor:pointer; text-align:left; font-weight:800; letter-spacing:.2px; color:var(--ink);
+      box-shadow: var(--shadow-2);
+      transition: transform .12s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover{ transform:translateY(-1px); border-color:#c7d2fe; box-shadow: 0 8px 30px rgba(124,58,237,.15) }
+    .btn:active{ transform:translateY(0) }
+    .btn .left{ display:flex; gap:12px; align-items:center }
+    .pill{
+      min-width:28px; height:28px; border-radius:999px; display:grid; place-items:center; font-weight:900;
+      background:radial-gradient(100% 100% at 20% 20%, #e9d5ff, #cffafe); border:1px solid #e2e8f0
+    }
+    .arrow{ font-weight:900; color:#6d28d9 }
+
+    /* Loading */
+    .loading{ display:grid; place-items:center; gap:18px; text-align:center }
+    .rings{ position:relative; width:90px; height:90px }
+    .ring{
+      position:absolute; inset:0; border:3px solid transparent; border-top-color:#7c3aed; border-radius:50%;
+      animation:spin 1.3s linear infinite
+    }
+    .ring:nth-child(2){ inset:10%; border-top-color:#06b6d4; animation-duration:1.05s }
+    .ring:nth-child(3){ inset:22%; border-top-color:#22c55e; animation-duration:.9s }
+    @keyframes spin{ to{ transform:rotate(360deg) } }
+
+    .status{ width:100%; max-width:420px; display:grid; gap:10px; margin:0 auto }
+    .st{
+      display:flex; align-items:center; gap:12px; background:rgba(124,58,237,.06);
+      border:1px solid #e9d5ff; padding:10px 12px; border-radius:12px
+    }
+    .n{ width:30px;height:30px;border-radius:10px; display:grid; place-items:center; font-weight:900;
+        background:#ede9fe; border:1px solid #ddd6fe }
+    .val{ font-weight:900 }
+    .ok{ color:#16a34a }
+    .warm{ color:#f59e0b }
+
+    /* Results */
+    .result{ text-align:center }
+    .badge{
+      display:inline-block; padding:8px 14px; border-radius:999px; font-weight:900;
+      background:linear-gradient(90deg, #a78bfa, #22d3ee, #86efac);
+      color:#0b1220; margin-bottom:12px; box-shadow: var(--ring)
+    }
+    .r-title{ font-family:Poppins; font-weight:900; font-size:clamp(1.4rem,2.4vw,1.9rem); margin:6px 0 10px }
+    .r-sub{ color:var(--muted); max-width:560px; margin:0 auto 16px }
+
+    .cta{
+      display:inline-flex; gap:12px; align-items:center; text-decoration:none;
+      background:linear-gradient(90deg, #22c55e, #16a34a);
+      color:#052e16; border:0; border-radius:16px; padding:14px 18px; font-weight:900; letter-spacing:.3px;
+      box-shadow: 0 12px 44px rgba(34,197,94,.35);
+      transition: transform .15s ease, box-shadow .2s ease
+    }
+    .cta:hover{ transform:translateY(-2px); box-shadow:0 18px 60px rgba(34,197,94,.45) }
+    .cta:active{ transform:translateY(0) }
+
+    .shield{ margin-top:12px; display:inline-flex; gap:8px; align-items:center; color:#64748b; font-weight:700 }
+    .sorry .badge{ background:linear-gradient(90deg,#fecaca,#ef4444) }
+    .sorry .cta{ display:none }
+
+    /* Footer */
+    footer{ margin-top:36px; border-top:1px solid var(--line); background:#fff8 }
+    .foot{ max-width:1120px; margin:0 auto; padding:26px 24px }
+    .grid{ display:grid; gap:22px; grid-template-columns:1fr }
+    @media(min-width:960px){ .grid{ grid-template-columns:repeat(3,1fr) } }
+    .fh{ color:#0f766e; font-family:Poppins; margin:0 0 10px; font-size:1.04rem }
+    .fl{ margin:0; padding-left:18px; color:#334155 }
+    .links{ display:flex; gap:18px; flex-wrap:wrap; margin-top:16px }
+    .links a{ color:#6d28d9; text-decoration:none; font-weight:800 }
+    .links a:hover{ text-decoration:underline }
+
+    /* Access & motion */
+    .sr-only{ position:absolute; width:1px;height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+    @media (prefers-reduced-motion: reduce){
+      .notice::after, .steps-fill, .btn, .cta, .ring { animation:none !important; transition:none !important }
+    }
+  </style>
+</head>
+<body>
+  <!-- Decorative blobs -->
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+
+  <!-- Sticky notice -->
+  <div class="notice" role="status" aria-live="polite">
+    <span>⚡ 55–75? You may pre-qualify for up to $50,000 in benefits</span>
+  </div>
+
+  <main class="wrap" id="main">
+    <section class="hero">
+      <!-- Left: Value -->
+      <article class="card hero-card" aria-labelledby="headline">
+        <div class="brand">
+          <div class="brand-left">
+            <div class="brand-badge" aria-hidden="true">SH</div>
+            <div>
+              <h1 style="margin:0">SavingsHero <small style="font-weight:600; color:#64748b; display:block">Licensed Marketplace</small></h1>
+            </div>
+          </div>
+          <img src="icon.jpg" alt="Brand icon" style="width:34px;height:34px;border-radius:8px;border:1px solid #e5e7eb;object-fit:cover" />
+        </div>
+
+        <h2 id="headline" class="headline">Protect Your Loved Ones with Simple, Affordable Coverage</h2>
+        <p class="sub">Answer two quick questions to check your match. No commitments. Speak to a licensed specialist in minutes.</p>
+
+        <div class="benefit" aria-label="Potential coverage up to $50,000">
+          <span class="dot" aria-hidden="true"></span>
+          Up to <strong>$50,000</strong> final expense coverage
+        </div>
+      </article>
+
+      <!-- Right: Quiz -->
+      <article class="card quiz" aria-labelledby="quizTitle">
+        <div class="progress" aria-hidden="true">
+          <div class="steps-bar"><div id="bar" class="steps-fill"></div></div>
+          <div class="step-dots" aria-hidden="true">
+            <div id="d1" class="dot active"></div>
+            <div id="d2" class="dot"></div>
+            <div id="d3" class="dot"></div>
+          </div>
+        </div>
+
+        <div class="stage">
+          <!-- Q1 -->
+          <section id="view-q1" class="view active" role="group" aria-labelledby="q1-title">
+            <div class="q-head">
+              <div class="q-num" aria-hidden="true">1</div>
+              <h3 id="q1-title" class="q-title">Are you between 55 and 75 years old?</h3>
+              <p class="q-sub">Age determines eligibility tiers and available plans.</p>
+            </div>
+            <div class="answers">
+              <button class="btn" data-next="q2" data-qualify="yes" aria-label="Yes, between 55 and 75">
+                <span class="left"><span class="pill">✓</span> Yes</span><span class="arrow">→</span>
+              </button>
+              <button class="btn" data-next="sorry" data-qualify="no" aria-label="No, outside this range">
+                <span class="left"><span class="pill">✗</span> No</span><span class="arrow">→</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- Q2 -->
+          <section id="view-q2" class="view" role="group" aria-labelledby="q2-title">
+            <div class="q-head">
+              <div class="q-num" aria-hidden="true">2</div>
+              <h3 id="q2-title" class="q-title">Do you have an active checking account?</h3>
+              <p class="q-sub">Required for premium payments and policy activation.</p>
+            </div>
+            <div class="answers">
+              <button class="btn" data-next="loading" data-qualify="yes" aria-label="Yes, I have an active checking account">
+                <span class="left"><span class="pill">🏦</span> Yes</span><span class="arrow">→</span>
+              </button>
+              <button class="btn" data-next="sorry" data-qualify="no" aria-label="No, I don't have one">
+                <span class="left"><span class="pill">✗</span> No</span><span class="arrow">→</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- Loading -->
+          <section id="view-loading" class="view" aria-live="polite" aria-busy="true">
+            <div class="loading" role="status">
+              <div class="rings" aria-hidden="true">
+                <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+              </div>
+              <h3 class="q-title" style="text-align:center">Checking Availability…</h3>
+              <div class="status">
+                <div class="st"><div class="n">1</div><div>Eligibility: <span id="s-elig" class="val">Reviewing</span></div></div>
+                <div class="st"><div class="n">2</div><div>Agent Status: <span id="s-slot" class="val">Searching</span></div></div>
+                <div class="st"><div class="n">3</div><div>Reserving Spot: <span id="s-resv" class="val">Pending</span></div></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Sorry -->
+          <section id="view-sorry" class="view sorry" aria-labelledby="sorry-title">
+            <div class="result">
+              <div class="badge" aria-hidden="true">Application Status</div>
+              <h3 id="sorry-title" class="r-title">We’re Sorry</h3>
+              <p class="r-sub">Based on your answers, you don’t meet the current criteria for this program. Requirements may change—feel free to check back later.</p>
+            </div>
+          </section>
+
+          <!-- Final CTA -->
+          <section id="view-final" class="view" aria-labelledby="final-title">
+            <div class="result">
+              <div class="badge" aria-hidden="true">Congratulations</div>
+              <h3 id="final-title" class="r-title">You’re Pre-Qualified!</h3>
+              <p class="r-sub">You may be eligible for up to <strong>$25,000</strong> in final expense benefits. Speak with a licensed specialist now to confirm your eligibility and get a free quote.</p>
+              <a class="cta" href="tel:+18556940234" aria-label="Call now 855-694-0234">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3 5c0-1.1.9-2 2-2h3.28c.43 0 .82.28.95.69l1.5 4.59c.15.47-.06.98-.5 1.2l-2.1 1.05c1.3 2.9 3.54 5.14 6.44 6.44l1.05-2.1c.22-.44.73-.65 1.2-.5l4.6 1.5c.4.13.68.52.68.95V19c0 1.1-.9 2-2 2h-1C9.72 21 3 14.28 3 6V5Z" stroke="#052e16" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+                <span><div style="font-size:1.12rem;font-weight:900">855-694-0234</div><small>Tap to connect now</small></span>
+              </a>
+              <div class="shield">🔒 Your information is secure & protected</div>
+            </div>
+          </section>
+        </div>
+      </article>
+    </section>
+
+    <!-- Info & Disclaimers -->
+    <section class="wrap" style="padding-left:0;padding-right:0">
+      <div class="card" style="padding:20px; margin-top:22px">
+        <div class="grid">
+          <div>
+            <h3 class="fh" style="margin-top:0">Why Choose Us</h3>
+            <ul class="fl">
+              <li>Licensed, independent marketplace — compare multiple options fast</li>
+              <li>No obligation to enroll; speak with a real licensed agent</li>
+              <li>Transparent pricing with budget-friendly plan tiers</li>
+              <li>Simple pre-qualification — most calls start in under 2 minutes</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="fh">Important Disclaimers</h3>
+            <ul class="fl">
+              <li>Eligibility and rates vary by age and health; underwriting may apply</li>
+              <li>We may not offer every plan in all areas; availability can change</li>
+              <li>Calling connects you to a licensed insurance agent</li>
+              <li>No purchase required to compare options</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="fh">Hours</h3>
+            <ul class="fl">
+              <li>Mon–Fri: 9:00am – 6:00pm ET</li>
+              <li>TTY 711</li>
+            </ul>
+          </div>
+        </div>
+        <div class="links" role="navigation" aria-label="Legal links">
+          <a href="https://savingshero.org/privacy.html">Privacy Policy</a>
+          <a href="https://savingshero.org/terms.html">Terms of Service</a>
+          <a href="https://savingshero.org/contact.html">Contact</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot">
+      <p style="margin:0 0 8px">© 2025 SavingsHero.org — We help you compare affordable final-expense options through our licensed partner network.</p>
+      <p style="margin:0;color:#64748b">Questions? Call <strong>855-694-0234</strong></p>
+    </div>
+  </footer>
+
+  <!-- Optional Org Schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"SavingsHero",
+    "url":"https://savingshero.org",
+    "logo":"https://savingshero.org/icon.jpg",
+    "contactPoint":[{"@type":"ContactPoint","telephone":"+1-855-694-0234","contactType":"customer support","areaServed":"US"}]
+  }
+  </script>
+
+  <script>
+    // Helper
+    const q = s => document.querySelector(s);
+    const qa = s => Array.from(document.querySelectorAll(s));
+
+    const views = {
+      q1: q("#view-q1"),
+      q2: q("#view-q2"),
+      loading: q("#view-loading"),
+      final: q("#view-final"),
+      sorry: q("#view-sorry")
+    };
+
+    const bar = q("#bar");
+    const dots = [q("#d1"), q("#d2"), q("#d3")];
+
+    function setProgress(stage){ // 1..3
+      const map = {1: 10, 2: 55, 3: 100};
+      bar.style.width = (map[stage] || 0) + "%";
+      dots.forEach((d,i)=>{
+        d.className = "dot" + (stage>i+1 ? " done" : stage===i+1 ? " active" : "");
+      });
+    }
+
+    function show(key){
+      qa(".view").forEach(v => { v.classList.remove("active"); v.setAttribute("aria-hidden","true"); });
+      views[key].classList.add("active");
+      views[key].removeAttribute("aria-hidden");
+    }
+
+    function track(ev, data={}){
+      try{
+        if(typeof gtag!=="undefined") gtag("event", ev, data);
+        if(window.dataLayer) window.dataLayer.push({event:ev, ...data});
+      }catch(e){}
+    }
+
+    // Button routing
+    qa(".btn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const next = btn.getAttribute("data-next");
+        const qualify = btn.getAttribute("data-qualify");
+
+        if(next==="sorry"){
+          setProgress(3);
+          show("sorry");
+          track("quiz_disqualified", {reason:`${btn.innerText}`});
+          return;
+        }
+        if(next==="q2"){
+          setProgress(2); show("q2"); track("quiz_progress",{step:2}); return;
+        }
+        if(next==="loading"){
+          setProgress(3); show("loading"); track("quiz_progress",{step:"loading"});
+          // Animate loading statuses
+          const s1 = q("#s-elig"), s2 = q("#s-slot"), s3 = q("#s-resv");
+          setTimeout(()=>{ s1.textContent="Eligible"; s1.classList.add("ok"); }, 700);
+          setTimeout(()=>{ s2.textContent="Agent Available Now"; s2.classList.add("warm"); }, 1500);
+          setTimeout(()=>{ s3.textContent="Spot Reserved"; s3.classList.add("ok"); }, 2300);
+          setTimeout(()=>{ show("final"); track("quiz_complete",{result:"prequalified"}); }, 3200);
+        }
+      });
+    });
+
+    // Enter key -> primary action
+    document.addEventListener("keydown", (e)=>{
+      if(e.key==="Enter"){
+        const v = document.querySelector(".view.active");
+        const first = v?.querySelector(".btn");
+        first?.click();
+      }
+    });
+
+    // Init
+    setProgress(1);
+  </script>
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>SavingsHero — Final Expense Benefits Check</title>
+  <meta name="description" content="Two quick questions to see if you may qualify for up to $50,000 in final expense benefits. Speak with a licensed specialist."/>
+  <link rel="icon" type="image/jpeg" href="icon.jpg"/>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Newsreader:wght@600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root{
+      /* New palette: sand / emerald / charcoal */
+      --sand:#f8f3ea;
+      --sand-2:#efe7d8;
+      --ink:#1a1f26;
+      --muted:#5b646e;
+      --line:#e6dfd2;
+
+      --emerald-700:#0f766e;
+      --emerald-600:#10a37f;
+      --emerald-500:#34d399;
+
+      --rose-500:#ef4444;
+      --amber-500:#f59e0b;
+
+      --card:#ffffff;
+      --glass:rgba(255,255,255,.6);
+
+      --r-xl:28px; --r-lg:18px; --r-md:12px;
+      --shadow-1:0 18px 60px rgba(26,31,38,.18);
+      --shadow-2:0 10px 30px rgba(26,31,38,.12);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(16,163,127,.16), transparent 60%),
+        radial-gradient(900px 480px at 120% 20%, rgba(245,158,11,.18), transparent 60%),
+        linear-gradient(180deg, var(--sand), var(--sand-2));
+      background-attachment: fixed;
+    }
+
+    /* Top strip */
+    .strip{
+      position:sticky; top:0; z-index:40;
+      background:linear-gradient(90deg, var(--emerald-600), var(--emerald-500), #a7f3d0);
+      color:#06251f; font-weight:900; letter-spacing:.2px;
+      padding:.75rem 1rem; text-align:center; overflow:hidden;
+      box-shadow:var(--shadow-2);
+    }
+    .strip span{position:relative; z-index:2}
+    .strip::after{
+      content:""; position:absolute; inset:0; transform:translateX(-100%);
+      background:linear-gradient(120deg, transparent, rgba(255,255,255,.6), transparent);
+      animation:shine 3.2s linear infinite;
+    }
+    @keyframes shine { to{ transform:translateX(100%) } }
+
+    /* Header */
+    .wrap{ max-width:1100px; margin:0 auto; padding:20px; }
+    .header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:10px 0 0; border-bottom:1px solid var(--line);
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+    .badge{
+      width:44px; height:44px; border-radius:12px;
+      background:radial-gradient(110% 110% at 20% 20%, #bbf7d0, var(--emerald-600));
+      display:grid; place-items:center; color:#052e2b; font-weight:900;
+      box-shadow:0 0 0 6px rgba(16,163,127,.14);
+    }
+    .brand h1{ margin:0; font-size:1.15rem; letter-spacing:.2px }
+    .brand small{ display:block; color:var(--muted); font-weight:600 }
+
+    .phone-top{
+      display:flex; align-items:center; gap:10px; font-weight:800;
+      color:var(--emerald-700); text-decoration:none; padding:8px 12px; border-radius:10px;
+      background:#eafaf5; border:1px solid #c7efe3;
+    }
+
+    /* Hero */
+    .hero{
+      display:grid; gap:28px; grid-template-columns:1fr; padding:22px 0 10px;
+    }
+    @media(min-width:980px){ .hero{ grid-template-columns: 1.1fr .9fr; align-items:center } }
+
+    .hero-left{
+      padding-right:10px;
+    }
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:10px; padding:8px 12px; border-radius:999px;
+      background:#fff; border:1px solid var(--line); font-weight:800; color:var(--emerald-700);
+      box-shadow:var(--shadow-2);
+    }
+    .title{
+      margin:14px 0 10px;
+      font-family:Newsreader, Georgia, 'Times New Roman', serif;
+      font-weight:700; line-height:1.1;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      letter-spacing:.2px;
+    }
+    .sub{ color:var(--muted); font-weight:600; max-width:56ch }
+
+    .cta-primary{
+      margin-top:18px;
+      display:inline-flex; align-items:center; gap:12px; text-decoration:none;
+      background:linear-gradient(90deg, var(--emerald-600), var(--emerald-500));
+      color:#052e2b; border:0; border-radius:14px; padding:14px 18px; font-weight:900; letter-spacing:.3px;
+      box-shadow:0 16px 60px rgba(16,163,127,.3);
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .cta-primary:hover{ transform:translateY(-2px); box-shadow:0 20px 70px rgba(16,163,127,.38) }
+    .cta-primary:active{ transform:translateY(0) }
+
+    .hero-right{
+      background:var(--card); border:1px solid var(--line); border-radius:var(--r-xl);
+      overflow:hidden; box-shadow:var(--shadow-1);
+    }
+    .panel{
+      padding:18px 18px 22px;
+      background:
+        radial-gradient(800px 400px at 100% -20%, rgba(245,158,11,.18), transparent 60%),
+        linear-gradient(180deg, #fff, #fffefb);
+    }
+    .list{ margin:0; padding-left:20px; color:#374151 }
+    .list li{ margin-bottom:8px }
+
+    /* Bottom-sheet wizard */
+    .sheet-backdrop{
+      position:fixed; inset:0; background:rgba(0,0,0,.5); opacity:0; pointer-events:none;
+      transition:.25s ease; z-index:70;
+    }
+    .sheet{
+      position:fixed; left:0; right:0; bottom:-100%;
+      background:var(--card); border-top-left-radius:24px; border-top-right-radius:24px;
+      box-shadow:0 -24px 60px rgba(0,0,0,.28);
+      border-top:1px solid var(--line);
+      max-height:85vh; overflow:hidden; display:flex; flex-direction:column; z-index:80;
+      transition: bottom .35s cubic-bezier(.22,.8,.26,.99);
+    }
+    .sheet.open{ bottom:0 }
+    .sheet-backdrop.open{ opacity:1; pointer-events:auto }
+
+    .drag{
+      display:grid; place-items:center; padding:10px 0 6px; border-bottom:1px solid var(--line);
+      background:linear-gradient(180deg, #fff, #fffefb);
+    }
+    .drag .bar{ width:44px; height:6px; border-radius:999px; background:#e5e7eb }
+
+    .sheet-head{
+      padding:12px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+      border-bottom:1px solid var(--line);
+    }
+    .stepper{
+      display:flex; gap:8px; align-items:center;
+    }
+    .step-dot{ width:10px; height:10px; border-radius:50%; background:#e5e7eb }
+    .step-dot.active{ background:#10a37f; transform:scale(1.1) }
+    .step-dot.done{ background:#34d399 }
+
+    .bar-rail{ height:10px; border-radius:999px; background:#f1f5f9; border:1px solid #e5e7eb; overflow:hidden; }
+    .bar-fill{ height:100%; width:0%; background:linear-gradient(90deg, #10a37f, #34d399); transition: width .35s cubic-bezier(.22,.8,.26,.99) }
+
+    .sheet-body{ padding:18px; overflow:auto }
+    .view{ display:none; opacity:0; transform:translateY(8px); transition:opacity .25s ease, transform .25s ease }
+    .view.active{ display:block; opacity:1; transform:translateY(0) }
+
+    .q-head{ text-align:left; margin-bottom:12px }
+    .q-eyebrow{
+      display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
+      background:#f1f5f9; color:#0f766e; font-weight:800; border:1px solid #e5e7eb;
+    }
+    .q-title{ font-family:Newsreader, Georgia, serif; font-size:1.35rem; margin:10px 0 4px }
+    .q-sub{ color:var(--muted); font-weight:600 }
+
+    .answers{ display:grid; gap:10px; margin-top:14px }
+    .btn{
+      width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, #ffffff, #fffefb);
+      border:1px solid var(--line); border-radius:var(--r-lg);
+      padding:12px 14px; cursor:pointer; text-align:left; font-weight:800; letter-spacing:.2px; color:var(--ink);
+      box-shadow:var(--shadow-2);
+      transition: transform .12s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover{ transform:translateY(-1px); border-color:#cbd5e1; box-shadow:0 10px 34px rgba(16,163,127,.18) }
+    .pill{
+      min-width:28px; height:28px; border-radius:999px; display:grid; place-items:center; font-weight:900;
+      background:radial-gradient(100% 100% at 20% 20%, #dcfce7, #e0f2fe); border:1px solid #e2e8f0
+    }
+    .arrow{ font-weight:900; color:#0f766e }
+
+    .loading{
+      display:grid; place-items:center; gap:14px; text-align:center; padding:10px 0 4px
+    }
+    .rings{ position:relative; width:86px; height:86px }
+    .ring{
+      position:absolute; inset:0; border:3px solid transparent; border-top-color:#10a37f; border-radius:50%;
+      animation:spin 1.2s linear infinite
+    }
+    .ring:nth-child(2){ inset:10%; border-top-color:#34d399; animation-duration:1s }
+    .ring:nth-child(3){ inset:22%; border-top-color:#a7f3d0; animation-duration:.85s }
+    @keyframes spin{ to{ transform:rotate(360deg) } }
+
+    .status{ width:100%; max-width:420px; display:grid; gap:10px; margin:0 auto }
+    .st{
+      display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:10px 12px
+    }
+    .n{ width:30px; height:30px; border-radius:10px; display:grid; place-items:center; font-weight:900; background:#dcfce7; color:#065f46 }
+
+    /* Result pages */
+    .screen{ display:none; min-height:60vh; padding:26px 20px; }
+    .screen.active{ display:block }
+    .center{ text-align:center }
+
+    .badge{
+      display:inline-block; padding:8px 14px; border-radius:999px; font-weight:900; letter-spacing:.25px;
+      background:linear-gradient(90deg, #dcfce7, #bbf7d0); color:#065f46; margin-bottom:10px
+    }
+    .title-big{
+      font-family:Newsreader, Georgia, serif; font-size: clamp(1.6rem, 3.2vw, 2.2rem); margin:8px 0 10px; line-height:1.15
+    }
+    .lead{ color:var(--muted); max-width:60ch; margin:0 auto 16px }
+
+    .cta-call{
+      display:inline-flex; gap:12px; align-items:center; text-decoration:none;
+      background:linear-gradient(90deg, #34d399, #10a37f); color:#052e2b;
+      border:0; border-radius:14px; padding:14px 18px; font-weight:900; letter-spacing:.3px;
+      box-shadow:0 18px 60px rgba(16,163,127,.32); transition: transform .15s ease, box-shadow .2s ease
+    }
+    .cta-call:hover{ transform:translateY(-2px); box-shadow:0 22px 72px rgba(16,163,127,.42) }
+
+    .shield{ margin-top:12px; display:inline-flex; gap:8px; align-items:center; color:#6b7280; font-weight:700 }
+
+    .sorry .badge{ background:linear-gradient(90deg,#fee2e2,#fecaca); color:#7f1d1d }
+    .sorry .cta-call{ display:none }
+
+    /* Footer */
+    footer{ margin-top:36px; border-top:1px solid var(--line); background:#fff8 }
+    .foot{ max-width:1100px; margin:0 auto; padding:26px 20px }
+    .grid{ display:grid; gap:22px; grid-template-columns:1fr }
+    @media(min-width:980px){ .grid{ grid-template-columns:repeat(3,1fr) } }
+    .fh{ color:#065f46; font-family:Newsreader, Georgia, serif; margin:0 0 10px; font-size:1.1rem }
+    .fl{ margin:0; padding-left:18px; color:#374151 }
+    .links{ display:flex; gap:18px; flex-wrap:wrap; margin-top:16px }
+    .links a{ color:#0f766e; text-decoration:none; font-weight:800 }
+    .links a:hover{ text-decoration:underline }
+
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+
+    @media (prefers-reduced-motion: reduce){
+      .strip::after, .bar-fill, .btn, .cta-primary, .cta-call, .ring { animation:none !important; transition:none !important }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top notice -->
+  <div class="strip" role="status" aria-live="polite">
+    <span>55–75? You may pre-qualify for up to $50,000 in benefits • No obligation to enroll</span>
+  </div>
+
+  <header class="wrap header" role="banner">
+    <div class="brand">
+      <div class="badge" aria-hidden="true">SH</div>
+      <div>
+        <h1>SavingsHero <small>Licensed Marketplace</small></h1>
+      </div>
+    </div>
+    <a class="phone-top" href="tel:+18556940234" aria-label="Call now 855-694-0234">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 5c0-1.1.9-2 2-2h3.28c.43 0 .82.28.95.69l1.5 4.59c.15.47-.06.98-.5 1.2l-2.1 1.05c1.3 2.9 3.54 5.14 6.44 6.44l1.05-2.1c.22-.44.73-.65 1.2-.5l4.6 1.5c.4.13.68.52.68.95V19c0 1.1-.9 2-2 2h-1C9.72 21 3 14.28 3 6V5Z" stroke="#065f46" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      <span><strong>855-694-0234</strong></span>
+    </a>
+  </header>
+
+  <main class="wrap" id="main">
+    <section class="hero">
+      <div class="hero-left">
+        <div class="eyebrow" aria-label="Coverage highlight">Up to <strong>$50,000</strong> final expense coverage</div>
+        <h2 class="title">Simple Protection for Life’s Final Costs</h2>
+        <p class="sub">Answer two quick questions to see if you may qualify. If you’re pre-qualified, we’ll connect you to a licensed specialist to confirm details and get your free quote.</p>
+        <a href="#open" class="cta-primary" id="openWizard" aria-haspopup="dialog" aria-controls="wizard" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="#052e2b" stroke-width="2"/>
+            <path d="M8 12h8M12 8v8" stroke="#052e2b" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Start 2-Step Check
+        </a>
+      </div>
+
+      <aside class="hero-right" aria-label="Why choose us">
+        <div class="panel">
+          <h3 style="margin:0 0 10px; font-family:Newsreader, Georgia, serif">Why People Choose Us</h3>
+          <ul class="list">
+            <li>Independent, licensed marketplace — compare options fast</li>
+            <li>No obligation; speak with a real licensed agent</li>
+            <li>Transparent pricing — plans for many budgets</li>
+            <li>Most calls start in under 2 minutes</li>
+          </ul>
+        </div>
+        <div style="border-top:1px solid var(--line); padding:16px 18px; background:#fff">
+          <h4 style="margin:0 0 8px; color:#065f46">Important</h4>
+          <p style="margin:0; color:#374151; font-weight:600">Eligibility and rates vary by age & health; underwriting may apply. Calling connects you to a licensed agent.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Result screens (outside wizard): hidden until reached) -->
+    <section id="result-success" class="screen center" aria-live="polite" aria-labelledby="succ-title">
+      <div class="badge" aria-hidden="true">Congratulations</div>
+      <h2 id="succ-title" class="title-big">You’re Pre-Qualified!</h2>
+      <p class="lead">Based on your answers, you may qualify for up to <strong>$25,000</strong> in final expense benefits. Speak with a licensed specialist now to confirm your eligibility and get a free quote.</p>
+      <a class="cta-call" href="tel:+18556940234" aria-label="Call now 855-694-0234">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 5c0-1.1.9-2 2-2h3.28c.43 0 .82.28.95.69l1.5 4.59c.15.47-.06.98-.5 1.2l-2.1 1.05c1.3 2.9 3.54 5.14 6.44 6.44l1.05-2.1c.22-.44.73-.65 1.2-.5l4.6 1.5c.4.13.68.52.68.95V19c0 1.1-.9 2-2 2h-1C9.72 21 3 14.28 3 6V5Z" stroke="#052e2b" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <span><div style="font-size:1.12rem;font-weight:900">855-694-0234</div><small>Tap to connect now</small></span>
+      </a>
+      <div class="shield">🔒 Your information is protected & secure</div>
+    </section>
+
+    <section id="result-sorry" class="screen center sorry" aria-live="polite" aria-labelledby="sorry-title">
+      <div class="badge" aria-hidden="true">Application Status</div>
+      <h2 id="sorry-title" class="title-big">We’re Sorry</h2>
+      <p class="lead">Based on your answers, you don’t meet the current criteria for this program. Requirements may change, so feel free to check back later.</p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div class="grid">
+        <div>
+          <h4 class="fh">About</h4>
+          <p class="fl" style="list-style:none; padding-left:0">SavingsHero.org helps you compare final-expense options through our licensed partner network.</p>
+        </div>
+        <div>
+          <h4 class="fh">Hours</h4>
+          <ul class="fl">
+            <li>Mon–Fri: 9:00am–6:00pm ET</li>
+            <li>TTY 711</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="fh">Legal</h4>
+          <div class="links" role="navigation" aria-label="Legal links">
+            <a href="https://savingshero.org/privacy.html">Privacy Policy</a>
+            <a href="https://savingshero.org/terms.html">Terms of Service</a>
+            <a href="https://savingshero.org/contact.html">Contact</a>
+          </div>
+        </div>
+      </div>
+      <p style="margin:16px 0 0; color:#6b7280">© 2025 SavingsHero.org. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bottom-sheet Wizard -->
+  <div id="backdrop" class="sheet-backdrop" aria-hidden="true"></div>
+  <section id="wizard" class="sheet" role="dialog" aria-modal="true" aria-labelledby="wiz-title" aria-hidden="true">
+    <div class="drag" aria-hidden="true"><div class="bar"></div></div>
+    <div class="sheet-head">
+      <div>
+        <h3 id="wiz-title" style="margin:0; font-family:Newsreader, Georgia, serif">Quick Eligibility</h3>
+        <small class="sr-only" id="progressText">Step 1 of 2</small>
+      </div>
+      <div style="display:grid; gap:8px; min-width:160px">
+        <div class="bar-rail"><div id="bar" class="bar-fill"></div></div>
+        <div class="stepper" aria-hidden="true">
+          <div id="d1" class="step-dot active"></div>
+          <div id="d2" class="step-dot"></div>
+          <div id="d3" class="step-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-body">
+      <!-- Q1 -->
+      <div id="v-q1" class="view active" role="group" aria-labelledby="q1-title">
+        <div class="q-head">
+          <span class="q-eyebrow" aria-hidden="true">Question 1</span>
+          <h4 id="q1-title" class="q-title">Are you between 55 and 75 years old?</h4>
+          <p class="q-sub">Age determines eligibility tiers and available plans.</p>
+        </div>
+        <div class="answers">
+          <button class="btn" data-next="q2" data-qualify="yes" aria-label="Yes, between 55 and 75">
+            <span class="pill">✓</span> Yes <span class="arrow">→</span>
+          </button>
+          <button class="btn" data-next="sorry" data-qualify="no" aria-label="No, outside this range">
+            <span class="pill">✗</span> No <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div id="v-q2" class="view" role="group" aria-labelledby="q2-title">
+        <div class="q-head">
+          <span class="q-eyebrow" aria-hidden="true">Question 2</span>
+          <h4 id="q2-title" class="q-title">Do you have an active checking account?</h4>
+          <p class="q-sub">Required for premium payments and policy activation.</p>
+        </div>
+        <div class="answers">
+          <button class="btn" data-next="loading" data-qualify="yes" aria-label="Yes, I have an active checking account">
+            <span class="pill">🏦</span> Yes <span class="arrow">→</span>
+          </button>
+          <button class="btn" data-next="sorry" data-qualify="no" aria-label="No, I do not have one">
+            <span class="pill">✗</span> No <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div id="v-loading" class="view" aria-live="polite" aria-busy="true">
+        <div class="loading" role="status">
+          <div class="rings" aria-hidden="true">
+            <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+          </div>
+          <h4 class="q-title" style="text-align:center">Checking availability…</h4>
+          <div class="status">
+            <div class="st"><div class="n">1</div><div>Eligibility: <strong id="s-elig">Reviewing</strong></div></div>
+            <div class="st"><div class="n">2</div><div>Agent Status: <strong id="s-slot">Searching</strong></div></div>
+            <div class="st"><div class="n">3</div><div>Reserving Spot: <strong id="s-resv">Pending</strong></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schema (optional) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"SavingsHero",
+    "url":"https://savingshero.org",
+    "logo":"https://savingshero.org/icon.jpg",
+    "contactPoint":[{"@type":"ContactPoint","telephone":"+1-855-694-0234","contactType":"customer support","areaServed":"US"}]
+  }
+  </script>
+
+  <script>
+    // Helpers
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+
+    const wizard = $("#wizard");
+    const backdrop = $("#backdrop");
+    const openBtn = $("#openWizard");
+
+    const bar = $("#bar");
+    const dots = [$("#d1"), $("#d2"), $("#d3")];
+    const progressText = $("#progressText");
+
+    const views = {
+      q1: $("#v-q1"),
+      q2: $("#v-q2"),
+      loading: $("#v-loading")
+    };
+
+    const screens = {
+      success: $("#result-success"),
+      sorry: $("#result-sorry")
+    };
+
+    function openSheet(){
+      wizard.classList.add("open");
+      wizard.removeAttribute("aria-hidden");
+      backdrop.classList.add("open");
+      backdrop.removeAttribute("aria-hidden");
+      openBtn.setAttribute("aria-expanded","true");
+      setProgress(1);
+      showView("q1");
+      // Hide result screens when reopening
+      Object.values(screens).forEach(s => s.classList.remove("active"));
+    }
+
+    function closeSheet(){
+      wizard.classList.remove("open");
+      wizard.setAttribute("aria-hidden","true");
+      backdrop.classList.remove("open");
+      backdrop.setAttribute("aria-hidden","true");
+      openBtn.setAttribute("aria-expanded","false");
+    }
+
+    function setProgress(stage){ // 1..3 (2 questions + completion)
+      const map = {1: 12, 2: 55, 3: 100};
+      bar.style.width = (map[stage] || 0) + "%";
+      dots.forEach((d,i)=>{
+        d.className = "step-dot" + (stage>i+1 ? " done" : stage===i+1 ? " active" : "");
+      });
+      const text = stage<=2 ? `Step ${stage} of 2` : `Processing`;
+      progressText.textContent = text;
+    }
+
+    function showView(key){
+      $$(".view").forEach(v => { v.classList.remove("active"); v.setAttribute("aria-hidden","true"); });
+      const el = views[key];
+      if(el){ el.classList.add("active"); el.removeAttribute("aria-hidden"); }
+    }
+
+    function track(ev, data={}){
+      try{
+        if(typeof gtag!=="undefined") gtag("event", ev, data);
+        if(window.dataLayer) window.dataLayer.push({event:ev, ...data});
+      }catch(e){}
+    }
+
+    // Open handlers
+    openBtn.addEventListener("click",(e)=>{ e.preventDefault(); openSheet(); });
+    backdrop.addEventListener("click", closeSheet);
+    // Escape to close
+    document.addEventListener("keydown",(e)=>{ if(e.key==="Escape"){ closeSheet(); }});
+
+    // Button routing
+    $$(".btn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const next = btn.getAttribute("data-next");
+
+        if(next==="sorry"){
+          closeSheet(); // close wizard
+          // show sorry screen
+          screens.sorry.classList.add("active");
+          screens.success.classList.remove("active");
+          setProgress(3);
+          track("quiz_disqualified",{reason: btn.textContent.trim()});
+          return;
+        }
+        if(next==="q2"){
+          setProgress(2); showView("q2"); track("quiz_progress",{step:2}); return;
+        }
+        if(next==="loading"){
+          setProgress(3); showView("loading"); track("quiz_progress",{step:"loading"});
+          // Loading sequence
+          const s1 = $("#s-elig"), s2 = $("#s-slot"), s3 = $("#s-resv");
+          setTimeout(()=>{ s1.textContent="Eligible"; s1.style.color="#065f46"; }, 700);
+          setTimeout(()=>{ s2.textContent="Agent Available Now"; s2.style.color="#f59e0b"; }, 1500);
+          setTimeout(()=>{ s3.textContent="Spot Reserved"; s3.style.color="#065f46"; }, 2300);
+          setTimeout(()=>{
+            closeSheet(); // finish wizard
+            screens.success.classList.add("active");
+            screens.sorry.classList.remove("active");
+            track("quiz_complete",{result:"prequalified"});
+            // Scroll to success section for visibility
+            screens.success.scrollIntoView({behavior:"smooth", block:"start"});
+          }, 3200);
+        }
+      });
+    });
+
+    // Enter key: pick first button in current view for speed
+    document.addEventListener("keydown",(e)=>{
+      if(e.key==="Enter" && wizard.classList.contains("open")){
+        const v = document.querySelector(".view.active");
+        const first = v?.querySelector(".btn");
+        first?.click();
+      }
+    });
+
+    // Init state
+    setProgress(1);
+  </script>
+</body>
+</html>
