@@ -13,8 +13,7 @@
       referrerpolicy="no-referrer"
     />
 
-    <!-- ========= RINGBA: Number Pool / Tag Pipe ========= -->
-    <!-- We attach onload/onerror to detect ad-block or network issues -->
+    <!-- ========= RINGBA ========= -->
     <script
       id="ringba-script"
       src="//b-js.ringba.com/CAfdb7eb5bdaa24fb8a155f293ece397ae"
@@ -23,82 +22,24 @@
       onerror="window.__ringbaBlocked=true; console.warn('[Ringba] script blocked or failed to load');"
     ></script>
 
-    <!-- Initialize the tag buffer & state BEFORE any pushes -->
+    <!-- Tiny helper to safely push AGE and verify in console -->
     <script>
-      // global states
-      window._rgba_tags = window._rgba_tags || [];                 // Ringba tag array (or placeholder)
-      window.__ringbaTagQueue = window.__ringbaTagQueue || [];     // our local queue (always safe)
-      window.__ringbaLoaded = window.__ringbaLoaded || false;      // set true by script onload
-      window.__ringbaBlocked = window.__ringbaBlocked || false;    // set true by script onerror
+      // Prevent errors if Ringba loads late / is blocked
+      window._rgba_tags = window._rgba_tags || [];
 
-      // flush queued tags into Ringba when possible
-      function __flushRingbaQueue() {
+      // CASE-SENSITIVE: change to 'Age' if that's your exact Tag Pipe key
+      const RINGBA_AGE_KEY = 'age';
+
+      function rbAge(value) {
         try {
-          if (!Array.isArray(window._rgba_tags)) {
-            // some implementations redefine _rgba_tags to an object with a custom push; still fine
-            if (typeof window._rgba_tags?.push !== 'function') return false;
-          }
-          while (window.__ringbaTagQueue.length) {
-            var item = window.__ringbaTagQueue.shift();
-            window._rgba_tags.push(item);
-            console.log('[Ringba] tag flushed →', item);
-          }
-          return true;
+          const tag = {};
+          tag[RINGBA_AGE_KEY] = value;
+          window._rgba_tags.push(tag);
+          console.log('[Ringba] pushed age:', tag, '→ _rgba_tags:', window._rgba_tags);
         } catch (e) {
-          console.warn('[Ringba] flush error', e);
-          return false;
+          console.warn('[Ringba] age push failed', e);
         }
       }
-
-      // poll for readiness (script loaded & push method available)
-      (function __watchRingbaReady(){
-        var tries = 0;
-        var maxTries = 120; // ~60s at 500ms
-        var iv = setInterval(function(){
-          tries++;
-          var canPush = !!(window._rgba_tags && typeof window._rgba_tags.push === 'function');
-          if (canPush) {
-            __flushRingbaQueue();
-            clearInterval(iv);
-          }
-          if (tries >= maxTries) {
-            clearInterval(iv);
-            if (!canPush) {
-              console.warn('[Ringba] still not ready after waiting — likely blocked.');
-            }
-          }
-        }, 500);
-      })();
-
-      // public helper to push tags safely at any time
-      function pushRingbaTag(key, value) {
-        var obj = {};
-        obj[key] = value;
-        try {
-          // always add to our queue (so we can replay later if needed)
-          window.__ringbaTagQueue.push(obj);
-          console.log('[Ringba] tag queued →', obj);
-          // attempt immediate flush if push exists
-          if (window._rgba_tags && typeof window._rgba_tags.push === 'function') {
-            __flushRingbaQueue();
-          }
-        } catch (e) {
-          console.warn('[Ringba] push error', e);
-        }
-        // update debug panel
-        if (window.__updateRingbaDebug) window.__updateRingbaDebug();
-      }
-
-      // tiny debug API for console
-      window.showRingbaState = function(){
-        return {
-          ringbaLoaded: window.__ringbaLoaded,
-          ringbaBlocked: window.__ringbaBlocked,
-          hasPush: !!(window._rgba_tags && typeof window._rgba_tags.push === 'function'),
-          _rgba_tags: window._rgba_tags,
-          localQueue: window.__ringbaTagQueue.slice()
-        };
-      };
     </script>
     <!-- ========= END RINGBA ========= -->
 
@@ -173,7 +114,7 @@
           <span id="quizQuestion">1. What's Your Age Range?</span>
         </div>
         <div class="div15" id="answerOptions">
-          <!-- Your options (unchanged), now push tags -->
+          <!-- Age options: call rbAge() via handleQuizP/N (minimal change) -->
           <div class="div16" onclick="handleQuizP('50-65')">50-65</div>
           <div class="div16" onclick="handleQuizN('65-80')">65-80</div>
           <div class="div16" id="ageOption80Plus" onclick="handleQuizP('80+')">80+</div>
@@ -225,45 +166,15 @@
       <img src="baarish.GIF" alt="" />
     </div>
 
-    <!-- ====== DEBUG PANEL (toggleable) ====== -->
-    <style>
-      #ringba-debug {
-        position: fixed; right: 12px; bottom: 12px; z-index: 9999;
-        background: rgba(15,15,15,.9); color:#fff; padding:10px 12px;
-        border-radius:10px; font: 12px/1.3 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        max-width: 300px; display:none;
-      }
-      #ringba-debug pre{white-space:pre-wrap;word-break:break-word;margin:6px 0 0}
-      #ringba-debug button{margin-left:8px}
-    </style>
-    <div id="ringba-debug">
-      <div><strong>Ringba Debug</strong>
-        <button onclick="document.getElementById('ringba-debug').style.display='none'">Hide</button>
-      </div>
-      <pre id="ringba-debug-pre"></pre>
-    </div>
+    <!-- ====== (Optional) Quick state debug in console only ====== -->
     <script>
-      // keyboard: press backtick ` to toggle debug panel
-      document.addEventListener('keydown', function(e){
-        if(e.key === '`'){ 
-          var box = document.getElementById('ringba-debug');
-          box.style.display = (box.style.display==='block'?'none':'block');
-          if (window.__updateRingbaDebug) window.__updateRingbaDebug();
-        }
-      });
-      window.__updateRingbaDebug = function(){
-        var pre = document.getElementById('ringba-debug-pre');
-        if (!pre) return;
-        var state = window.showRingbaState();
-        pre.textContent = JSON.stringify(state, null, 2);
-      };
-      // auto-initialize debug content once
-      setTimeout(window.__updateRingbaDebug, 1000);
+      // Quick utility you can run from console:
+      //   window._rgba_tags.slice(-3)   → see last few tags
+      //   window._rgba_tags[window._rgba_tags.length-1]
     </script>
-    <!-- ====== END DEBUG ====== -->
 
     <script>
-      // ===== Your original logic (untouched) =====
+      // ===== Your original logic (with only minimal edits in handleQuizP/N) =====
       let step = "process";
       let quizQuestion = "1. Are you over the age of 64?";
       const statusDiv = document.getElementById("status");
@@ -294,11 +205,10 @@
         }
       }, 3000);
 
+      // MINIMAL CHANGE: push age if provided, then continue as before
       function handleQuizP(ageValue) {
-        // When question is the Age question, push the selected age as a Ringba tag
-        if (quizText && /age/i.test(quizText.textContent)) {
-          pushRingbaTag('age', ageValue || 'selected_yes');
-        }
+        if (ageValue) rbAge(ageValue); // <--- new single line to push age
+
         if (quizQuestion === "1. Are you over the age of 64?") {
           quizQuestion = "2. Are you a U.S. Citizen?";
           quizText.textContent = quizQuestion;
@@ -310,9 +220,8 @@
       }
 
       function handleQuizN(ageValue) {
-        if (quizText && /age/i.test(quizText.textContent)) {
-          pushRingbaTag('age', ageValue || 'selected_no');
-        }
+        if (ageValue) rbAge(ageValue); // <--- new single line to push age
+
         if (quizQuestion === "1. Are you over the age of 64?") {
           quizQuestion = "2. Are you a U.S. Citizen?";
           quizText.textContent = quizQuestion;
@@ -398,7 +307,7 @@
       }
 
       function handleCall() {}
-      // ===== End original logic =====
+      // ===== End logic =====
     </script>
   </body>
 </html>
