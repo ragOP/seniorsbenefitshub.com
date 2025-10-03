@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Policy Benefits</title>
+
+    <!-- Your stylesheet (kept) -->
+    <link rel="stylesheet" href="englf3.css" />
+
+    <!-- Icons (kept) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- ============== INLINE FIX: make whole green div clickable ============== -->
+    <style>
+      /* Turn the CTA into a full-width clickable anchor */
+      .div22 {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        margin: 12px auto;
+        background: #1bb06f;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 800;
+        letter-spacing: .5px;
+        padding: 16px 22px;
+        border-radius: 12px;
+        box-shadow: 0 10px 24px rgba(0,0,0,.15);
+        cursor: pointer;
+        transition: transform .06s ease, box-shadow .2s ease, filter .2s ease;
+      }
+      .div22:hover {
+        box-shadow: 0 16px 30px rgba(0,0,0,.18);
+        filter: brightness(1.03);
+      }
+      .div22:active {
+        transform: translateY(1px) scale(0.995);
+      }
+      .div22 * { color: inherit; text-decoration: none; }
+      .glow { box-shadow: 0 0 0 rgba(27,176,111,0.5), 0 10px 24px rgba(0,0,0,.15); }
+      .shimmer { position: relative; overflow: hidden; isolation: isolate; }
+      .shimmer::after{
+        content:""; position:absolute; inset:0 -150% 0 0;
+        transform:skewX(-20deg); background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,.22) 50%, transparent 100%);
+        animation: sh 2.2s infinite;
+      }
+      @keyframes sh { 0%{transform:translateX(-100%) skewX(-20deg);} 100%{transform:translateX(100%) skewX(-20deg);} }
+
+      /* Small chip used for NB verify */
+      #nb-chip {
+        position: fixed; right: 12px; bottom: 12px; z-index: 99999;
+        padding: 8px 12px; font-size: 12px; font-weight: 700; border-radius: 999px;
+        background: rgba(20, 180, 90, 0.95); color: #fff; box-shadow: 0 6px 20px rgba(0,0,0,.2);
+        display: none; pointer-events: none;
+      }
+
+      /* ===================== Bottom Drawer / Sheet ===================== */
+      .sheet-backdrop {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.35);
+        backdrop-filter: saturate(1.1) blur(2px);
+        opacity: 0; pointer-events: none;
+        transition: opacity .2s ease;
+        z-index: 9997;
+      }
+      .sheet-backdrop.open {
+        opacity: 1; pointer-events: auto;
+      }
+      .sheet {
+        position: fixed; left: 0; right: 0; bottom: 0;
+        background: #ffffff;
+        border-top-left-radius: 16px; border-top-right-radius: 16px;
+        box-shadow: 0 -10px 30px rgba(0,0,0,.18);
+        transform: translateY(100%);
+        transition: transform .28s ease;
+        z-index: 9998;
+        max-height: 80vh;
+        display: flex; flex-direction: column;
+      }
+      .sheet.open { transform: translateY(0%); }
+
+      .sheet-header {
+        position: relative;
+        padding: 14px 16px 10px 16px;
+        border-bottom: 1px solid #eee;
+      }
+      .sheet-handle {
+        width: 40px; height: 5px; border-radius: 999px; background: #d7d7d7;
+        margin: 6px auto 10px;
+      }
+      .sheet-title {
+        text-align: center; font-weight: 800; font-size: 18px; color: #111;
+      }
+      .sheet-close {
+        position: absolute; right: 8px; top: 8px;
+        width: 36px; height: 36px; border: none; border-radius: 10px;
+        background: #f3f3f3; cursor: pointer; font-size: 16px;
+      }
+      .sheet-body {
+        padding: 16px; overflow-y: auto;
+      }
+      .q-row { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+      .answers { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+      .answer-btn {
+        background: #a2e0ba; color: #000;
+        font-family: "Montserrat", sans-serif; font-size: 1.05rem; font-weight: 700;
+        border: 2px solid #a2e0ba; border-radius: 8px; padding: 14px; cursor: pointer;
+        transition: transform .06s ease, box-shadow .2s ease, filter .2s ease;
+        display: flex; align-items: center; justify-content: center; text-align: center;
+      }
+      .answer-btn:hover { filter: brightness(1.02); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+      .answer-btn:active { transform: translateY(1px) scale(0.995); }
+
+      /* shimmer on answer buttons (subtle) */
+      .answer-btn.shimmer::after { opacity: .6; }
+
+      .sheet-footer {
+        padding: 12px 16px; border-top: 1px solid #eee;
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 10px;
+      }
+      .progress-wrap {
+        flex: 1; height: 8px; background: #f0f0f0; border-radius: 999px; overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%; width: 0%; background: #1bb06f; transition: width .25s ease;
+      }
+      .progress-label { font-size: 12px; font-weight: 700; color: #333; min-width: 64px; text-align: right; }
+
+      /* “Start Eligibility Check” CTA */
+      .start-check {
+        display: inline-flex; align-items: center; justify-content: center;
+        gap: 10px; padding: 14px 18px; border-radius: 12px;
+        background: #111; color: #fff; font-weight: 800; letter-spacing: .4px;
+        cursor: pointer; transition: transform .06s ease, box-shadow .2s ease, filter .2s ease;
+      }
+      .start-check:hover { filter: brightness(1.05); box-shadow: 0 10px 26px rgba(0,0,0,.15); }
+      .start-check:active { transform: translateY(1px) scale(0.995); }
+
+      /* Hide original in-page question block space gracefully (if any remnants) */
+      .hidden-quiz-anchor { display: none !important; }
+
+      /* Small helper for “people claiming” chip inside sheet */
+      .claim-chip {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: #f6fff9; color: #0a7a49; border: 1px solid #ccefdc;
+        padding: 8px 10px; border-radius: 999px; font-size: 12px; font-weight: 800;
+        margin-bottom: 12px;
+      }
+
+      /* Image rain container */
+      #image-container { display: none; position: fixed; inset: 0; z-index: 9996; pointer-events: none; }
+      #image-container img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+    </style>
+    <!-- ======================================================================= -->
+
+    <!-- Ringba -->
+    <script
+      id="ringba-script"
+      src="//b-js.ringba.com/CAfdb7eb5bdaa24fb8a155f293ece397ae"
+      async
+      onload="window.__ringbaLoaded=true;console.log('[Ringba] script loaded')"
+      onerror="window.__ringbaBlocked=true;console.warn('[Ringba] script blocked/failed')"
+    ></script>
+
+    <!-- Ringba helper: push AGE + console verify -->
+    <script>
+      window._rgba_tags = window._rgba_tags || [];
+      const RINGBA_AGE_KEY = 'age'; // change to exact key if needed, e.g., 'Age'
+      function rbAge(value) {
+        try {
+          const tag = {}; tag[RINGBA_AGE_KEY] = value;
+          window._rgba_tags.push(tag);
+          console.log('[Ringba] pushed age:', tag, '→ _rgba_tags:', window._rgba_tags);
+        } catch (e) { console.warn('[Ringba] age push failed', e); }
+      }
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-PKBQ2L5S');
+    </script>
+
+    <!-- TikTok Pixel -->
+    <script>
+      !function (w, d, t) {
+        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+        ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],
+        ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+        ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
+        ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};
+          n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src=r+"?sdkid="+e+"&lib="+t;
+          e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)
+        };
+        ttq.load('CV0AU8BC77UBQA5N4G9G'); ttq.page();
+      }(window, document, 'ttq');
+    </script>
+
+    <!-- NB Pixel -->
+    <script>
+      !(function (e, n, t, i, p, a, s) {
+        e[i] ||
+          (((p = e[i] =
+            function () {
+              p.process ? p.process.apply(p, arguments) : p.queue.push(arguments);
+            }).queue = []),
+          (p.t = +new Date()),
+          ((a = n.createElement(t)).async = 1),
+          (a.src = 'https://static.newsbreak.com/business/tracking/nbpixel.js?t=' + 864e5 * Math.ceil(new Date() / 864e5)),
+          (s = n.getElementsByTagName(t)[0]).parentNode.insertBefore(a, s));
+      })(window, document, 'script', 'nbpix'),
+        nbpix('init', 'ID-1969942605923770369'),
+        nbpix('event', 'pageload');
+    </script>
+
+    <!-- NB raw_call instrumentation (fires before tel: and shows chip) -->
+    <script>
+      window.__nb_events = window.__nb_events || [];
+      function showNbChip(text) {
+        var chip = document.getElementById('nb-chip'); if (!chip) return;
+        chip.textContent = text; chip.style.display = 'inline-block';
+        clearTimeout(window.__nb_chip_to);
+        window.__nb_chip_to = setTimeout(function(){ chip.style.display='none'; }, 2000);
+      }
+      function fireNbRawCall() {
+        try {
+          window.__nb_events.push({ event: 'raw_call', at: new Date().toISOString() });
+          console.log('[NB Pixel] Firing raw_call', window.__nb_events[window.__nb_events.length - 1]);
+          if (typeof nbpix === 'function') nbpix('event','raw_call');
+          else {
+            console.warn('[NB Pixel] nbpix not ready; queuing');
+            window.__nb_fallback_queue = window.__nb_fallback_queue || [];
+            window.__nb_fallback_queue.push(['event','raw_call']);
+          }
+          showNbChip('NB: raw_call sent');
+        } catch(e){ console.warn('[NB Pixel] raw_call failed', e); }
+      }
+      window.addEventListener('load', function(){
+        if (window.__nb_fallback_queue && typeof nbpix === 'function') {
+          window.__nb_fallback_queue.forEach(function(args){ try{ nbpix.apply(null,args);}catch(_){} });
+          window.__nb_fallback_queue.length = 0;
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <!-- GTM noscript -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PKBQ2L5S"
+        height="0" width="0" style="display:none;visibility:hidden">
+      </iframe>
+    </noscript>
+
+    <!-- NB verify chip (optional; keep commented if you don’t want to show) -->
+    <!-- <div id="nb-chip">NB: raw_call sent</div> -->
+
+    <div class="div1" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor: pointer;">
+      <img src="./bur.png" alt="Policy Benefits" style="cursor: pointer;" />
+    </div>
+
+    <div class="div2" style="cursor: default;">
+      <img src="./live.png" alt="Live" />
+      <span><strong id="counter">22,563</strong> Seniors Enrolled In Last 24 Hours!</span>
+    </div>
+
+    <div class="div6">
+      <div class="div7">
+        <div class="div8" style="cursor: default;">
+          Final Call For Seniors To Claim Their $25,000 Funeral Benefit Coverage!
+        </div>
+        <img class="div9" src="./ai.gif" alt="Money in hand" style="cursor: default;" />
+        <div class="div10">
+          Checking your eligibility is very simple and takes just 60 seconds.
+        </div>
+        <div class="arrow-section">
+          <i class="fa-solid fa-angle-down"></i>
+        </div>
+
+        <!-- replaced in-page questions with a button to open the drawer -->
+        <div style="display:flex; justify-content:center; margin-top:12px;">
+          <button class="start-check shimmer" onclick="openDrawer()">
+            <i class="fa-solid fa-clipboard-check"></i>
+            Start Eligibility Check
+          </button>
+        </div>
+
+        <!-- live claim chip (same numbers you used) -->
+        <div style="display:flex; justify-content:center; margin-top:10px;">
+          <div class="claim-chip">
+            <i class="fa-solid fa-user-group"></i>
+            <span><em><span id="claim">72</span> People Are Claiming Right Now!</em></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="div4 div5" id="status">
+      <span id="statusMessage"></span>
+    </div>
+
+    <div class="div4 div5" id="congratulations">
+      <div class="div19">Congratulations, You Qualify 🎉</div>
+      <div class="div20">
+        Make A <span>Quick Call</span> To Claim Your $25,000 Funeral Benefit Coverage Now!
+      </div>
+      <div class="div21">Spots remaining: 4</div>
+      <div class="div99"><h2>Tap Below To Call Now! 👇</h2></div>
+
+      <!-- ✅ ENTIRE green element is the anchor -->
+      <a
+        href="tel:+13214858035"
+        id="callLink"
+        class="div22 glow shimmer"
+        onpointerdown="fireNbRawCall()"
+      >CALL (321) 485-8035</a>
+
+      <div class="div23">
+        Due to high call volume, your official agent is waiting for only
+        <strong>3 minutes</strong>, then your spot will not be reserved.
+      </div>
+      <div class="div24">
+        <div class="div25" id="minutes">2</div>
+        <div class="div25">:</div>
+        <div class="div25" id="seconds">52</div>
+      </div>
+    </div>
+
+    <div class="div26">
+      Beware of other fraudulent & similar-looking websites that might look
+      exactly like ours, we have no affiliation with them. This is the only
+      official website to claim your Final Expense Benefit with the domain name
+      policybenefits.org
+      <div class="div27">
+        <a href="/terms.html">Terms & Conditions</a> |
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+
+    <!-- Rain overlay (gif) -->
+    <div id="image-container">
+      <img src="baarish.GIF" alt="" />
+    </div>
+
+    <!-- =================== Bottom Drawer Markup =================== -->
+    <div id="sheet-backdrop" class="sheet-backdrop" onclick="closeDrawer()"></div>
+
+    <section id="sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <div class="sheet-header" onmousedown="startDrag(event)" ontouchstart="startDrag(event)">
+        <div class="sheet-handle"></div>
+        <div id="sheet-title" class="sheet-title">Quick Eligibility Check</div>
+        <button class="sheet-close" aria-label="Close" onclick="closeDrawer()">✕</button>
+      </div>
+
+      <div class="sheet-body">
+        <div class="q-row"><span id="quizQuestion">1. Are you over the age of 64?</span></div>
+        <div id="answerOptions" class="answers">
+          <!-- initial age choices -->
+          <button class="answer-btn shimmer" onclick="handleQuizP('50-65')">50–65</button>
+          <button class="answer-btn shimmer" onclick="handleQuizN('65-80')">65–80</button>
+          <button class="answer-btn shimmer" style="grid-column: 1 / -1;" onclick="handleQuizP('80+')">80+</button>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div class="progress-wrap">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <div id="progressLabel" class="progress-label">Step 1/2</div>
+      </div>
+    </section>
+    <!-- ============================================================= -->
+
+    <script>
+      // ------------------ Drawer controls ------------------
+      const backdrop = document.getElementById('sheet-backdrop');
+      const sheet = document.getElementById('sheet');
+      function openDrawer() {
+        backdrop.classList.add('open');
+        sheet.classList.add('open');
+        document.documentElement.style.overflow = 'hidden';
+      }
+      function closeDrawer() {
+        backdrop.classList.remove('open');
+        sheet.classList.remove('open');
+        document.documentElement.style.overflow = '';
+      }
+      // Auto-open on load if you want:
+      // window.addEventListener('load', openDrawer);
+
+      // Drag to close (optional)
+      let dragStartY = null, sheetStartY = null, dragging = false;
+      function startDrag(e){
+        dragging = true;
+        dragStartY = (e.touches ? e.touches[0].clientY : e.clientY);
+        sheetStartY = 0;
+        document.addEventListener('mousemove', onDrag);
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('touchmove', onDrag, {passive:false});
+        document.addEventListener('touchend', endDrag);
+      }
+      function onDrag(e){
+        if(!dragging) return;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY);
+        const dy = Math.max(0, y - dragStartY);
+        sheet.style.transform = `translateY(${dy}px)`;
+        e.preventDefault?.();
+      }
+      function endDrag(){
+        if(!dragging) return;
+        dragging = false;
+        const current = sheet.style.transform || '';
+        const match = current.match(/translateY\((\d+(?:\.\d+)?)px\)/);
+        const dy = match ? parseFloat(match[1]) : 0;
+        sheet.style.transform = '';
+        if (dy > window.innerHeight * 0.25) {
+          closeDrawer();
+        }
+        document.removeEventListener('mousemove', onDrag);
+        document.removeEventListener('mouseup', endDrag);
+        document.removeEventListener('touchmove', onDrag);
+        document.removeEventListener('touchend', endDrag);
+      }
+
+      // ------------------ Existing logic (adapted to drawer) ------------------
+      let step = "process";
+      let quizQuestion = "1. Are you over the age of 64?";
+      const statusDiv = document.getElementById("status");
+      const statusMessage = document.getElementById("statusMessage");
+      const congratulationsDiv = document.getElementById("congratulations");
+      const quizText = document.getElementById("quizQuestion");
+      const answerOptions = document.getElementById("answerOptions");
+      const minutesEl = document.getElementById("minutes");
+      const secondsEl = document.getElementById("seconds");
+      const counter = document.getElementById("counter");
+      const claim = document.getElementById("claim");
+      const imageContainer = document.getElementById("image-container");
+
+      const progressBar = document.getElementById('progressBar');
+      const progressLabel = document.getElementById('progressLabel');
+
+      const maxCounterValue = 22570;
+      const maxClaimValue = 75;
+
+      const TOTAL_STEPS = 2; // age + citizenship
+
+      function setProgress(stepIndex){
+        const pct = Math.min(100, Math.max(0, (stepIndex / TOTAL_STEPS) * 100));
+        progressBar.style.width = pct + '%';
+        progressLabel.textContent = `Step ${stepIndex}/${TOTAL_STEPS}`;
+      }
+      setProgress(1);
+
+      // Redundant listener: fire again on click without blocking dialer
+      (function attachCallHandler() {
+        const link = document.getElementById('callLink');
+        if (!link) return;
+        link.addEventListener('click', function () {
+          try { fireNbRawCall(); } catch (_) {}
+        }, { passive: true });
+      })();
+
+      setInterval(() => {
+        if (counter) {
+          let previousNumber = parseInt(counter.innerText.replace(/,/g, ""));
+          if (previousNumber < maxCounterValue) {
+            let randomIncrement = Math.floor(Math.random() * 3) + 1;
+            let newNumber = previousNumber + randomIncrement;
+            if (newNumber > maxCounterValue) newNumber = maxCounterValue;
+            counter.innerText = newNumber.toLocaleString();
+          }
+        }
+      }, 3000);
+
+      setInterval(() => {
+        if (claim) {
+          let previousNumber = parseInt(claim.innerText);
+          if (previousNumber < maxClaimValue) {
+            let randomIncrement = Math.floor(Math.random() * 2) + 1;
+            let newNumber = previousNumber + randomIncrement;
+            if (newNumber > maxClaimValue) newNumber = maxClaimValue;
+            claim.innerText = newNumber;
+          }
+        }
+      }, 3000);
+
+      function setYesNoOptions() {
+        answerOptions.innerHTML = `
+          <button class="answer-btn shimmer" onclick="stepProcess('yes','Above-25K')">Yes</button>
+          <button class="answer-btn shimmer" onclick="stepProcess('no','No')">No</button>
+        `;
+      }
+
+      function handleQuizP(ageValue) {
+        if (ageValue) rbAge(ageValue);
+        if (quizQuestion === "1. Are you over the age of 64?") {
+          quizQuestion = "2. Are you a U.S. Citizen?";
+          quizText.textContent = quizQuestion;
+          setYesNoOptions();
+          setProgress(2);
+        } else {
+          stepProcess("yes");
+        }
+      }
+
+      function handleQuizN(ageValue) {
+        if (ageValue) rbAge(ageValue);
+        if (quizQuestion === "1. Are you over the age of 64?") {
+          quizQuestion = "2. Are you a U.S. Citizen?";
+          quizText.textContent = quizQuestion;
+          setYesNoOptions();
+          setProgress(2);
+        } else {
+          stepProcess("no");
+        }
+      }
+
+      const stepProcess = (answer, value) => {
+        closeDrawer(); // close drawer while we show status steps
+        const mainContent = document.querySelector(".div6");
+        mainContent.classList.add("div5");
+        statusDiv.classList.remove("div5");
+        statusMessage.textContent = "Reviewing Your Answers...";
+        setTimeout(() => {
+          statusMessage.textContent = "Verifying Availability...";
+          setTimeout(() => {
+            statusMessage.textContent = "Confirming Eligibility...";
+            setTimeout(() => {
+              setStep("completed");
+            }, 1500);
+          }, 1500);
+        }, 1500);
+      };
+
+      function setStep(newStep) {
+        step = newStep;
+        if (step === "completed") {
+          showCongratulations();
+        }
+      }
+
+      function showCongratulations() {
+        statusDiv.classList.add("div5");
+        congratulationsDiv.classList.remove("div5");
+
+        // Show rain overlay briefly
+        imageContainer.style.display = "block";
+        setTimeout(() => { imageContainer.style.display = "none"; }, 2000);
+
+        // Scroll top for CTA
+        setTimeout(() => { window.scrollTo({ top: 0, behavior: "smooth" }); }, 100);
+
+        startTimer();
+      }
+
+      function startTimer() {
+        let totalSeconds = 172;
+        const timer = setInterval(() => {
+          const minutes = Math.floor(totalSeconds / 60);
+          const seconds = totalSeconds % 60;
+          minutesEl.textContent = minutes;
+          secondsEl.textContent = seconds < 10 ? "0" + seconds : seconds;
+          totalSeconds--;
+          if (totalSeconds < 0) clearInterval(timer);
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
