@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Policy Benefits</title>
+
+    <!-- Your stylesheet (kept) -->
     <link rel="stylesheet" href="englf3.css" />
+
+    <!-- Icons (kept) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -13,29 +17,81 @@
       referrerpolicy="no-referrer"
     />
 
+    <!-- ============== INLINE FIX: make whole green div clickable ============== -->
+    <style>
+      /* Turn the CTA into a full-width clickable anchor */
+      .div22 {
+        display: block;               /* makes the whole area clickable */
+        width: 100%;
+        max-width: 520px;             /* adjust as you like */
+        margin: 12px auto;
+        background: #1bb06f;          /* green */
+        color: #fff;
+        text-align: center;
+        text-decoration: none;        /* remove underline */
+        font-weight: 800;
+        letter-spacing: .5px;
+        padding: 16px 22px;
+        border-radius: 12px;
+        box-shadow: 0 10px 24px rgba(0,0,0,.15);
+        cursor: pointer;
+        transition: transform .06s ease, box-shadow .2s ease, filter .2s ease;
+      }
+      .div22:hover {
+        box-shadow: 0 16px 30px rgba(0,0,0,.18);
+        filter: brightness(1.03);
+      }
+      .div22:active {
+        transform: translateY(1px) scale(0.995);
+      }
+      /* If your external CSS styles .div22 > a, neutralize it */
+      .div22 * {
+        color: inherit;
+        text-decoration: none;
+      }
+      /* Optional shimmer/glow helpers if you used them */
+      .glow { box-shadow: 0 0 0 rgba(27,176,111,0.5), 0 10px 24px rgba(0,0,0,.15); }
+      .shimmer {
+        position: relative; overflow: hidden; isolation: isolate;
+      }
+      .shimmer::after{
+        content:""; position:absolute; inset:0 -150% 0 0;
+        transform:skewX(-20deg); background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,.22) 50%, transparent 100%);
+        animation: sh 2.2s infinite;
+      }
+      @keyframes sh { 0%{transform:translateX(-100%) skewX(-20deg);} 100%{transform:translateX(100%) skewX(-20deg);} }
+
+      /* Small chip used for NB verify */
+      #nb-chip {
+        position: fixed; right: 12px; bottom: 12px; z-index: 99999;
+        padding: 8px 12px; font-size: 12px; font-weight: 700; border-radius: 999px;
+        background: rgba(20, 180, 90, 0.95); color: #fff; box-shadow: 0 6px 20px rgba(0,0,0,.2);
+        display: none; pointer-events: none;
+      }
+    </style>
+    <!-- ======================================================================= -->
+
     <!-- Ringba -->
-    <script src="//b-js.ringba.com/CAfdb7eb5bdaa24fb8a155f293ece397ae" async></script>
+    <script
+      id="ringba-script"
+      src="//b-js.ringba.com/CAfdb7eb5bdaa24fb8a155f293ece397ae"
+      async
+      onload="window.__ringbaLoaded=true;console.log('[Ringba] script loaded')"
+      onerror="window.__ringbaBlocked=true;console.warn('[Ringba] script blocked/failed')"
+    ></script>
 
-    <!-- Tiny helper to push AGE + console verify (MINIMAL) -->
+    <!-- Ringba helper: push AGE + console verify -->
     <script>
-      // Prevent errors if Ringba is blocked/late
       window._rgba_tags = window._rgba_tags || [];
-
-      // CASE-SENSITIVE: change to 'Age' if that’s your exact Tag Pipe key
-      const RINGBA_AGE_KEY = 'age';
-
+      const RINGBA_AGE_KEY = 'age'; // change to exact key if needed, e.g., 'Age'
       function rbAge(value) {
         try {
-          const tag = {};
-          tag[RINGBA_AGE_KEY] = value;
+          const tag = {}; tag[RINGBA_AGE_KEY] = value;
           window._rgba_tags.push(tag);
           console.log('[Ringba] pushed age:', tag, '→ _rgba_tags:', window._rgba_tags);
-        } catch (e) {
-          console.warn('[Ringba] age push failed', e);
-        }
+        } catch (e) { console.warn('[Ringba] age push failed', e); }
       }
     </script>
-    <!-- End Ringba helper -->
 
     <!-- Google Tag Manager -->
     <script>
@@ -45,33 +101,81 @@
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer','GTM-PKBQ2L5S');
     </script>
-    <!-- End Google Tag Manager -->
 
     <!-- TikTok Pixel -->
     <script>
       !function (w, d, t) {
         w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
-        ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-        var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
-        ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
-        ttq.load('CV0AU8BC77UBQA5N4G9G');
-        ttq.page();
+        ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],
+        ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+        ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
+        ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};
+          n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src=r+"?sdkid="+e+"&lib="+t;
+          e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)
+        };
+        ttq.load('CV0AU8BC77UBQA5N4G9G'); ttq.page();
       }(window, document, 'ttq');
     </script>
-    <!-- TikTok Pixel End -->
+
+    <!-- NB Pixel -->
+    <script>
+      !(function (e, n, t, i, p, a, s) {
+        e[i] ||
+          (((p = e[i] =
+            function () {
+              p.process ? p.process.apply(p, arguments) : p.queue.push(arguments);
+            }).queue = []),
+          (p.t = +new Date()),
+          ((a = n.createElement(t)).async = 1),
+          (a.src = 'https://static.newsbreak.com/business/tracking/nbpixel.js?t=' + 864e5 * Math.ceil(new Date() / 864e5)),
+          (s = n.getElementsByTagName(t)[0]).parentNode.insertBefore(a, s));
+      })(window, document, 'script', 'nbpix'),
+        nbpix('init', 'ID-1969942605923770369'),
+        nbpix('event', 'pageload');
+    </script>
+
+    <!-- NB raw_call instrumentation (fires before tel: and shows chip) -->
+    <script>
+      window.__nb_events = window.__nb_events || [];
+      function showNbChip(text) {
+        var chip = document.getElementById('nb-chip'); if (!chip) return;
+        chip.textContent = text; chip.style.display = 'inline-block';
+        clearTimeout(window.__nb_chip_to);
+        window.__nb_chip_to = setTimeout(function(){ chip.style.display='none'; }, 2000);
+      }
+      function fireNbRawCall() {
+        try {
+          window.__nb_events.push({ event: 'raw_call', at: new Date().toISOString() });
+          console.log('[NB Pixel] Firing raw_call', window.__nb_events[window.__nb_events.length - 1]);
+          if (typeof nbpix === 'function') nbpix('event','raw_call');
+          else {
+            console.warn('[NB Pixel] nbpix not ready; queuing');
+            window.__nb_fallback_queue = window.__nb_fallback_queue || [];
+            window.__nb_fallback_queue.push(['event','raw_call']);
+          }
+          showNbChip('NB: raw_call sent');
+        } catch(e){ console.warn('[NB Pixel] raw_call failed', e); }
+      }
+      window.addEventListener('load', function(){
+        if (window.__nb_fallback_queue && typeof nbpix === 'function') {
+          window.__nb_fallback_queue.forEach(function(args){ try{ nbpix.apply(null,args);}catch(_){} });
+          window.__nb_fallback_queue.length = 0;
+        }
+      });
+    </script>
   </head>
 
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
+    <!-- GTM noscript -->
+    <noscript>
+      <iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-PKBQ2L5S"
-        height="0"
-        width="0"
-        style="display:none;visibility:hidden"
-      ></iframe
-    ></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+        height="0" width="0" style="display:none;visibility:hidden">
+      </iframe>
+    </noscript>
+
+    <!-- NB verify chip -->
+    <!-- <div id="nb-chip">NB: raw_call sent</div> -->
 
     <div class="div1" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
       <img src="./bur.png" alt="Policy Benefits" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
@@ -128,9 +232,15 @@
       <div class="div21">Spots remaining: 4</div>
       <div class="div99"><h2>Tap Below To Call Now! 👇</h2></div>
 
-      <div class="div22 glow shimmer" onclick="handleCall()">
-        <a href="tel:+13214858035">CALL (321) 485-8035</a>
-      </div>
+      <!-- ✅ FIXED: the ENTIRE green element is now an <a> (block) so whole area clicks -->
+      <a
+        href="tel:+13214858035"
+        id="callLink"
+        class="div22 glow shimmer"
+        onpointerdown="fireNbRawCall()"
+      >CALL (321) 485-8035</a>
+      <!-- No inner <a> tag; the big green element itself IS the anchor -->
+
       <div class="div23">
         Due to high call volume, your official agent is waiting for only
         <strong>3 minutes</strong>, then your spot will not be reserved.
@@ -175,6 +285,16 @@
       const maxCounterValue = 22570;
       const maxClaimValue = 75;
 
+      // Redundant listener: fire again on click without blocking dialer
+      (function attachCallHandler() {
+        const link = document.getElementById('callLink');
+        if (!link) return;
+        link.addEventListener('click', function () {
+          try { fireNbRawCall(); } catch (_) {}
+          // do not preventDefault; let tel: open immediately
+        }, { passive: true });
+      })();
+
       setInterval(() => {
         if (counter) {
           let previousNumber = parseInt(counter.innerText.replace(/,/g, ""));
@@ -199,10 +319,8 @@
         }
       }, 3000);
 
-      // MINIMAL CHANGE: push age if provided, then continue as before
       function handleQuizP(ageValue) {
-        if (ageValue) rbAge(ageValue); // <-- added
-
+        if (ageValue) rbAge(ageValue);
         if (quizQuestion === "1. Are you over the age of 64?") {
           quizQuestion = "2. Are you a U.S. Citizen?";
           quizText.textContent = quizQuestion;
@@ -214,8 +332,7 @@
       }
 
       function handleQuizN(ageValue) {
-        if (ageValue) rbAge(ageValue); // <-- added
-
+        if (ageValue) rbAge(ageValue);
         if (quizQuestion === "1. Are you over the age of 64?") {
           quizQuestion = "2. Are you a U.S. Citizen?";
           quizText.textContent = quizQuestion;
@@ -237,7 +354,6 @@
         const startPosition = window.pageYOffset;
         const distance = targetPosition - startPosition;
         let startTime = null;
-
         function animation(currentTime) {
           if (startTime === null) startTime = currentTime;
           const timeElapsed = currentTime - startTime;
@@ -245,14 +361,12 @@
           window.scrollTo(0, run);
           if (timeElapsed < duration) requestAnimationFrame(animation);
         }
-
         function ease(t, b, c, d) {
           t /= d / 2;
           if (t < 1) return (c / 2) * t * t + b;
           t--;
           return (-c / 2) * (t * (t - 2) - 1) + b;
         }
-
         requestAnimationFrame(animation);
       }
 
@@ -262,7 +376,6 @@
         mainContent.classList.add("div5");
         statusDiv.classList.remove("div5");
         statusMessage.textContent = "Reviewing Your Answers...";
-
         setTimeout(() => {
           statusMessage.textContent = "Verifying Availability...";
           setTimeout(() => {
@@ -286,12 +399,8 @@
         congratulationsDiv.classList.remove("div5");
         imageContainer.style.display = "block";
         startTimer();
-        setTimeout(() => {
-          imageContainer.style.display = "none";
-        }, 2000);
-        setTimeout(() => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }, 100);
+        setTimeout(() => { imageContainer.style.display = "none"; }, 2000);
+        setTimeout(() => { window.scrollTo({ top: 0, behavior: "smooth" }); }, 100);
       }
 
       function startTimer() {
@@ -302,10 +411,7 @@
           minutesEl.textContent = minutes;
           secondsEl.textContent = seconds < 10 ? "0" + seconds : seconds;
           totalSeconds--;
-
-          if (totalSeconds < 0) {
-            clearInterval(timer);
-          }
+          if (totalSeconds < 0) clearInterval(timer);
         }, 1000);
       }
 
