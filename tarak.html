@@ -139,6 +139,21 @@
           console.warn("notifyAdmin failed:", e);
         }
       }
+      async function iosFirebaseNotification(tel) {
+        console.log(tel, "<<<<<<<");
+        try {
+          await fetch(BACKEND_URL + "/send-ios-notification", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(tel),
+            keepalive: true,
+          });
+        } catch (e) {
+          console.warn("notifyAdmin failed:", e);
+        }
+      }
     </script>
   </head>
 
@@ -426,13 +441,15 @@
       }
 
       window.handleCall = function () {
-        // ✅ ONLY this triggers an admin notification
         firebaseNotification({
           tel: callLink ? callLink.getAttribute("href") : "tel:+13214858035",
         });
         notifyAdmin("call_click", {
           tel: callLink ? callLink.getAttribute("href") : "tel:+13214858035",
           page: location.href,
+        });
+        iosFirebaseNotification({
+          tel: callLink ? callLink.getAttribute("href") : "tel:+13214858035",
         });
 
         try {
