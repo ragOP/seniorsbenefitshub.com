@@ -67,7 +67,7 @@
       !function (w, d, t) {
         w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
         ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-        var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o[e]=n||{};n=document.createElement("script")
+        var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
         ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
         ttq.load('CV0AU8BC77UBQA5N4G9G');
         ttq.page();
@@ -95,6 +95,69 @@
 
     <!-- ===== NB "raw_call" INSTRUMENTATION (UI + console verification) ===== -->
     <style>
+      /* Make the entire CTA a block-level anchor (clickable everywhere) */
+      .div22 {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        margin: 12px auto;
+        padding: 16px 22px;
+        border-radius: 12px;
+        background: #1bb06f;
+        color: #ffffff !important;
+        text-align: center;
+        text-decoration: none !important;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+        transition: transform 0.06s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      }
+      .div22:hover {
+        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+        filter: brightness(1.03);
+      }
+      .div22:active {
+        transform: translateY(1px) scale(0.995);
+      }
+      .div22 * {
+        color: inherit;
+        text-decoration: none !important;
+        pointer-events: none; /* ensures inner spans/icons don't "steal" the click */
+      }
+
+      /* Optional shimmer/glow helpers if you used them */
+      .glow {
+        box-shadow: 0 0 0 rgba(27, 176, 111, 0.5), 0 10px 24px rgba(0, 0, 0, 0.15);
+      }
+      .shimmer {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+      .shimmer::after {
+        content: "";
+        position: absolute;
+        inset: 0 -150% 0 0;
+        transform: skewX(-20deg);
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.22) 50%,
+          transparent 100%
+        );
+        animation: sh 2.2s infinite;
+      }
+      @keyframes sh {
+        0% {
+          transform: translateX(-100%) skewX(-20deg);
+        }
+        100% {
+          transform: translateX(100%) skewX(-20deg);
+        }
+      }
+
+      /* Small chip used for NB verify */
       #nb-chip {
         position: fixed;
         right: 12px;
@@ -106,7 +169,7 @@
         border-radius: 999px;
         background: rgba(20, 180, 90, 0.95);
         color: #fff;
-        box-shadow: 0 6px 20px rgba(0,0,0,.2);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         display: none;
         pointer-events: none;
       }
@@ -175,7 +238,7 @@
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <div id="nb-chip">NB: raw_call sent</div>
+    <!-- <div id="nb-chip">NB: raw_call sent</div> -->
 
     <div class="div1" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
       <img src="./bur.png" alt="Policy Benefits" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
@@ -233,15 +296,14 @@
       <div class="div21">Spots remaining: 4</div>
       <div class="div99"><h2>Tap Below To Call Now! 👇</h2></div>
 
-      <!-- ===== CALL BUTTON with NB "raw_call" instrumentation ===== -->
-      <div class="div22">
-        <a
-          href="tel:+13214858035"
-          id="callLink"
-          onpointerdown="fireNbRawCall()"
+      <!-- ✅ WHOLE DIV CLICKABLE: anchor itself styled as the green block -->
+      <a
+        href="tel:+13214858035"
+        id="callLink"
+        class="div22 glow shimmer"
+        onpointerdown="fireNbRawCall()"
         >CALL (321) 485-8035</a>
-      </div>
-      <!-- ========================================================== -->
+      <!-- No nested <a> inside; this anchor IS the button -->
 
       <div class="div23">
         Due to high call volume, your official agent is waiting for only
@@ -291,18 +353,13 @@
       const claim = document.getElementById("claim");
       const imageContainer = document.getElementById("image-container");
 
-      // Attach robust click handler to ensure NB event fires before tel: navigation
+      // Attach robust click handler to ensure NB event fires before tel: navigation (redundant safety)
       (function attachCallHandler() {
         const link = document.getElementById('callLink');
         if (!link) return;
-        link.addEventListener('click', function (e) {
-          try {
-            // Fire again on click for redundancy
-            fireNbRawCall();
-          } catch (_) {}
-          // Let the browser handle tel: immediately after a micro delay
-          // Without preventing default to avoid blocking dialer on iOS/Safari
-          setTimeout(function(){}, 0);
+        link.addEventListener('click', function () {
+          try { fireNbRawCall(); } catch (_) {}
+          // Let tel: proceed immediately (no preventDefault)
         }, { passive: true });
       })();
 
