@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Final Expense Benefits – Fast Eligibility Check</title>
+  <meta name="description" content="Check if you qualify for up to $50,000 in final expense benefits. Simple 2-step pre-qualification. Talk to a licensed specialist now." />
+  <meta name="keywords" content="final expense, burial insurance, funeral costs, end of life expenses, qualify for benefits, seniors insurance" />
+  <link rel="icon" href="icon.jpg" type="image/jpeg"/>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root{
+      /* Premium Teal + Gold + Ink palette */
+      --ink: #0b1320;
+      --ink-2:#111827;
+      --muted:#6b7280;
+
+      --teal-700:#0e7490;
+      --teal-600:#0891b2;
+      --teal-500:#14b8a6;
+
+      --gold-500:#f59e0b;
+      --gold-400:#fbbf24;
+
+      --glass:#0b1220b3; /* 70% */
+      --bg-1:#0b1220;
+      --bg-2:#0f172a;
+      --card:#0b1220c0;
+      --border:#203049;
+
+      --ok:#22c55e;
+      --err:#ef4444;
+      --white:#ffffff;
+
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+
+      --shadow-1: 0 10px 40px rgba(0,0,0,.35);
+      --shadow-2: 0 6px 20px rgba(0,0,0,.25);
+      --shadow-soft: 0 8px 30px rgba(20,184,166,.18);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:#e5e7eb;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(20,184,166,.20), transparent 60%),
+        radial-gradient(1000px 600px at 120% 20%, rgba(245,158,11,.20), transparent 60%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      background-attachment: fixed;
+    }
+
+    /* Top Notice */
+    .notice{
+      position:sticky; top:0; z-index:50;
+      background: linear-gradient(90deg, var(--teal-600), var(--teal-500), var(--gold-400));
+      color:#0b1220;
+      font-weight:800; letter-spacing:.2px;
+      padding:.75rem 1rem; text-align:center;
+      box-shadow: var(--shadow-2);
+      overflow:hidden;
+    }
+    .notice span{ position:relative; z-index:2 }
+    .notice::before{
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(120deg, transparent, rgba(255,255,255,.6), transparent);
+      transform:translateX(-100%);
+      animation:shine 3.2s linear infinite;
+    }
+    @keyframes shine{
+      to{ transform:translateX(100%) }
+    }
+
+    /* Header / Hero */
+    .wrap{ max-width:1100px; margin:0 auto; padding:24px }
+    .hero{
+      display:grid; gap:24px;
+      grid-template-columns:1fr;
+      margin-top:18px;
+    }
+    @media(min-width:900px){
+      .hero{ grid-template-columns: 1.15fr .85fr; align-items:stretch }
+    }
+
+    .card{
+      border:1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow-1);
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      padding:18px 18px 0 18px;
+    }
+    .brand-badge{
+      width:46px; height:46px; border-radius:12px;
+      background: radial-gradient(120% 120% at 20% 10%, var(--gold-400), var(--teal-600));
+      box-shadow: var(--shadow-soft);
+      display:grid; place-items:center; font-weight:900; color:#0b1220;
+    }
+    .brand h1{
+      margin:0; font-family:Poppins, Inter, sans-serif;
+      font-size:1.35rem; letter-spacing:.2px;
+    }
+    .brand small{ display:block; color:#93a3b8 }
+
+    .hero-card{
+      padding:22px 22px 26px 22px;
+    }
+    .headline{
+      font-family:Poppins, Inter, sans-serif;
+      font-weight:900; line-height:1.15;
+      font-size:clamp(1.6rem, 3.2vw, 2.2rem);
+      margin:10px 0 8px;
+      background: linear-gradient(90deg, #fff, #d1fae5 55%, #fde68a 100%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sub{
+      color:#cbd5e1; font-weight:500; margin-bottom:16px;
+    }
+    .benefit-chip{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px; border-radius:999px;
+      background:linear-gradient(135deg, rgba(20,184,166,.18), rgba(245,158,11,.18));
+      border:1px solid rgba(255,255,255,.1);
+      font-weight:800; letter-spacing:.3px;
+      box-shadow: var(--shadow-soft);
+    }
+    .benefit-chip .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:conic-gradient(from 0deg, var(--gold-400), var(--teal-600));
+      box-shadow:0 0 0 3px rgba(20,184,166,.18);
+    }
+
+    /* Quiz */
+    .quiz{
+      padding:0; overflow:hidden;
+      display:flex; flex-direction:column;
+    }
+    .progress{
+      position:relative;
+      padding:18px; text-align:center;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(2,6,23,.6), rgba(2,6,23,.2));
+    }
+    .progress-rail{
+      height:10px; border-radius:999px; background:#111827;
+      border:1px solid #1f2937; overflow:hidden; position:relative;
+      box-shadow: inset 0 0 12px rgba(0,0,0,.35);
+    }
+    .progress-bar{
+      height:100%; width:0%;
+      background:linear-gradient(90deg, var(--teal-600), var(--teal-500), var(--gold-400));
+      box-shadow: 0 0 20px rgba(20,184,166,.45);
+      transition: width .45s cubic-bezier(.22,.8,.26,.99);
+    }
+    .progress-steps{
+      margin-top:10px; display:flex; gap:10px; justify-content:center;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;background:#334155; opacity:.5;
+      transition:.25s;
+    }
+    .dot.active{ background:#22d3ee; opacity:1; transform:scale(1.2) }
+    .dot.done{ background:#34d399; opacity:1 }
+
+    .steps{ padding:22px; min-height:340px; display:grid; place-items:center; position:relative }
+    .step{ width:100%; max-width:560px; display:none; opacity:0; transform:translateY(8px);
+           transition: opacity .35s ease, transform .35s ease }
+    .step.active{ display:block; opacity:1; transform:translateY(0) }
+
+    .q-head{ text-align:center; margin-bottom:18px }
+    .q-num{
+      width:42px;height:42px;border-radius:999px; display:grid; place-items:center;
+      background:linear-gradient(135deg, rgba(20,184,166,.25), rgba(245,158,11,.25));
+      border:1px solid rgba(255,255,255,.14); font-weight:900;
+    }
+    .q-title{
+      font-family:Poppins, Inter, sans-serif; font-size:1.3rem; font-weight:800; margin:12px 0 6px
+    }
+    .q-sub{ color:#93a3b8; font-size:.94rem }
+
+    .answers{ display:grid; gap:12px }
+    .btn{
+      width:100%; display:flex; justify-content:space-between; align-items:center; gap:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-lg);
+      padding:14px 16px; color:#e5e7eb; cursor:pointer; text-align:left;
+      font-weight:700; letter-spacing:.2px;
+      box-shadow: var(--shadow-2);
+      transition: transform .12s ease, border-color .2s ease, background .2s ease;
+    }
+    .btn:hover{ transform:translateY(-1px); border-color:rgba(20,184,166,.55) }
+    .btn:active{ transform:translateY(0) }
+    .btn .left{ display:flex; gap:12px; align-items:center }
+    .pill{
+      min-width:28px; height:28px; border-radius:999px; font-size:.82rem;
+      background: radial-gradient(100% 100% at 20% 20%, rgba(20,184,166,.35), rgba(245,158,11,.25));
+      border:1px solid rgba(255,255,255,.18); display:grid; place-items:center; font-weight:900
+    }
+    .arrow{ font-weight:900; opacity:.85 }
+
+    /* Loading state */
+    .loading{
+      display:grid; place-items:center; gap:18px; padding:8px 0 4px;
+      text-align:center
+    }
+    .rings{
+      position:relative; width:84px; height:84px;
+    }
+    .ring{
+      position:absolute; inset:0;
+      border:3px solid transparent; border-top-color:var(--teal-500);
+      border-radius:999px; animation:spin 1.4s linear infinite
+    }
+    .ring:nth-child(2){ inset:10%; border-top-color:#94a3b8; animation-duration:1.1s }
+    .ring:nth-child(3){ inset:22%; border-top-color:var(--gold-400); animation-duration:.9s }
+
+    @keyframes spin{ to{ transform:rotate(360deg) } }
+
+    .status{
+      width:100%; max-width:420px; margin:0 auto; display:grid; gap:10px
+    }
+    .status-item{
+      display:flex; gap:12px; align-items:center; background:rgba(2,6,23,.6);
+      border:1px solid rgba(255,255,255,.08); padding:10px 12px; border-radius:14px
+    }
+    .status .n{
+      width:30px;height:30px;border-radius:10px; display:grid; place-items:center; font-weight:900;
+      background:linear-gradient(135deg, rgba(20,184,166,.35), rgba(245,158,11,.3));
+      border:1px solid rgba(255,255,255,.15)
+    }
+    .status .txt{ font-weight:700 }
+    .status .val{ font-weight:900 }
+    .ok{ color:var(--ok) }
+    .busy{ color:#f59e0b }
+
+    /* Result screens */
+    .result{
+      text-align:center; padding:6px 0 12px
+    }
+    .badge{
+      display:inline-block; padding:8px 14px; border-radius:999px; font-weight:900; letter-spacing:.3px;
+      background:linear-gradient(90deg, var(--teal-600), var(--teal-500), var(--gold-400));
+      color:#0b1220; box-shadow: var(--shadow-soft); margin-bottom:12px
+    }
+    .r-title{
+      font-family:Poppins, Inter, sans-serif; font-weight:900; font-size:clamp(1.4rem,2.6vw,1.9rem);
+      margin:6px 0 10px
+    }
+    .r-sub{ color:#cbd5e1; max-width:560px; margin:0 auto 16px }
+
+    .cta{
+      display:inline-flex; gap:12px; align-items:center; text-decoration:none; color:#0b1220;
+      background:linear-gradient(90deg, var(--gold-400), var(--gold-500));
+      border:0; border-radius:16px; padding:14px 18px; font-weight:900; letter-spacing:.4px;
+      box-shadow: 0 14px 50px rgba(245,158,11,.35);
+      transition: transform .15s ease, box-shadow .2s ease
+    }
+    .cta:hover{ transform:translateY(-2px); box-shadow: 0 20px 60px rgba(245,158,11,.45) }
+    .cta:active{ transform:translateY(0) }
+    .cta .callno{ font-size:1.15rem }
+    .shield{
+      margin-top:12px; display:inline-flex; gap:8px; align-items:center; color:#9ca3af; font-weight:700
+    }
+
+    .sorry .badge{ background:linear-gradient(90deg, #fca5a5, #ef4444) }
+    .sorry .cta{ display:none } /* no CTA on sorry page */
+
+    /* Footer */
+    footer{
+      margin-top:36px;
+      border-top:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(2,6,23,.2), rgba(2,6,23,.55));
+    }
+    .foot-wrap{ max-width:1100px; margin:0 auto; padding:26px 24px }
+    .fgrid{ display:grid; gap:22px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .fgrid{ grid-template-columns: repeat(3,1fr) } }
+    .fh{ color:#d1fae5; font-family:Poppins; margin:0 0 10px; font-size:1.05rem; letter-spacing:.2px }
+    .flist{ margin:0; padding-left:18px; color:#cbd5e1 }
+    .links{ display:flex; gap:18px; flex-wrap:wrap; margin-top:16px }
+    .links a{ color:#93c5fd; text-decoration:none; font-weight:700 }
+    .links a:hover{ text-decoration:underline }
+
+    /* Accessibility helpers */
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+    .kbd-hint{ font-size:.78rem; color:#9ca3af; margin-top:10px }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .notice::before, .progress-bar, .btn, .cta, .ring{ animation:none !important; transition:none !important }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sticky notice -->
+  <div class="notice" role="status" aria-live="polite">
+    <span>Limited Window: Americans 55+ may pre-qualify for benefits up to $50,000</span>
+  </div>
+
+  <main class="wrap" id="top">
+    <section class="hero">
+      <!-- Left: Value / Brand -->
+      <article class="card hero-card" aria-labelledby="headline">
+        <div class="brand">
+          <div class="brand-badge" aria-hidden="true">SH</div>
+          <div>
+            <h1> SavingsHero <small style="font-weight:600; color:#9ca3af">Licensed Marketplace</small></h1>
+          </div>
+        </div>
+
+        <h2 id="headline" class="headline">Secure Your Family’s Future with Simple, Affordable Coverage</h2>
+        <p class="sub">Answer two quick questions to see if you’re a match. No obligations. Speak with a licensed specialist in minutes.</p>
+
+        <div class="benefit-chip" aria-label="Potential coverage up to $50,000">
+          <span class="dot" aria-hidden="true"></span> Up to <strong>$50,000</strong> final expense coverage
+        </div>
+      </article>
+
+      <!-- Right: Quiz Card -->
+      <article class="card quiz" aria-labelledby="quizTitle">
+        <div class="progress" aria-hidden="true">
+          <div class="progress-rail" aria-hidden="true">
+            <div id="bar" class="progress-bar" style="width:0%"></div>
+          </div>
+          <div class="progress-steps" aria-hidden="true">
+            <div id="d1" class="dot active"></div>
+            <div id="d2" class="dot"></div>
+            <div id="d3" class="dot"></div>
+          </div>
+        </div>
+
+        <div class="steps">
+          <!-- Step 1 -->
+          <section id="step-1" class="step active" aria-labelledby="q1-title" role="group">
+            <div class="q-head">
+              <div class="q-num" aria-hidden="true">1</div>
+              <h3 id="q1-title" class="q-title">Are you currently between 55 and 75?</h3>
+              <p class="q-sub">Age helps us place you in the appropriate plan tier.</p>
+            </div>
+            <div class="answers">
+              <button class="btn" data-next="2" data-qualify="yes" aria-label="Yes, I am between 55 and 75" >
+                <span class="left"><span class="pill" aria-hidden="true">✓</span> Yes</span><span class="arrow" aria-hidden="true">→</span>
+              </button>
+              <button class="btn" data-next="sorry" data-qualify="no" aria-label="No, I am not between 55 and 75">
+                <span class="left"><span class="pill" aria-hidden="true">✗</span> No</span><span class="arrow" aria-hidden="true">→</span>
+              </button>
+            </div>
+            <p class="kbd-hint">Tip: Use <strong>Tab</strong> and <strong>Enter</strong> to answer quickly.</p>
+          </section>
+
+          <!-- Step 2 -->
+          <section id="step-2" class="step" aria-labelledby="q2-title" role="group">
+            <div class="q-head">
+              <div class="q-num" aria-hidden="true">2</div>
+              <h3 id="q2-title" class="q-title">Do you have an active checking account?</h3>
+              <p class="q-sub">Required for premium payments and policy activation.</p>
+            </div>
+            <div class="answers">
+              <button class="btn" data-next="loading" data-qualify="yes" aria-label="Yes, I have an active checking account">
+                <span class="left"><span class="pill" aria-hidden="true">🏦</span> Yes</span><span class="arrow" aria-hidden="true">→</span>
+              </button>
+              <button class="btn" data-next="sorry" data-qualify="no" aria-label="No, I do not have an active checking account">
+                <span class="left"><span class="pill" aria-hidden="true">✗</span> No</span><span class="arrow" aria-hidden="true">→</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- Loading -->
+          <section id="step-loading" class="step" aria-live="polite" aria-busy="true">
+            <div class="loading" role="status">
+              <div class="rings" aria-hidden="true">
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+              </div>
+              <h3 class="q-title">Checking Availability…</h3>
+              <div class="status">
+                <div class="status-item"><div class="n">1</div><div class="txt">Eligibility: <span id="s-elig" class="val">Reviewing</span></div></div>
+                <div class="status-item"><div class="n">2</div><div class="txt">Agent Status: <span id="s-slot" class="val">Searching</span></div></div>
+                <div class="status-item"><div class="n">3</div><div class="txt">Reserving Spot: <span id="s-resv" class="val">Pending</span></div></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Sorry -->
+          <section id="step-sorry" class="step sorry" aria-labelledby="sorry-title">
+            <div class="result">
+              <div class="badge" aria-hidden="true">Application Status</div>
+              <h3 id="sorry-title" class="r-title">We’re Sorry</h3>
+              <p class="r-sub">Based on your answers, you don’t meet the current eligibility criteria for this program. Requirements may change—check back again later.</p>
+            </div>
+          </section>
+
+          <!-- Final CTA -->
+          <section id="step-final" class="step" aria-labelledby="final-title">
+            <div class="result">
+              <div class="badge" aria-hidden="true">Congratulations</div>
+              <h3 id="final-title" class="r-title">You’re Pre-Qualified!</h3>
+              <p class="r-sub">You may be eligible for up to <strong>$25,000</strong> in final expense benefits. Speak with a licensed specialist now to confirm your eligibility and get your free quote.</p>
+              <a class="cta" href="tel:+18556940234" id="callCta" aria-label="Call now 855-694-0234">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3 5c0-1.1.9-2 2-2h3.28c.43 0 .82.28.95.69l1.5 4.59c.15.47-.06.98-.5 1.2l-2.1 1.05c1.3 2.9 3.54 5.14 6.44 6.44l1.05-2.1c.22-.44.73-.65 1.2-.5l4.6 1.5c.4.13.68.52.68.95V19c0 1.1-.9 2-2 2h-1C9.72 21 3 14.28 3 6V5Z" stroke="#0b1220" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+                <span>
+                  <div class="callno">855-694-0234</div>
+                  <small>Tap to connect now</small>
+                </span>
+              </a>
+              <div class="shield">🔒 Your information is protected & secure</div>
+            </div>
+          </section>
+        </div>
+      </article>
+    </section>
+
+    <!-- Trust / Copy -->
+    <section class="wrap" style="padding-left:0;padding-right:0">
+      <div class="card" style="padding:20px; margin-top:22px">
+        <div style="display:grid; gap:18px; grid-template-columns:1fr; align-items:start">
+          <div>
+            <h3 class="fh" style="margin-top:0">Why People Choose Us</h3>
+            <ul class="flist">
+              <li>Licensed, independent marketplace — compare options quickly</li>
+              <li>No obligation to enroll; speak with a real, licensed pro</li>
+              <li>Transparent pricing; plans designed to fit your budget</li>
+              <li>Fast pre-qualification — most calls start in under 2 minutes</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="fh">Important Disclaimers</h3>
+            <ul class="flist">
+              <li>Eligibility and rates vary by age and health; underwriting may apply</li>
+              <li>We do not offer every plan in all areas; availability may change</li>
+              <li>Calling connects you to a licensed insurance agent</li>
+              <li>No purchase necessary to compare options</li>
+            </ul>
+          </div>
+        </div>
+        <div class="links" role="navigation" aria-label="Legal links">
+          <a href="https://savingshero.org/privacy.html">Privacy Policy</a>
+          <a href="https://savingshero.org/terms.html">Terms of Service</a>
+          <a href="https://savingshero.org/contact.html">Contact</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-wrap">
+      <div class="fgrid">
+        <div>
+          <h4 class="fh">About</h4>
+          <p style="margin:0;color:#cbd5e1">SavingsHero.org helps you compare final-expense options through our licensed partner network.</p>
+        </div>
+        <div>
+          <h4 class="fh">Hours</h4>
+          <p style="margin:0;color:#cbd5e1">Mon–Fri: 9:00am–6:00pm ET • TTY 711</p>
+        </div>
+        <div>
+          <h4 class="fh">Support</h4>
+          <p style="margin:0;color:#cbd5e1">Questions? Call <strong>855-694-0234</strong></p>
+        </div>
+      </div>
+      <p style="margin:18px 0 0; color:#9ca3af">© 2025 SavingsHero.org. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Optional Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"SavingsHero",
+    "url":"https://savingshero.org",
+    "logo":"https://savingshero.org/icon.jpg",
+    "sameAs":[],
+    "contactPoint":[{"@type":"ContactPoint","telephone":"+1-855-694-0234","contactType":"customer support","areaServed":"US"}]
+  }
+  </script>
+
+  <script>
+    // --- Quiz Logic (2 questions -> loading -> final or sorry) ---
+    const steps = ["step-1", "step-2", "step-loading", "step-final", "step-sorry"];
+    const bar = document.getElementById("bar");
+    const dot1 = document.getElementById("d1");
+    const dot2 = document.getElementById("d2");
+    const dot3 = document.getElementById("d3");
+
+    const els = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    const show = id => {
+      els(".step").forEach(s => { s.classList.remove("active"); s.setAttribute("aria-hidden","true"); });
+      const el = document.getElementById(id);
+      if(el){ el.classList.add("active"); el.removeAttribute("aria-hidden"); }
+    };
+
+    function setProgress(idx){
+      // idx: 1..3 visual stages (2 Qs + result)
+      const map = {1: 12, 2: 55, 3: 100};
+      bar.style.width = (map[idx] || 0) + "%";
+      dot1.className = "dot " + (idx>=1 ? (idx>1 ? "done":"active") : "");
+      dot2.className = "dot " + (idx>=2 ? (idx>2 ? "done":"active") : "");
+      dot3.className = "dot " + (idx>=3 ? "active":"");
+    }
+
+    // Analytics helper (safe-guarded)
+    function track(event, data){
+      try{
+        if(typeof gtag !== "undefined"){ gtag("event", event, data || {}); }
+        if(window.dataLayer){ window.dataLayer.push({ event, ...data }); }
+      }catch(e){}
+    }
+
+    // Click handling
+    els(".btn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const go = btn.getAttribute("data-next");
+        const qualify = btn.getAttribute("data-qualify");
+
+        if(go === "sorry"){
+          setProgress(3);
+          show("step-sorry");
+          track("quiz_disqualified", { step: document.querySelector(".step.active")?.id || "unknown" });
+          return;
+        }
+
+        if(go === "2"){
+          setProgress(2);
+          show("step-2");
+          track("quiz_progress", { step: 2 });
+          return;
+        }
+
+        if(go === "loading"){
+          setProgress(3);
+          show("step-loading");
+          track("quiz_progress", { step: "loading" });
+
+          // Loading sequence
+          const s1 = document.getElementById("s-elig");
+          const s2 = document.getElementById("s-slot");
+          const s3 = document.getElementById("s-resv");
+
+          setTimeout(()=>{ s1.textContent = "Eligible"; s1.classList.add("ok"); }, 700);
+          setTimeout(()=>{ s2.textContent = "Agent Available Now"; s2.classList.add("busy"); }, 1500);
+          setTimeout(()=>{ s3.textContent = "Spot Reserved"; s3.classList.add("ok"); }, 2300);
+
+          setTimeout(()=>{
+            show("step-final");
+            track("quiz_complete", { result:"prequalified" });
+          }, 3200);
+        }
+      });
+    });
+
+    // Keyboard: Enter triggers first option for speed
+    document.addEventListener("keydown", (e)=>{
+      if(e.key === "Enter"){
+        const step = document.querySelector(".step.active");
+        if(!step) return;
+        const firstBtn = step.querySelector(".btn");
+        if(firstBtn){ firstBtn.click(); }
+      }
+    });
+
+    // Init
+    setProgress(1);
+  </script>
+</body>
+</html>
