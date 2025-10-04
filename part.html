@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Policy Benefits – Chat</title>
+  <meta name="theme-color" content="#0ea35a" />
+
+  <!-- Optional icon font (can remove if you want 100% offline) -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#10161d;
+      --panel-2:#0f141b;
+      --ink:#f6f7f9;
+      --muted:#a3b0be;
+      --brand:#16c779;
+      --brand-2:#0ea35a;
+      --accent:#7c8aff;
+      --danger:#ff6b6b;
+      --chip:#16212b;
+      --gold:#f5d96c;
+      --success:#00d793;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --ring:0 0 0 2px rgba(22,199,121,.25);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 70% -20%, #173542 0%, transparent 60%),
+        radial-gradient(1000px 600px at -10% 10%, #112a22 0%, transparent 55%),
+        linear-gradient(180deg,#0b0f14, #0b0f14);
+    }
+
+    /* Header */
+    .site-head{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(16,22,29,.85), rgba(16,22,29,.55));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .head-wrap{
+      margin:auto; max-width:980px; padding:12px 16px; display:flex; align-items:center; gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; cursor:pointer;
+    }
+    .brand img{height:36px; width:auto; border-radius:8px; box-shadow:var(--shadow)}
+    .brand h1{font-size:16px; margin:0; letter-spacing:.2px}
+    .live{
+      margin-left:auto; display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:999px;
+      background: rgba(22,199,121,.12);
+      border:1px solid rgba(22,199,121,.25);
+    }
+    .live i{color:#22ffac}
+    .live strong{color:#d7ffe9}
+    .live small{color:var(--muted)}
+    .enrolled{
+      display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+      background: rgba(124,138,255,.10); border:1px solid rgba(124,138,255,.25);
+      margin-left:10px;
+    }
+    .enrolled strong{color:#e6e8ff}
+
+    /* Chat panel */
+    .wrap{margin:auto; max-width:980px; padding:24px 16px 120px}
+    .hero{
+      display:grid; grid-template-columns: 1fr; gap:18px;
+      padding:18px; border-radius:16px;
+      background: linear-gradient(180deg, rgba(16,22,29,.95), rgba(13,18,24,.8));
+      border:1px solid rgba(255,255,255,.06);
+      box-shadow: var(--shadow);
+    }
+    .hero-title{
+      font-weight:800; font-size:22px; line-height:1.25;
+      background: linear-gradient(90deg,#eafff6,#baffdc,#c7e4ff);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      cursor:pointer;
+    }
+    .hero-sub{color:var(--muted)}
+    .arrow-section{display:flex; justify-content:center; font-size:22px; opacity:.6}
+
+    /* Chat stream */
+    .chat{
+      margin-top:6px; display:flex; flex-direction:column; gap:12px;
+      padding:10px; border-radius:16px; background: linear-gradient(180deg,#0e141b,#0c1218);
+      border:1px solid rgba(255,255,255,.05)
+    }
+    .row{display:flex; gap:10px; align-items:flex-end}
+    .a{justify-content:flex-start}
+    .b{justify-content:flex-end}
+    .bubble{
+      max-width:90%;
+      padding:12px 14px; border-radius:16px;
+      line-height:1.45; font-size:15px;
+      border:1px solid rgba(255,255,255,.06);
+      box-shadow: var(--shadow);
+    }
+    .bot{background:linear-gradient(180deg,#121a23,#111821)}
+    .user{background:linear-gradient(180deg,#13261c,#0f1f19); border-color:rgba(22,199,121,.35)}
+    .bot .h{display:flex; align-items:center; gap:8px; font-weight:700; color:#e9fff6; margin-bottom:6px}
+    .bot .h i{color:#27ffb5}
+
+    .quick{
+      display:flex; flex-wrap:wrap; gap:8px; margin-top:6px
+    }
+    .chip{
+      border:1px solid rgba(22,199,121,.35); color:#d7ffe9; background:var(--chip);
+      padding:10px 12px; border-radius:999px; cursor:pointer; font-weight:600; font-size:14px;
+      transition: transform .1s ease, box-shadow .15s ease;
+      box-shadow: 0 0 0 0 rgba(22,199,121,0);
+    }
+    .chip:hover{transform: translateY(-1px)}
+    .chip:active{transform: translateY(0)}
+    .chip:focus{outline:none; box-shadow: var(--ring)}
+
+    .typing{
+      display:inline-flex; gap:6px; align-items:center; opacity:.8
+    }
+    .dot{width:6px; height:6px; border-radius:50%; background:#9ab; animation:b 1.2s infinite}
+    .dot:nth-child(2){animation-delay:.15s}
+    .dot:nth-child(3){animation-delay:.3s}
+    @keyframes b{0%,80%,100%{opacity:.3; transform:translateY(0)} 40%{opacity:1; transform:translateY(-3px)}}
+
+    /* Status bar between chat & CTA */
+    .status{
+      margin-top:12px; padding:12px 14px; border-radius:14px;
+      border:1px dashed rgba(255,255,255,.1); color:#b7c6d6; background:linear-gradient(180deg,#0f161e,#0c1218)
+    }
+    .status .s{display:flex; gap:8px; align-items:center; margin:6px 0}
+    .status .ok{color:var(--success)}
+    .status .pending{color:#ffd16b}
+    .status .muted{color:var(--muted)}
+
+    /* Congrats (CTA) */
+    .congrats{
+      display:none; margin-top:14px; padding:18px; border-radius:16px; text-align:center;
+      background: linear-gradient(180deg,#0f1b12,#0b1510);
+      border:1px solid rgba(22,199,121,.35);
+      box-shadow: 0 10px 40px rgba(22,199,121,.15);
+      position:relative; overflow:hidden;
+    }
+    .congrats.show{display:block}
+    .congrats h2{
+      margin:0 0 6px; font-size:22px; font-weight:900;
+      color:#eafff4;
+    }
+    .congrats .sub{color:#c7f7df}
+    .spots{margin:10px auto 14px; width:max-content; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.04)}
+    .cta{
+      display:block; margin:14px auto 8px; width:100%; text-align:center; text-decoration:none; color:#09130e;
+      font-weight:900; letter-spacing:.4px; font-size:18px;
+      padding:16px 18px; border-radius:14px; border:1px solid #1fe38a;
+      background: linear-gradient(180deg, #1fe38a, #12ba6d);
+      box-shadow: 0 14px 35px rgba(18,186,109,.35), inset 0 -2px 0 rgba(0,0,0,.15);
+      position:relative; overflow:hidden;
+    }
+    .cta:focus{outline:none; box-shadow: var(--ring), 0 14px 35px rgba(18,186,109,.35)}
+    /* shimmer */
+    .cta::after{
+      content:""; position:absolute; inset:-40%; transform:skewX(-20deg); width:40%;
+      background: linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.25), rgba(255,255,255,.0));
+      animation:sh 2.2s infinite;
+    }
+    @keyframes sh{0%{left:-45%} 60%{left:110%} 100%{left:110%}}
+    /* glow pulse */
+    .cta.glow{box-shadow: 0 0 0 0 rgba(31,227,138,.7); animation:gl 1.8s infinite}
+    @keyframes gl{
+      0%{box-shadow:0 0 0 0 rgba(31,227,138,.55)}
+      70%{box-shadow:0 0 0 18px rgba(31,227,138,0)}
+      100%{box-shadow:0 0 0 0 rgba(31,227,138,0)}
+    }
+
+    .deadline{color:#cdeee0; margin:8px 0 12px}
+    .timer{
+      display:inline-flex; gap:8px; padding:6px 12px; border-radius:10px; border:1px dashed rgba(255,255,255,.15);
+      background: rgba(0,0,0,.25)
+    }
+    .t{min-width:22px; display:inline-block; text-align:center; font-weight:800; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+
+    /* Footer legal */
+    .legal{
+      margin:auto; max-width:980px; padding:24px 16px 60px; color:var(--muted); font-size:13px; text-align:center
+    }
+    .legal a{color:#d9e7ff}
+
+    /* Full-page rain GIF overlay (z-index high) */
+    .rain{
+      position:fixed; inset:0; z-index:9999; display:none; place-items:center;
+      background: rgba(0,0,0,.35);
+    }
+    .rain.show{display:grid}
+    .rain img{
+      max-width:min(90vw,600px); width:100%; height:auto; border-radius:14px;
+      border:1px solid rgba(255,255,255,.18); box-shadow: 0 30px 80px rgba(0,0,0,.6)
+    }
+
+    /* NB verify chip */
+    #nb-chip{
+      position:fixed; bottom:16px; right:16px; z-index:99999;
+      background:#11261b; color:#caffea; border:1px solid rgba(22,199,121,.35);
+      padding:10px 12px; border-radius:999px; display:none; gap:8px; align-items:center; box-shadow:var(--shadow)
+    }
+    #nb-chip.show{display:flex}
+
+    /* small screens */
+    @media (max-width:480px){
+      .bubble{max-width:92%}
+      .cta{font-size:17px; padding:15px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-head">
+    <div class="head-wrap">
+      <div class="brand" onclick="smoothScrollToTop(900,0)">
+        <img src="./bur.png" alt="Policy Benefits" />
+        <h1>Policy Benefits</h1>
+      </div>
+
+      <div class="live" onclick="smoothScrollToTop(900,0)" style="cursor:pointer">
+        <i class="fa-solid fa-signal"></i>
+        <div>
+          <div><strong id="claim">72</strong> Claiming Right Now</div>
+          <small>Live counter</small>
+        </div>
+      </div>
+
+      <div class="enrolled" title="Past 24 hours">
+        <i class="fa-regular fa-circle-check"></i>
+        <div><strong id="counter">22,563</strong> enrolled</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-title" onclick="smoothScrollToTop(900,0)">
+        Final Call For Seniors To Claim Their $25,000 Funeral Benefit Coverage!
+      </div>
+      <div class="hero-sub">
+        Checking your eligibility is simple and takes about 60 seconds. Answer the questions in the chat below to see if you qualify now.
+      </div>
+      <div class="arrow-section"><i class="fa-solid fa-angles-down"></i></div>
+
+      <!-- Chat -->
+      <div id="chat" class="chat">
+        <!-- Bot greeting -->
+        <div class="row a">
+          <div class="bubble bot">
+            <div class="h"><i class="fa-solid fa-robot"></i> Benefit Assistant</div>
+            Hi! Let’s do a quick check to secure your coverage.
+            <div class="quick" style="margin-top:10px">
+              <span style="font-size:12px; color:var(--muted)">Answer below:</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q1 -->
+        <div class="row a" id="q1">
+          <div class="bubble bot">
+            <strong>1) What’s your age range?</strong>
+            <div class="quick" id="q1chips">
+              <button class="chip" onclick="answerAge('50-65')">50–65</button>
+              <button class="chip" onclick="answerAge('65-80')">65–80</button>
+              <button class="chip" onclick="answerAge('80+')">80+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- (User answer clones here) -->
+
+        <!-- Q2 (Will reveal after Q1) -->
+        <div class="row a" id="q2" style="display:none">
+          <div class="bubble bot">
+            <strong>2) Are you a U.S. Citizen?</strong>
+            <div class="quick">
+              <button class="chip" onclick="answerCitizen('yes')">Yes</button>
+              <button class="chip" onclick="answerCitizen('no')">No</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Typing indicator -->
+        <div class="row a" id="typing" style="display:none">
+          <div class="bubble bot">
+            <span class="typing">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div id="status" class="status" style="display:none">
+        <div class="s"><i class="fa-solid fa-spinner pending fa-spin"></i> <span>Reviewing your answers…</span></div>
+        <div class="s muted" id="st-2"><i class="fa-regular fa-circle"></i> Verifying availability…</div>
+        <div class="s muted" id="st-3"><i class="fa-regular fa-circle"></i> Confirming eligibility…</div>
+      </div>
+
+      <!-- Congratulations / CTA -->
+      <div id="congrats" class="congrats">
+        <h2>Congratulations, You Qualify 🎉</h2>
+        <div class="sub">Make a <strong>quick call</strong> to claim your $25,000 Funeral Benefit Coverage now.</div>
+        <div class="spots">Spots remaining: <strong>4</strong></div>
+
+        <a
+          href="tel:+13214858035"
+          id="callLink"
+          class="cta glow"
+          onpointerdown="fireNbRawCall()"
+        >
+          CALL (321) 485-8035
+        </a>
+
+        <div class="deadline">Due to high call volume, your official agent is waiting for only <strong>3 minutes</strong>, then your spot may not be reserved.</div>
+        <div class="timer">
+          <span class="t" id="minutes">2</span>
+          <span class="t">:</span>
+          <span class="t" id="seconds">52</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Legal -->
+  <footer class="legal">
+    Beware of other fraudulent & similar-looking websites that might look exactly like ours; we have no affiliation with them.
+    This is the only official website to claim your Final Expense Benefit with the domain name <strong>policybenefits.org</strong>.
+    <div style="margin-top:10px">
+      <a href="/terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp;
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <!-- Full-page rain overlay -->
+  <div id="rain" class="rain" aria-hidden="true">
+    <img src="baarish.GIF" alt="Celebration Rain" />
+  </div>
+
+  <!-- NB verify chip -->
+  <div id="nb-chip"><i class="fa-solid fa-circle-check"></i> NB: raw_call sent</div>
+
+  <script>
+    // ---------- Safe fallbacks so nothing errors ----------
+    window.nbpix = window.nbpix || function(){ try{ console.log("[NB] event:", arguments) }catch(e){} };
+    window.fireNbRawCall = function(){
+      try{ nbpix('event','raw_call') }catch(_){}
+      const chip = document.getElementById('nb-chip');
+      chip?.classList.add('show');
+      setTimeout(()=>chip?.classList.remove('show'), 2500);
+    };
+    // `rbAge` used in your original; we safely no-op but log
+    window.rbAge = function(age){ try{ console.log("[RB] age:", age) }catch(e){} };
+
+    // ---------- Counters (top bar) ----------
+    const counterEl = document.getElementById("counter");
+    const claimEl = document.getElementById("claim");
+    const maxCounterValue = 22570;
+    const maxClaimValue = 75;
+
+    setInterval(() => {
+      if (!counterEl) return;
+      let n = parseInt(counterEl.innerText.replace(/,/g, ""));
+      if (n < maxCounterValue) {
+        n += Math.floor(Math.random()*3)+1;
+        if (n > maxCounterValue) n = maxCounterValue;
+        counterEl.innerText = n.toLocaleString();
+      }
+    }, 3000);
+
+    setInterval(() => {
+      if (!claimEl) return;
+      let n = parseInt(claimEl.innerText, 10);
+      if (n < maxClaimValue) {
+        n += Math.floor(Math.random()*2)+1;
+        if (n > maxClaimValue) n = maxClaimValue;
+        claimEl.innerText = n;
+      }
+    }, 3000);
+
+    // ---------- Smooth scroll ----------
+    function smoothScrollToTop(duration, targetPosition = 0) {
+      const startPosition = window.pageYOffset;
+      const distance = targetPosition - startPosition;
+      let startTime = null;
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const run = ease(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+      }
+      function ease(t,b,c,d){ t/=d/2; if(t<1) return c/2*t*t+b; t--; return -c/2*(t*(t-2)-1)+b }
+      requestAnimationFrame(animation);
+    }
+
+    // ---------- Chat logic ----------
+    const chat = document.getElementById("chat");
+    const q1 = document.getElementById("q1");
+    const q2 = document.getElementById("q2");
+    const typing = document.getElementById("typing");
+    const statusBox = document.getElementById("status");
+    const st2 = document.getElementById("st-2");
+    const st3 = document.getElementById("st-3");
+    const rain = document.getElementById("rain");
+    const congrats = document.getElementById("congrats");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+
+    let step = "q1";
+    let timerHandle = null;
+
+    function pushUser(msg){
+      const row = document.createElement("div");
+      row.className = "row b";
+      row.innerHTML = `<div class="bubble user">${msg}</div>`;
+      chat.appendChild(row);
+      chat.scrollTo({top: chat.scrollHeight, behavior: "smooth"});
+    }
+
+    function showTyping(ms=700){
+      typing.style.display = "block";
+      chat.scrollTo({top: chat.scrollHeight, behavior: "smooth"});
+      return new Promise(res=> setTimeout(()=>{ typing.style.display="none"; res(); }, ms));
+    }
+
+    function botSay(html){
+      const row = document.createElement("div");
+      row.className = "row a";
+      const bubble = document.createElement("div");
+      bubble.className = "bubble bot";
+      bubble.innerHTML = html;
+      row.appendChild(bubble);
+      chat.appendChild(row);
+      chat.scrollTo({top: chat.scrollHeight, behavior:"smooth"});
+      return bubble;
+    }
+
+    // Q1 -> user picks age
+    window.answerAge = async function(age){
+      rbAge(age);
+      disableChips("#q1chips .chip");
+      pushUser(age);
+      await showTyping(600);
+      q2.style.display = "block";
+      chat.scrollTo({top: chat.scrollHeight, behavior:"smooth"});
+      step = "q2";
+    };
+
+    // Q2 -> user picks citizen yes/no
+    window.answerCitizen = async function(ans){
+      pushUser(ans === 'yes' ? 'Yes' : 'No');
+      await showTyping(600);
+
+      // Start status sequence
+      statusBox.style.display = "block";
+      botSay(`<div class="h"><i class="fa-solid fa-robot"></i> Benefit Assistant</div>Thanks, I’ve got your responses. Starting a quick verification now.`);
+
+      // staged statuses
+      await stagedStatus();
+      // then "complete"
+      qualify();
+    };
+
+    function disableChips(sel){
+      document.querySelectorAll(sel).forEach(btn=>{
+        btn.disabled = true;
+        btn.style.opacity = .6;
+        btn.style.pointerEvents = "none";
+      })
+    }
+
+    async function stagedStatus(){
+      // Reviewing…
+      await delay(1200);
+      replaceStatus(statusBox, 1, true);
+      // Verifying availability…
+      await delay(1200);
+      st2.classList.remove("muted");
+      st2.innerHTML = `<i class="fa-solid fa-spinner pending fa-spin"></i> Verifying availability…`;
+      await delay(1200);
+      replaceStatus(statusBox, 2, true);
+      // Confirming eligibility…
+      await delay(1200);
+      st3.classList.remove("muted");
+      st3.innerHTML = `<i class="fa-solid fa-spinner pending fa-spin"></i> Confirming eligibility…`;
+      await delay(1200);
+      replaceStatus(statusBox, 3, true);
+    }
+
+    function replaceStatus(box, idx, ok){
+      // idx: 1,2,3 map
+      const rows = box.querySelectorAll(".s");
+      const el = rows[idx-1];
+      if(!el) return;
+      el.classList.remove("muted");
+      el.innerHTML = ok
+        ? `<i class="fa-solid fa-circle-check ok"></i> ${el.textContent.replace('…','')} – done`
+        : `<i class="fa-solid fa-triangle-exclamation" style="color:var(--danger)"></i> ${el.textContent}`;
+    }
+
+    function delay(ms){ return new Promise(res=>setTimeout(res,ms)) }
+
+    // Show rain overlay briefly, then CTA + timer
+    async function qualify(){
+      await showTyping(500);
+      rain.classList.add("show");
+      setTimeout(()=>{ rain.classList.remove("show"); }, 2000);
+
+      // Reveal CTA
+      congrats.classList.add("show");
+      smoothScrollToTop(700, 0);
+
+      // start timer (2:52 -> downwards)
+      startTimer(172);
+
+      // Also attach a redundant click listener so fireNbRawCall still logs even if pointerdown missed
+      const link = document.getElementById('callLink');
+      if(link && !link.__rbAttached){
+        link.__rbAttached = true;
+        link.addEventListener('click', function(){ try{ fireNbRawCall(); }catch(_){} }, {passive:true});
+      }
+    }
+
+    function startTimer(totalSeconds){
+      if (timerHandle) clearInterval(timerHandle);
+      timerHandle = setInterval(()=>{
+        const m = Math.floor(totalSeconds / 60);
+        const s = totalSeconds % 60;
+        minutesEl.textContent = m;
+        secondsEl.textContent = s < 10 ? "0"+s : s;
+        totalSeconds--;
+        if (totalSeconds < 0) clearInterval(timerHandle);
+      }, 1000);
+    }
+
+    // Kick focus to top on load
+    window.addEventListener('load', ()=> {
+      smoothScrollToTop(400, 0);
+    });
+
+  </script>
+</body>
+</html>
