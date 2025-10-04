@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Policy Benefits – Card Swiper</title>
+  <meta name="theme-color" content="#10b981"/>
+
+  <style>
+    :root{
+      --ink:#f6f8fb;
+      --muted:#a7b4c6;
+      --bg:#0b0f14;
+      --panel:#10161d;
+      --panel2:#0e141a;
+      --brand:#16c779;
+      --brand2:#10b981;
+      --accent:#7c8aff;
+      --ring:0 0 0 2px rgba(22,199,121,.25);
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 70% -20%, #173542 0%, transparent 60%),
+        radial-gradient(1000px 600px at -10% 10%, #0f2b21 0%, transparent 55%),
+        linear-gradient(180deg,#0b0f14,#0b0f14);
+    }
+
+    /* Top bar */
+    .top{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:20; padding:12px 16px;
+      background:linear-gradient(180deg,rgba(16,22,29,.85),rgba(16,22,29,.55));
+      border-bottom:1px solid rgba(255,255,255,.06); backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; align-items:center; gap:10px; cursor:pointer}
+    .brand img{width:36px; height:36px; border-radius:8px; box-shadow:var(--shadow)}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.2px}
+    .stats{display:flex; gap:10px; flex-wrap:wrap}
+    .pill{
+      display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); font-size:13px;
+    }
+    .pill strong{color:#eafff4}
+
+    .wrap{max-width:980px; margin:auto; padding:22px 16px 120px}
+
+    /* Hero */
+    .hero{
+      padding:18px; border-radius:16px; border:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg,rgba(16,22,29,.95),rgba(13,18,24,.8)); box-shadow:var(--shadow);
+    }
+    .title{
+      font-weight:900; font-size:22px; line-height:1.25;
+      background:linear-gradient(90deg,#eafff6,#baffdc,#d9e0ff);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sub{color:var(--muted); margin-top:6px}
+
+    /* Swipe deck */
+    .deck{
+      position:relative; height:430px; margin-top:16px;
+    }
+    .card{
+      position:absolute; inset:0; margin:auto; width:min(620px,100%); height:100%;
+      background:linear-gradient(180deg,#101820,#0c141b);
+      border:1px solid rgba(255,255,255,.08); border-radius:18px; overflow:hidden;
+      box-shadow:0 18px 60px rgba(0,0,0,.45);
+      display:flex; flex-direction:column;
+      transform-origin: 50% 85%;
+      touch-action:none;
+      will-change: transform;
+    }
+    .card-inner{padding:22px 18px; display:flex; flex-direction:column; gap:12px}
+    .badge{
+      align-self:flex-start; display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:10px; border:1px solid rgba(16,185,129,.35);
+      background:rgba(16,185,129,.12); color:#d7ffe9; font-weight:700; font-size:13px
+    }
+    .q{font-size:20px; font-weight:800; color:#eafff4; line-height:1.25}
+    .hint{font-size:13px; color:#9ab}
+    .options{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px}
+    .chip{
+      border:1px solid rgba(22,199,121,.35); color:#d7ffe9; background:#16212b;
+      padding:10px 12px; border-radius:999px; cursor:pointer; font-weight:600; font-size:14px;
+      transition: transform .1s ease, box-shadow .15s ease;
+    }
+    .chip:hover{transform:translateY(-1px)}
+    .chip:active{transform:translateY(0)}
+
+    .swipe-label{
+      position:absolute; top:14px; font-weight:900; letter-spacing:.6px; padding:8px 12px; border-radius:10px;
+      border:2px solid currentColor; transform: rotate(-12deg); opacity:0; transition:.15s ease;
+      pointer-events:none;
+    }
+    .yes{left:14px; color:#2af07f; background:rgba(42,240,127,.1)}
+    .no{right:14px; color:#ff7575; background:rgba(255,117,117,.1); transform: rotate(12deg)}
+
+    .footer-ghost{margin-top:auto; padding:18px; color:#a9b9cb; font-size:13px; background:linear-gradient(180deg,rgba(255,255,255,.03),transparent)}
+    .controls{
+      display:flex; gap:10px; justify-content:center; margin-top:10px
+    }
+    .btn{
+      padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06); color:#eaf3ff; cursor:pointer; font-weight:700;
+    }
+
+    /* Status */
+    .status{
+      display:none; margin-top:14px; padding:12px 14px; border-radius:14px;
+      border:1px dashed rgba(255,255,255,.1); color:#b7c6d6; background:linear-gradient(180deg,#0f161e,#0c1218)
+    }
+    .status .s{display:flex; gap:8px; align-items:center; margin:6px 0}
+    .ok{color:#00d793}
+    .pending{color:#ffd16b}
+    .muted{color:var(--muted)}
+
+    /* CTA */
+    .congrats{
+      display:none; margin-top:14px; padding:18px; border-radius:16px; text-align:center;
+      background:linear-gradient(180deg,#0f1b12,#0b1510); border:1px solid rgba(22,199,121,.35);
+      box-shadow:0 10px 40px rgba(22,199,121,.15); position:relative; overflow:hidden;
+    }
+    .congrats.show{display:block}
+    .congrats h2{margin:0 0 6px; font-size:22px; font-weight:900; color:#eafff4}
+    .congrats .sub2{color:#c7f7df}
+    .spots{margin:10px auto 14px; width:max-content; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.04)}
+    .cta{
+      display:block; margin:14px auto 8px; width:100%; text-align:center; text-decoration:none; color:#09130e;
+      font-weight:900; letter-spacing:.4px; font-size:18px;
+      padding:16px 18px; border-radius:14px; border:1px solid #1fe38a;
+      background: linear-gradient(180deg, #1fe38a, #12ba6d);
+      box-shadow: 0 14px 35px rgba(18,186,109,.35), inset 0 -2px 0 rgba(0,0,0,.15);
+      position:relative; overflow:hidden;
+    }
+    .cta:focus{outline:none; box-shadow:var(--ring), 0 14px 35px rgba(18,186,109,.35)}
+    .cta::after{
+      content:""; position:absolute; inset:-40%; transform:skewX(-20deg); width:40%;
+      background:linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.25), rgba(255,255,255,.0));
+      animation:sh 2.2s infinite;
+    }
+    @keyframes sh{0%{left:-45%} 60%{left:110%} 100%{left:110%}}
+    .deadline{color:#cdeee0; margin:8px 0 12px}
+    .timer{display:inline-flex; gap:8px; padding:6px 12px; border-radius:10px; border:1px dashed rgba(255,255,255,.15); background:rgba(0,0,0,.25)}
+    .t{min-width:22px; display:inline-block; text-align:center; font-weight:800; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace}
+
+    /* NB chip */
+    #nb-chip{
+      position:fixed; bottom:16px; right:16px; z-index:9999; display:none;
+      background:#11261b; color:#caffea; border:1px solid rgba(22,199,121,.35);
+      padding:10px 12px; border-radius:999px; gap:8px; align-items:center; box-shadow:var(--shadow)
+    }
+    #nb-chip.show{display:flex}
+
+    /* Legal */
+    .legal{
+      margin:auto; max-width:980px; padding:24px 16px 60px; color:var(--muted); font-size:13px; text-align:center
+    }
+    .legal a{color:#d9e7ff}
+
+    @media (max-width:480px){
+      .deck{height:420px}
+      .cta{font-size:17px; padding:15px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="top">
+    <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <img src="./bur.png" alt="Policy Benefits"/>
+      <h1>Policy Benefits</h1>
+    </div>
+    <div class="stats">
+      <div class="pill"><span>Live:</span> <strong id="claim">72</strong> claiming</div>
+      <div class="pill"><span>24h:</span> <strong id="counter">22,563</strong> enrolled</div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="title">Final Call To Claim Your $25,000 Funeral Benefit Coverage!</div>
+      <div class="sub">Swipe the cards right for <b>Yes</b>, left for <b>No</b>. After the last card, you’ll be taken to the call-to-claim section automatically.</div>
+
+      <!-- Swipe Deck -->
+      <div class="deck" id="deck">
+        <!-- CARD 3 (bottom) -->
+        <div class="card" data-index="2">
+          <div class="swipe-label yes">YES</div>
+          <div class="swipe-label no">NO</div>
+          <div class="card-inner">
+            <span class="badge">Step 3 of 3</span>
+            <div class="q">Do you want an agent to reserve your spot for the next <u>3 minutes</u> while you call?</div>
+            <div class="hint">Tip: Swipe right = Yes, left = No</div>
+            <div class="options">
+              <button class="chip" onclick="buttonAnswer(this, true)">Yes, reserve my spot</button>
+              <button class="chip" onclick="buttonAnswer(this, false)">No</button>
+            </div>
+            <div class="footer-ghost">You can also drag this card. A subtle tilt helps the thumb motion.</div>
+          </div>
+        </div>
+
+        <!-- CARD 2 (middle) -->
+        <div class="card" data-index="1">
+          <div class="swipe-label yes">YES</div>
+          <div class="swipe-label no">NO</div>
+          <div class="card-inner">
+            <span class="badge">Step 2 of 3</span>
+            <div class="q">Are you a U.S. Citizen?</div>
+            <div class="hint">Swipe or tap a button below</div>
+            <div class="options">
+              <button class="chip" onclick="buttonAnswer(this, true)">Yes</button>
+              <button class="chip" onclick="buttonAnswer(this, false)">No</button>
+            </div>
+            <div class="footer-ghost">We use this to check which benefits apply to you.</div>
+          </div>
+        </div>
+
+        <!-- CARD 1 (top) -->
+        <div class="card" data-index="0">
+          <div class="swipe-label yes">YES</div>
+          <div class="swipe-label no">NO</div>
+          <div class="card-inner">
+            <span class="badge">Step 1 of 3</span>
+            <div class="q">Are you aged <b>50+</b>?</div>
+            <div class="hint">Right = Yes · Left = No</div>
+            <div class="options">
+              <button class="chip" onclick="buttonAnswer(this, true)">Yes, I’m 50+</button>
+              <button class="chip" onclick="buttonAnswer(this, false)">No</button>
+            </div>
+            <div class="footer-ghost">Most seniors qualify in under 30 seconds.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div id="status" class="status">
+        <div class="s" id="st-1"><span class="pending">⏳</span> Reviewing your answers…</div>
+        <div class="s muted" id="st-2">○ Verifying availability…</div>
+        <div class="s muted" id="st-3">○ Confirming eligibility…</div>
+      </div>
+
+      <!-- CTA -->
+      <div id="congrats" class="congrats">
+        <h2>Congratulations, You Qualify 🎉</h2>
+        <div class="sub2">Make a <strong>quick call</strong> to claim your $25,000 Funeral Benefit Coverage now.</div>
+        <div class="spots">Spots remaining: <strong>4</strong></div>
+
+        <a href="tel:+13214858035" id="callLink" class="cta" onpointerdown="fireNbRawCall()">CALL (321) 485-8035</a>
+
+        <div class="deadline">Due to high call volume, your official agent is waiting for only <strong>3 minutes</strong>, then your spot may not be reserved.</div>
+        <div class="timer">
+          <span class="t" id="minutes">2</span><span class="t">:</span><span class="t" id="seconds">52</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NB verify chip -->
+  <div id="nb-chip">NB: raw_call sent</div>
+
+  <!-- Legal -->
+  <footer class="legal">
+    Beware of other fraudulent & similar-looking websites that might look exactly like ours; we have no affiliation with them.
+    This is the only official website to claim your Final Expense Benefit with the domain name <strong>policybenefits.org</strong>.
+    <div style="margin-top:10px">
+      <a href="/terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp;
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <script>
+    // ===== Safe pixels / hooks =====
+    window.nbpix = window.nbpix || function(){ try{ console.log("[NB] event:", arguments) }catch(e){} };
+    function fireNbRawCall(){
+      try{ nbpix('event','raw_call') }catch(_){}
+      const chip = document.getElementById('nb-chip');
+      chip?.classList.add('show');
+      setTimeout(()=>chip?.classList.remove('show'), 2500);
+    }
+    // legacy external hook no-op
+    function rbAge(v){ try{ console.log("[RB] age:", v) }catch(e){} }
+
+    // ===== Counters =====
+    const counterEl = document.getElementById("counter");
+    const claimEl = document.getElementById("claim");
+    const maxCounterValue = 22570, maxClaimValue = 75;
+
+    setInterval(() => {
+      if (!counterEl) return;
+      let n = parseInt(counterEl.innerText.replace(/,/g, ""));
+      if (n < maxCounterValue) {
+        n += Math.floor(Math.random()*3)+1;
+        if (n > maxCounterValue) n = maxCounterValue;
+        counterEl.innerText = n.toLocaleString();
+      }
+    }, 3000);
+
+    setInterval(() => {
+      if (!claimEl) return;
+      let n = parseInt(claimEl.innerText, 10);
+      if (n < maxClaimValue) {
+        n += Math.floor(Math.random()*2)+1;
+        if (n > maxClaimValue) n = maxClaimValue;
+        claimEl.innerText = n;
+      }
+    }, 3000);
+
+    // ===== Swipe Deck Logic =====
+    const deck = document.getElementById('deck');
+    const cards = Array.from(deck.querySelectorAll('.card')).sort((a,b)=> {
+      // ensure top card has lowest data-index (0 at top)
+      return parseInt(a.dataset.index,10) - parseInt(b.dataset.index,10);
+    }).reverse(); // top-first order
+
+    let current = 0; // index in cards[]
+    cards.forEach((c,i)=>{
+      const z = cards.length - i;
+      c.style.zIndex = 10 + z;
+      c.style.transform = `translateY(${i*6}px) scale(${1 - i*0.02})`;
+      enableDrag(c);
+    });
+
+    function enableDrag(card){
+      let startX=0, startY=0, curX=0, curY=0, isDown=false;
+      const yesLbl = card.querySelector('.yes');
+      const noLbl  = card.querySelector('.no');
+
+      function onDown(e){
+        if(card !== cards[current]) return;
+        isDown = true;
+        const p = getPoint(e);
+        startX = curX = p.x;
+        startY = curY = p.y;
+        card.style.transition = 'none';
+        e.preventDefault();
+      }
+      function onMove(e){
+        if(!isDown || card !== cards[current]) return;
+        const p = getPoint(e);
+        const dx = p.x - startX;
+        const dy = p.y - startY;
+        const rot = dx * 0.06; // tilt by drag
+        card.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+
+        // labels visibility
+        const prog = Math.min(1, Math.abs(dx)/120);
+        if(dx>0){ yesLbl.style.opacity = prog; noLbl.style.opacity = 0; }
+        else     { noLbl.style.opacity  = prog; yesLbl.style.opacity = 0; }
+        e.preventDefault();
+      }
+      function onUp(){
+        if(!isDown) return;
+        isDown = false;
+
+        const rect = card.getBoundingClientRect();
+        const centerDx = rect.left + rect.width/2 - window.innerWidth/2;
+        const dxNow = parseFloat((card.style.transform.match(/translate\(([-0-9.]+)px,/)||[0,0])[1]) || 0;
+        const dyNow = parseFloat((card.style.transform.match(/, ([-0-9.]+)px\)/)||[0,0])[1]) || 0;
+
+        const passed = Math.abs(dxNow) > 90; // swipe threshold
+        if(passed){
+          const dir = dxNow > 0 ? 1 : -1; // 1 = YES (right), -1 = NO (left)
+          fling(card, dir, dxNow, dyNow);
+          handleAnswer(card, dir === 1);
+        }else{
+          // reset
+          yesLbl.style.opacity = 0;
+          noLbl.style.opacity  = 0;
+          card.style.transition = 'transform .18s ease';
+          const idx = cards.indexOf(card);
+          card.style.transform  = `translateY(${idx*6}px) scale(${1 - idx*0.02})`;
+        }
+      }
+
+      card.addEventListener('mousedown', onDown);
+      window.addEventListener('mousemove', onMove, {passive:false});
+      window.addEventListener('mouseup', onUp);
+      card.addEventListener('touchstart', onDown, {passive:false});
+      card.addEventListener('touchmove', onMove, {passive:false});
+      card.addEventListener('touchend', onUp);
+
+      function getPoint(e){
+        if(e.touches && e.touches[0]) return {x:e.touches[0].clientX, y:e.touches[0].clientY};
+        return {x:e.clientX, y:e.clientY};
+        }
+    }
+
+    function fling(card, dir, dx, dy){
+      const yesLbl = card.querySelector('.yes');
+      const noLbl  = card.querySelector('.no');
+      yesLbl.style.opacity = 0;
+      noLbl.style.opacity  = 0;
+
+      const offX = dir * (window.innerWidth * 0.9 + 200);
+      const rot  = dir * 24;
+      card.style.transition = 'transform .28s ease-out, opacity .28s ease-out';
+      card.style.transform  = `translate(${offX}px, ${dy}px) rotate(${rot}deg)`;
+      card.style.opacity    = '0';
+      setTimeout(()=>{ card.style.display='none'; }, 280);
+    }
+
+    function handleAnswer(card, positive){
+      const idx = parseInt(card.dataset.index, 10);
+      // Optional: e.g. track specific answers
+      if(idx===0){ if(positive) rbAge('50+'); }
+      // proceed deck
+      current++;
+      if(current >= cards.length){
+        // All answered -> status -> CTA
+        runStatusThenCTA();
+      }else{
+        // bring next card visually to top (already in DOM order)
+      }
+    }
+
+    // Buttons inside cards (for taps instead of swipes)
+    function buttonAnswer(el, positive){
+      const card = el.closest('.card');
+      if(card !== cards[current]) return;
+      // Animate like a fling
+      const dir = positive ? 1 : -1;
+      fling(card, dir, 0, 0);
+      handleAnswer(card, positive);
+    }
+    window.buttonAnswer = buttonAnswer;
+
+    // Status chain then CTA
+    const statusBox = document.getElementById('status');
+    const st1 = document.getElementById('st-1');
+    const st2 = document.getElementById('st-2');
+    const st3 = document.getElementById('st-3');
+    const congrats = document.getElementById('congrats');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    let timerHandle = null;
+
+    async function runStatusThenCTA(){
+      statusBox.style.display = 'block';
+      await delay(1000);
+      st1.innerHTML = '<span class="ok">✅</span> Reviewing your answers — done';
+      await delay(1000);
+      st2.classList.remove('muted');
+      st2.innerHTML = '<span class="pending">⏳</span> Verifying availability…';
+      await delay(1000);
+      st2.innerHTML = '<span class="ok">✅</span> Verifying availability — done';
+      await delay(1000);
+      st3.classList.remove('muted');
+      st3.innerHTML = '<span class="pending">⏳</span> Confirming eligibility…';
+      await delay(1000);
+      st3.innerHTML = '<span class="ok">✅</span> Confirming eligibility — done';
+
+      // Reveal CTA, auto-scroll top, start timer
+      congrats.classList.add('show');
+      window.scrollTo({top:0, behavior:'smooth'});
+      startTimer(172);
+
+      // Redundant listener to ensure nbpix logs
+      const link = document.getElementById('callLink');
+      if(link && !link.__rbAttached){
+        link.__rbAttached = true;
+        link.addEventListener('click', ()=>{ try{ fireNbRawCall(); }catch(_){ } }, {passive:true});
+      }
+    }
+
+    function startTimer(totalSeconds){
+      if (timerHandle) clearInterval(timerHandle);
+      timerHandle = setInterval(()=>{
+        const m = Math.floor(totalSeconds/60);
+        const s = totalSeconds%60;
+        minutesEl.textContent = m;
+        secondsEl.textContent = s < 10 ? "0"+s : s;
+        totalSeconds--;
+        if (totalSeconds < 0) clearInterval(timerHandle);
+      }, 1000);
+    }
+
+    function delay(ms){ return new Promise(r=>setTimeout(r,ms)) }
+
+    // Accessibility: keyboard support (left/right)
+    window.addEventListener('keydown', (e)=>{
+      if(current >= cards.length) return;
+      if(e.key === 'ArrowRight'){ buttonAnswer(cards[current].querySelector('.chip'), true); }
+      if(e.key === 'ArrowLeft'){  buttonAnswer(cards[current].querySelector('.chip'), false); }
+    });
+  </script>
+</body>
+</html>
