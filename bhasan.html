@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Policy Benefits – Card Swiper</title>
+  <title>Policy Benefits – Card Swiper (Aligned + Popups)</title>
   <meta name="theme-color" content="#10b981"/>
 
   <style>
@@ -30,17 +30,22 @@
         linear-gradient(180deg,#0b0f14,#0b0f14);
     }
 
-    /* Top bar */
+    /* Top bar (center aligned brand + stats) */
     .top{
-      display:flex; gap:12px; align-items:center; justify-content:space-between;
-      position:sticky; top:0; z-index:20; padding:12px 16px;
+      position:sticky; top:0; z-index:20;
+      padding:12px 16px;
       background:linear-gradient(180deg,rgba(16,22,29,.85),rgba(16,22,29,.55));
       border-bottom:1px solid rgba(255,255,255,.06); backdrop-filter: blur(10px);
     }
-    .brand{display:flex; align-items:center; gap:10px; cursor:pointer}
+    .top-inner{
+      max-width:980px; margin:0 auto;
+      display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+      gap:12px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; cursor:pointer; justify-self:start}
     .brand img{width:36px; height:36px; border-radius:8px; box-shadow:var(--shadow)}
     .brand h1{margin:0; font-size:16px; letter-spacing:.2px}
-    .stats{display:flex; gap:10px; flex-wrap:wrap}
+    .stats{display:flex; gap:10px; flex-wrap:wrap; justify-self:end}
     .pill{
       display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
       border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); font-size:13px;
@@ -55,18 +60,19 @@
       background:linear-gradient(180deg,rgba(16,22,29,.95),rgba(13,18,24,.8)); box-shadow:var(--shadow);
     }
     .title{
-      font-weight:900; font-size:22px; line-height:1.25;
+      font-weight:900; font-size:22px; line-height:1.25; text-align:center;
       background:linear-gradient(90deg,#eafff6,#baffdc,#d9e0ff);
       -webkit-background-clip:text; background-clip:text; color:transparent;
     }
-    .sub{color:var(--muted); margin-top:6px}
+    .sub{color:var(--muted); margin-top:6px; text-align:center}
 
-    /* Swipe deck */
+    /* Swipe deck (center aligned) */
     .deck{
       position:relative; height:430px; margin-top:16px;
+      display:grid; place-items:center; /* centers stack */
     }
     .card{
-      position:absolute; inset:0; margin:auto; width:min(620px,100%); height:100%;
+      position:absolute; inset:0; margin:auto; width:min(620px,92vw); height:100%;
       background:linear-gradient(180deg,#101820,#0c141b);
       border:1px solid rgba(255,255,255,.08); border-radius:18px; overflow:hidden;
       box-shadow:0 18px 60px rgba(0,0,0,.45);
@@ -77,13 +83,13 @@
     }
     .card-inner{padding:22px 18px; display:flex; flex-direction:column; gap:12px}
     .badge{
-      align-self:flex-start; display:inline-flex; align-items:center; gap:8px;
+      align-self:center; display:inline-flex; align-items:center; gap:8px;
       padding:8px 10px; border-radius:10px; border:1px solid rgba(16,185,129,.35);
       background:rgba(16,185,129,.12); color:#d7ffe9; font-weight:700; font-size:13px
     }
-    .q{font-size:20px; font-weight:800; color:#eafff4; line-height:1.25}
-    .hint{font-size:13px; color:#9ab}
-    .options{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px}
+    .q{font-size:20px; font-weight:800; color:#eafff4; line-height:1.25; text-align:center}
+    .hint{font-size:13px; color:#9ab; text-align:center}
+    .options{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; justify-content:center}
     .chip{
       border:1px solid rgba(22,199,121,.35); color:#d7ffe9; background:#16212b;
       padding:10px 12px; border-radius:999px; cursor:pointer; font-weight:600; font-size:14px;
@@ -94,20 +100,12 @@
 
     .swipe-label{
       position:absolute; top:14px; font-weight:900; letter-spacing:.6px; padding:8px 12px; border-radius:10px;
-      border:2px solid currentColor; transform: rotate(-12deg); opacity:0; transition:.15s ease;
-      pointer-events:none;
+      border:2px solid currentColor; opacity:0; transition:.15s ease; pointer-events:none;
     }
-    .yes{left:14px; color:#2af07f; background:rgba(42,240,127,.1)}
+    .yes{left:14px; color:#2af07f; background:rgba(42,240,127,.1); transform: rotate(-12deg)}
     .no{right:14px; color:#ff7575; background:rgba(255,117,117,.1); transform: rotate(12deg)}
 
-    .footer-ghost{margin-top:auto; padding:18px; color:#a9b9cb; font-size:13px; background:linear-gradient(180deg,rgba(255,255,255,.03),transparent)}
-    .controls{
-      display:flex; gap:10px; justify-content:center; margin-top:10px
-    }
-    .btn{
-      padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.16);
-      background:rgba(255,255,255,.06); color:#eaf3ff; cursor:pointer; font-weight:700;
-    }
+    .footer-ghost{margin-top:auto; padding:18px; color:#a9b9cb; font-size:13px; text-align:center; background:linear-gradient(180deg,rgba(255,255,255,.03),transparent)}
 
     /* Status */
     .status{
@@ -156,6 +154,34 @@
     }
     #nb-chip.show{display:flex}
 
+    /* Popups (modals) */
+    .modal{
+      position:fixed; inset:0; z-index:9998; display:none; place-items:center;
+      background:rgba(0,0,0,.6); backdrop-filter:blur(2px);
+    }
+    .modal.show{display:grid}
+    .dialog{
+      width:min(560px,92vw); border-radius:16px; overflow:hidden;
+      background:linear-gradient(180deg,#0f1b12,#0b1510);
+      border:1px solid rgba(22,199,121,.35);
+      box-shadow:0 30px 80px rgba(0,0,0,.6)
+    }
+    .dialog .hd{
+      padding:14px 16px; display:flex; align-items:center; justify-content:space-between;
+      background:linear-gradient(180deg,rgba(255,255,255,.04),transparent);
+      border-bottom:1px solid rgba(255,255,255,.08)
+    }
+    .dialog .hd h3{margin:0; font-size:18px}
+    .dialog .x{
+      border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.06);
+      color:#eaf3ff; border-radius:10px; padding:8px 10px; cursor:pointer; font-weight:800
+    }
+    .dialog .bd{padding:16px}
+    .dialog p{margin:0 0 10px; color:#c7f7df}
+    .dialog .cta{
+      margin-top:10px;
+    }
+
     /* Legal */
     .legal{
       margin:auto; max-width:980px; padding:24px 16px 60px; color:var(--muted); font-size:13px; text-align:center
@@ -172,31 +198,34 @@
 
   <!-- Top bar -->
   <div class="top">
-    <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-      <img src="./bur.png" alt="Policy Benefits"/>
-      <h1>Policy Benefits</h1>
-    </div>
-    <div class="stats">
-      <div class="pill"><span>Live:</span> <strong id="claim">72</strong> claiming</div>
-      <div class="pill"><span>24h:</span> <strong id="counter">22,563</strong> enrolled</div>
+    <div class="top-inner">
+      <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <img src="./bur.png" alt="Policy Benefits"/>
+        <h1>Policy Benefits</h1>
+      </div>
+      <div style="justify-self:center; font-weight:700; color:#d3ffe9;">$25,000 Funeral Benefit Coverage</div>
+      <div class="stats">
+        <div class="pill"><span>Live:</span> <strong id="claim">72</strong> claiming</div>
+        <div class="pill"><span>24h:</span> <strong id="counter">22,563</strong> enrolled</div>
+      </div>
     </div>
   </div>
 
   <div class="wrap">
     <div class="hero">
       <div class="title">Final Call To Claim Your $25,000 Funeral Benefit Coverage!</div>
-      <div class="sub">Swipe the cards right for <b>Yes</b>, left for <b>No</b>. After the last card, you’ll be taken to the call-to-claim section automatically.</div>
+      <div class="sub">Swipe the cards <b>right</b> for Yes, <b>left</b> for No. After the last card, you’ll auto-scroll to the call section.</div>
 
-      <!-- Swipe Deck -->
+      <!-- Swipe Deck (center aligned) -->
       <div class="deck" id="deck">
         <!-- CARD 3 (bottom) -->
-        <div class="card" data-index="2">
+        <div class="card" data-index="2" aria-label="Step 3">
           <div class="swipe-label yes">YES</div>
           <div class="swipe-label no">NO</div>
           <div class="card-inner">
             <span class="badge">Step 3 of 3</span>
             <div class="q">Do you want an agent to reserve your spot for the next <u>3 minutes</u> while you call?</div>
-            <div class="hint">Tip: Swipe right = Yes, left = No</div>
+            <div class="hint">Swipe right = Yes, left = No</div>
             <div class="options">
               <button class="chip" onclick="buttonAnswer(this, true)">Yes, reserve my spot</button>
               <button class="chip" onclick="buttonAnswer(this, false)">No</button>
@@ -206,7 +235,7 @@
         </div>
 
         <!-- CARD 2 (middle) -->
-        <div class="card" data-index="1">
+        <div class="card" data-index="1" aria-label="Step 2">
           <div class="swipe-label yes">YES</div>
           <div class="swipe-label no">NO</div>
           <div class="card-inner">
@@ -222,7 +251,7 @@
         </div>
 
         <!-- CARD 1 (top) -->
-        <div class="card" data-index="0">
+        <div class="card" data-index="0" aria-label="Step 1">
           <div class="swipe-label yes">YES</div>
           <div class="swipe-label no">NO</div>
           <div class="card-inner">
@@ -264,6 +293,34 @@
   <!-- NB verify chip -->
   <div id="nb-chip">NB: raw_call sent</div>
 
+  <!-- Popup 1 -->
+  <div id="modal1" class="modal" role="dialog" aria-modal="true" aria-labelledby="m1t">
+    <div class="dialog">
+      <div class="hd">
+        <h3 id="m1t">Quick Reminder</h3>
+        <button class="x" onclick="closeModal('modal1', true)" aria-label="Close">×</button>
+      </div>
+      <div class="bd">
+        <p>Your reservation is almost ready. Tap the button below to connect with an agent and secure your benefit.</p>
+        <a href="tel:+13214858035" class="cta" onpointerdown="fireNbRawCall()">CALL (321) 485-8035</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup 2 (opens right after closing Popup 1) -->
+  <div id="modal2" class="modal" role="dialog" aria-modal="true" aria-labelledby="m2t">
+    <div class="dialog">
+      <div class="hd">
+        <h3 id="m2t">Still there?</h3>
+        <button class="x" onclick="closeModal('modal2', false)" aria-label="Close">×</button>
+      </div>
+      <div class="bd">
+        <p>You’re <b>eligible</b> right now. Agents hold your spot for <b>3 minutes</b>. Tap to claim.</p>
+        <a href="tel:+13214858035" class="cta" onpointerdown="fireNbRawCall()">CALL (321) 485-8035</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Legal -->
   <footer class="legal">
     Beware of other fraudulent & similar-looking websites that might look exactly like ours; we have no affiliation with them.
@@ -283,7 +340,6 @@
       chip?.classList.add('show');
       setTimeout(()=>chip?.classList.remove('show'), 2500);
     }
-    // legacy external hook no-op
     function rbAge(v){ try{ console.log("[RB] age:", v) }catch(e){} }
 
     // ===== Counters =====
@@ -311,23 +367,26 @@
       }
     }, 3000);
 
-    // ===== Swipe Deck Logic =====
+    // ===== Swipe Deck Logic (aligned) =====
     const deck = document.getElementById('deck');
     const cards = Array.from(deck.querySelectorAll('.card')).sort((a,b)=> {
-      // ensure top card has lowest data-index (0 at top)
       return parseInt(a.dataset.index,10) - parseInt(b.dataset.index,10);
     }).reverse(); // top-first order
 
     let current = 0; // index in cards[]
+
+    // Stack neatly & remember home transform for each card (for perfect reset)
     cards.forEach((c,i)=>{
       const z = cards.length - i;
+      const t = `translateY(${i*6}px) scale(${1 - i*0.02})`;
       c.style.zIndex = 10 + z;
-      c.style.transform = `translateY(${i*6}px) scale(${1 - i*0.02})`;
+      c.style.transform = t;
+      c.dataset.home = t;
       enableDrag(c);
     });
 
     function enableDrag(card){
-      let startX=0, startY=0, curX=0, curY=0, isDown=false;
+      let startX=0, startY=0, isDown=false, lastDx=0, lastDy=0;
       const yesLbl = card.querySelector('.yes');
       const noLbl  = card.querySelector('.no');
 
@@ -335,8 +394,7 @@
         if(card !== cards[current]) return;
         isDown = true;
         const p = getPoint(e);
-        startX = curX = p.x;
-        startY = curY = p.y;
+        startX = p.x; startY = p.y;
         card.style.transition = 'none';
         e.preventDefault();
       }
@@ -345,36 +403,29 @@
         const p = getPoint(e);
         const dx = p.x - startX;
         const dy = p.y - startY;
+        lastDx = dx; lastDy = dy;
         const rot = dx * 0.06; // tilt by drag
         card.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
 
-        // labels visibility
+        // symmetric labels
         const prog = Math.min(1, Math.abs(dx)/120);
         if(dx>0){ yesLbl.style.opacity = prog; noLbl.style.opacity = 0; }
         else     { noLbl.style.opacity  = prog; yesLbl.style.opacity = 0; }
         e.preventDefault();
       }
       function onUp(){
-        if(!isDown) return;
-        isDown = false;
+        if(!isDown) return; isDown = false;
 
-        const rect = card.getBoundingClientRect();
-        const centerDx = rect.left + rect.width/2 - window.innerWidth/2;
-        const dxNow = parseFloat((card.style.transform.match(/translate\(([-0-9.]+)px,/)||[0,0])[1]) || 0;
-        const dyNow = parseFloat((card.style.transform.match(/, ([-0-9.]+)px\)/)||[0,0])[1]) || 0;
-
-        const passed = Math.abs(dxNow) > 90; // swipe threshold
+        const passed = Math.abs(lastDx) > 90; // swipe threshold
         if(passed){
-          const dir = dxNow > 0 ? 1 : -1; // 1 = YES (right), -1 = NO (left)
-          fling(card, dir, dxNow, dyNow);
+          const dir = lastDx > 0 ? 1 : -1; // 1 = YES (right), -1 = NO (left)
+          fling(card, dir, lastDx, lastDy);
           handleAnswer(card, dir === 1);
         }else{
-          // reset
-          yesLbl.style.opacity = 0;
-          noLbl.style.opacity  = 0;
+          // reset to perfectly aligned "home"
+          yesLbl.style.opacity = 0; noLbl.style.opacity = 0;
           card.style.transition = 'transform .18s ease';
-          const idx = cards.indexOf(card);
-          card.style.transform  = `translateY(${idx*6}px) scale(${1 - idx*0.02})`;
+          card.style.transform  = card.dataset.home;
         }
       }
 
@@ -388,14 +439,13 @@
       function getPoint(e){
         if(e.touches && e.touches[0]) return {x:e.touches[0].clientX, y:e.touches[0].clientY};
         return {x:e.clientX, y:e.clientY};
-        }
+      }
     }
 
     function fling(card, dir, dx, dy){
       const yesLbl = card.querySelector('.yes');
       const noLbl  = card.querySelector('.no');
-      yesLbl.style.opacity = 0;
-      noLbl.style.opacity  = 0;
+      yesLbl.style.opacity = 0; noLbl.style.opacity  = 0;
 
       const offX = dir * (window.innerWidth * 0.9 + 200);
       const rot  = dir * 24;
@@ -407,15 +457,10 @@
 
     function handleAnswer(card, positive){
       const idx = parseInt(card.dataset.index, 10);
-      // Optional: e.g. track specific answers
-      if(idx===0){ if(positive) rbAge('50+'); }
-      // proceed deck
+      if(idx===0 && positive){ rbAge('50+'); }
       current++;
       if(current >= cards.length){
-        // All answered -> status -> CTA
         runStatusThenCTA();
-      }else{
-        // bring next card visually to top (already in DOM order)
       }
     }
 
@@ -423,7 +468,6 @@
     function buttonAnswer(el, positive){
       const card = el.closest('.card');
       if(card !== cards[current]) return;
-      // Animate like a fling
       const dir = positive ? 1 : -1;
       fling(card, dir, 0, 0);
       handleAnswer(card, positive);
@@ -442,25 +486,23 @@
 
     async function runStatusThenCTA(){
       statusBox.style.display = 'block';
-      await delay(1000);
+      await delay(900);
       st1.innerHTML = '<span class="ok">✅</span> Reviewing your answers — done';
-      await delay(1000);
+      await delay(900);
       st2.classList.remove('muted');
       st2.innerHTML = '<span class="pending">⏳</span> Verifying availability…';
-      await delay(1000);
+      await delay(900);
       st2.innerHTML = '<span class="ok">✅</span> Verifying availability — done';
-      await delay(1000);
+      await delay(900);
       st3.classList.remove('muted');
       st3.innerHTML = '<span class="pending">⏳</span> Confirming eligibility…';
-      await delay(1000);
+      await delay(900);
       st3.innerHTML = '<span class="ok">✅</span> Confirming eligibility — done';
 
-      // Reveal CTA, auto-scroll top, start timer
       congrats.classList.add('show');
       window.scrollTo({top:0, behavior:'smooth'});
       startTimer(172);
 
-      // Redundant listener to ensure nbpix logs
       const link = document.getElementById('callLink');
       if(link && !link.__rbAttached){
         link.__rbAttached = true;
@@ -487,7 +529,53 @@
       if(current >= cards.length) return;
       if(e.key === 'ArrowRight'){ buttonAnswer(cards[current].querySelector('.chip'), true); }
       if(e.key === 'ArrowLeft'){  buttonAnswer(cards[current].querySelector('.chip'), false); }
+      if(e.key === 'Escape'){ if(document.querySelector('.modal.show')) closeAnyModal(); }
     });
+
+    // ===== Popups =====
+    let modal1Shown = false, modal2Shown = false;
+
+    // Show first popup after 5 seconds
+    const popupTimer = setTimeout(()=>{ openModal('modal1'); }, 5000);
+
+    function openModal(id){
+      const m = document.getElementById(id);
+      if(!m) return;
+      if(id==='modal1'){ modal1Shown = true; }
+      if(id==='modal2'){ modal2Shown = true; }
+      m.classList.add('show');
+      lockScroll(true);
+      // close on outside click
+      m.addEventListener('click', (e)=>{ if(e.target === m){ closeModal(id, id==='modal1'); } }, {once:true});
+    }
+
+    function closeModal(id, chainNext){
+      const m = document.getElementById(id);
+      if(!m) return;
+      m.classList.remove('show');
+      lockScroll(false);
+      // Chain: when closing popup 1, open popup 2 immediately
+      if(chainNext && !modal2Shown){
+        setTimeout(()=>openModal('modal2'), 250);
+      }
+    }
+
+    function closeAnyModal(){
+      ['modal1','modal2'].forEach(id=>{
+        const m = document.getElementById(id);
+        if(m && m.classList.contains('show')) m.classList.remove('show');
+      });
+      lockScroll(false);
+    }
+
+    function lockScroll(lock){
+      if(lock){
+        document.body.dataset.prevOverflow = document.body.style.overflow || '';
+        document.body.style.overflow = 'hidden';
+      }else{
+        document.body.style.overflow = document.body.dataset.prevOverflow || '';
+      }
+    }
   </script>
 </body>
 </html>
