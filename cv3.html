@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ClickVS — Performance OS for Calls & Conversions</title>
+<meta name="description" content="ClickVS: Premium performance OS for call tracking, attribution, and AI optimization. Beautifully fast. Ridiculously clear." />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+<style>
+  /* ========= Design Tokens ========= */
+  :root{
+    --bg:#07070c;
+    --bg-2:#0a0a12;
+    --glass:rgba(255,255,255,.06);
+    --glass-2:rgba(255,255,255,.04);
+    --stroke:rgba(255,255,255,.16);
+    --muted:#a8b0c3;
+    --text:#eef1f8;
+    --title:#f7f8ff;
+    --grad-1:#805bff;
+    --grad-2:#20d0ff;
+    --grad-3:#24e39a;
+    --accent:#8b6cff;
+    --shadow: 0 18px 60px rgba(0,0,0,.45);
+    --radius:18px;
+    --radius-lg:28px;
+    --max:1200px;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;scroll-behavior:smooth}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:var(--max);margin:0 auto;padding:0 22px}
+
+  /* ========= Global premium background ========= */
+  .bg-wrap{position:fixed;inset:0;z-index:-3;overflow:hidden}
+  .gradient{
+    position:absolute;inset:-20%;
+    background:
+      radial-gradient(1200px 650px at 80% -10%, rgba(128,91,255,.35),transparent 60%),
+      radial-gradient(900px 600px at -10% 20%, rgba(32,208,255,.28),transparent 60%),
+      radial-gradient(900px 600px at 100% 100%, rgba(36,227,154,.22),transparent 60%),
+      linear-gradient(180deg,#07070c 0%,#090912 50%,#07070c 100%);
+    filter:saturate(1.05) contrast(1.03);
+  }
+  /* animated film grain to add richness */
+  .noise{
+    position:absolute;inset:-100px;opacity:.06;pointer-events:none;mix-blend-mode:soft-light;background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAPklEQVQ4T2NkoBAwUqifYcQwYGB4+fLlP2QgGQyGmYAJiWgQw7p8Gg0E4CwWEx0QxQ0o6BzG1gWk0mGgk2GQAAf7QCBvQm0bQAAAABJRU5ErkJggg==') repeat;
+    animation:grain 6s steps(6) infinite;
+  }
+  @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-10px,5px)}50%{transform:translate(10px,-5px)}75%{transform:translate(5px,10px)}100%{transform:translate(0,0)}}
+
+  /* ========= Sticky Docked Nav ========= */
+  .nav{
+    position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);
+    background:linear-gradient(180deg, rgba(8,8,14,.75), rgba(8,8,14,.35));
+    border-bottom:1px solid var(--stroke);
+  }
+  .nav .row{height:74px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.2px}
+  .badge-logo{
+    width:36px;height:36px;border-radius:12px;display:grid;place-items:center;
+    background:conic-gradient(from 120deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-1));
+    box-shadow:0 10px 30px rgba(128,91,255,.35), inset 0 0 30px rgba(255,255,255,.12);
+  }
+  .nav-links{display:flex;gap:18px}
+  .nav-links a{color:#c3c9dc;font-weight:600;opacity:.9}
+  .nav-cta{display:flex;gap:10px;align-items:center}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:14px;border:1px solid var(--stroke);background:var(--glass);
+    backdrop-filter:blur(8px);font-weight:800;cursor:pointer;transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{
+    border:1px solid rgba(255,255,255,.22);
+    background:linear-gradient(135deg,var(--grad-1),var(--grad-2));
+    color:#fff;box-shadow:0 16px 40px rgba(128,91,255,.35)
+  }
+  .btn-ghost{background:transparent}
+  .magnetic{position:relative;overflow:hidden}
+  .magnetic span{position:relative;z-index:1}
+
+  /* ========= Hero with particle field + parallax ========= */
+  .hero{position:relative;padding:110px 0 60px}
+  canvas#stars{position:absolute;inset:0;z-index:-1;opacity:.6}
+  .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:38px;align-items:center}
+  .eyebrow{
+    display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;
+    border:1px solid var(--stroke);background:var(--glass-2);color:#c6cce0;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .title{font-size:clamp(40px,6.5vw,68px);line-height:1.03;margin:14px 0 10px;font-weight:900;color:var(--title);letter-spacing:-.02em}
+  .subtitle{font-size:clamp(16px,2.2vw,20px);color:#cfd3e6;max-width:58ch}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
+  .hero-card{
+    padding:22px;border-radius:var(--radius-lg);
+    background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+    border:1px solid var(--stroke);box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .glow-ring{
+    position:absolute;inset:-2px;border-radius:inherit;
+    background:
+      radial-gradient(600px 220px at 20% -10%, rgba(128,91,255,.18), transparent 60%),
+      radial-gradient(600px 220px at 120% 120%, rgba(32,208,255,.18), transparent 60%);
+    pointer-events:none;
+  }
+
+  /* Quick kpis inside hero card */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:10px}
+  .kpi{
+    padding:14px;border-radius:16px;border:1px solid var(--stroke);background:var(--glass-2);
+  }
+  .kpi small{color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .kpi strong{display:block;margin-top:4px;font-size:22px}
+
+  /* ========= Sections / Utilities ========= */
+  .section{padding:90px 0}
+  .head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:28px}
+  .kicker{color:#aab1c6;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
+  .h2{font-size:clamp(30px,4.5vw,46px);line-height:1.08;margin:6px 0 10px;font-weight:900}
+  .lead{color:#cfd3e6;max-width:70ch}
+  .grid{display:grid;gap:20px}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .grid.cols-4{grid-template-columns:repeat(4,1fr)}
+  .card{
+    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+    border:1px solid var(--stroke);border-radius:var(--radius);padding:22px;position:relative;overflow:hidden;transform-style:preserve-3d;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .card:hover{border-color:rgba(255,255,255,.28)}
+  .card .icon{
+    width:46px;height:46px;border-radius:14px;display:grid;place-items:center;margin-bottom:10px;
+    background:linear-gradient(135deg, rgba(128,91,255,.3), rgba(32,208,255,.3));
+    border:1px solid rgba(255,255,255,.2)
+  }
+  .tick{color:var(--grad-3);margin-right:8px}
+
+  /* marquee logo rail */
+  .rail{overflow:hidden;mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)}
+  .rail-track{display:flex;gap:24px;animation:marquee 18s linear infinite;width:max-content}
+  .logo-tile{display:grid;place-items:center;min-width:180px;height:90px;border-radius:16px;border:1px solid var(--stroke);background:var(--glass);padding:18px}
+  .logo-tile img{height:30px;filter:grayscale(100%) contrast(1.1) brightness(1.1);opacity:.9}
+  @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  /* Showpiece mock */
+  .mock{border-radius:var(--radius-lg);border:1px solid var(--stroke);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));box-shadow:var(--shadow);overflow:hidden}
+  .mock-top{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--stroke);background:rgba(0,0,0,.2)}
+  .dot{width:10px;height:10px;border-radius:999px;background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+
+  /* Pricing */
+  .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .price-card{position:relative;overflow:hidden}
+  .price{font-size:42px;font-weight:900}
+  .best{position:absolute;top:12px;right:-52px;rotate:32deg;background:linear-gradient(135deg,var(--grad-1),var(--grad-2));color:#fff;font-weight:900;padding:8px 60px}
+  .switch{display:inline-flex;gap:8px;align-items:center;padding:6px;border-radius:999px;border:1px solid var(--stroke);background:var(--glass)}
+  .switch input{appearance:none;width:44px;height:26px;border-radius:999px;background:#1c1f2b;position:relative;outline:none;border:1px solid var(--stroke);cursor:pointer}
+  .switch input::after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--grad-1),var(--grad-2));top:2.5px;left:2.5px;transition:left .18s ease}
+  .switch input:checked::after{left:21px}
+
+  /* Testimonials slider */
+  .carousel{display:flex;gap:16px;overflow:hidden}
+  .slide{min-width:360px}
+  .carousel .card{min-width:360px}
+
+  /* FAQ */
+  .faq-item{border:1px solid var(--stroke);border-radius:16px;margin:10px 0;background:rgba(255,255,255,.04);overflow:hidden}
+  .faq-q{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px;cursor:pointer}
+  .faq-a{padding:0 16px 16px;display:none;color:#cfd3e6}
+
+  /* Contact */
+  form{display:grid;gap:12px}
+  input,textarea{
+    width:100%;padding:14px;border-radius:12px;border:1px solid var(--stroke);background:rgba(255,255,255,.04);color:var(--text);outline:none
+  }
+  textarea{min-height:120px;resize:vertical}
+
+  /* Footer */
+  .footer{padding:42px 0;border-top:1px solid var(--stroke);background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0))}
+  .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:20px}
+  .foot{display:flex;justify-content:space-between;align-items:center;margin-top:22px;color:#a7aec0;font-size:14px}
+
+  /* Reveal */
+  .reveal{opacity:0;transform: translateY(18px); transition: all .8s cubic-bezier(.2,.65,.2,1)}
+  .reveal.show{opacity:1;transform:none}
+
+  /* Responsive */
+  @media (max-width:1100px){.hero-grid{grid-template-columns:1fr}}
+  @media (max-width:960px){
+    .grid.cols-3{grid-template-columns:1fr 1fr}
+    .grid.cols-4{grid-template-columns:1fr 1fr}
+    .pricing{grid-template-columns:1fr}
+    .cols{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){.grid.cols-3,.grid.cols-4{grid-template-columns:1fr}.slide,.carousel .card{min-width:86vw}}
+</style>
+</head>
+<body>
+  <div class="bg-wrap">
+    <div class="gradient"></div>
+    <div class="noise"></div>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <div class="container row">
+      <a class="brand" href="#">
+        <span class="badge-logo"><i class="fa-solid fa-bolt"></i></span>
+        <span>ClickVS</span>
+      </a>
+      <nav class="nav-links" aria-label="primary">
+        <a href="#features">Features</a>
+        <a href="#integrations">Integrations</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#stories">Stories</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost magnetic" href="#contact"><span><i class="fa-regular fa-paper-plane"></i> Contact</span></a>
+        <a class="btn btn-primary magnetic" href="#pricing"><span><i class="fa-solid fa-rocket"></i> Get Started</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <canvas id="stars"></canvas>
+    <div class="container hero-grid reveal">
+      <div>
+        <span class="eyebrow"><i class="fa-solid fa-sparkles"></i> Performance OS</span>
+        <h1 class="title">Turn every click and call into a crystal-clear decision.</h1>
+        <p class="subtitle">
+          Premium attribution, call intelligence, and AI optimization—wrapped in a fast, elegant interface. Operate with certainty and scale with style.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary magnetic" href="#pricing"><span><i class="fa-solid fa-rocket"></i> Start Free Trial</span></a>
+          <a class="btn btn-ghost magnetic" href="#features"><span><i class="fa-solid fa-circle-play"></i> Watch Overview</span></a>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+          <span class="eyebrow" style="background:var(--glass);border-color:rgba(255,255,255,.2);color:#dcdff2;letter-spacing:.06em"><i class="fa-solid fa-shield-check"></i> SOC 2 Ready</span>
+          <span class="eyebrow" style="background:var(--glass);border-color:rgba(255,255,255,.2);color:#dcdff2;letter-spacing:.06em"><i class="fa-solid fa-signal"></i> Real-time</span>
+          <span class="eyebrow" style="background:var(--glass);border-color:rgba(255,255,255,.2);color:#dcdff2;letter-spacing:.06em"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Optimizer</span>
+        </div>
+      </div>
+
+      <div class="hero-card" id="tilt-hero">
+        <div class="glow-ring"></div>
+        <div class="mock">
+          <div class="mock-top">
+            <span class="dot"></span><span class="dot y"></span><span class="dot g"></span>
+            <strong style="margin-left:10px;color:#cfd3e6">Live Command Center</strong>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;min-height:360px">
+            <div style="border-right:1px solid var(--stroke);padding:16px">
+              <div class="kpis">
+                <div class="kpi"><small>Today’s Calls</small><strong id="k1">—</strong></div>
+                <div class="kpi"><small>CPA</small><strong id="k2">—</strong></div>
+                <div class="kpi"><small>Conv. Rate</small><strong id="k3">—</strong></div>
+                <div class="kpi"><small>Quality</small><strong id="k4">—</strong></div>
+              </div>
+              <ul style="margin:16px 0 0 18px;color:#cfd3e6">
+                <li><i class="fa-solid fa-check tick"></i> Source & keyword stitching</li>
+                <li><i class="fa-solid fa-check tick"></i> Agent scoring & recordings</li>
+                <li><i class="fa-solid fa-check tick"></i> Pixel + postback sync</li>
+              </ul>
+            </div>
+            <div style="padding:16px">
+              <div id="spark" style="height:160px;border-radius:16px;border:1px solid var(--stroke);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));position:relative;overflow:hidden"></div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+                <span class="eyebrow" style="background:var(--glass);border-color:rgba(255,255,255,.2)"><i class="fa-solid fa-gauge-high"></i> Auto-budget shifts</span>
+                <span class="eyebrow" style="background:var(--glass);border-color:rgba(255,255,255,.2)"><i class="fa-solid fa-layer-group"></i> Multi-channel</span>
+                <span class="eyebrow" style="background:var(--glass);border-color:rgba(255,255,255,.2)"><i class="fa-solid fa-lock"></i> Private by design</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p style="margin:12px 4px 0;color:#a8b0c3;font-size:13px">Demo data shown. Connect platforms to watch it update instantly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY / FEATURES ===== -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="head">
+        <div>
+          <div class="kicker">Why ClickVS</div>
+          <h2 class="h2">A luxury-grade toolkit for ruthless operators.</h2>
+          <p class="lead">Replace 6 tools with one. Capture, attribute, analyze, and act—without CSV chaos or design debt.</p>
+        </div>
+        <a class="btn btn-ghost magnetic" href="#pricing"><span><i class="fa-solid fa-rocket"></i> Try now</span></a>
+      </div>
+
+      <div class="grid cols-3">
+        <div class="card reveal tilt">
+          <div class="icon"><i class="fa-solid fa-phone"></i></div>
+          <h3>Dynamic Number Insertion</h3>
+          <p>Swap numbers per source, campaign, or keyword. Attribute every call and route with intent.</p>
+          <p style="margin-top:12px;color:#c5cae0"><i class="fa-solid fa-check tick"></i> Keyword-level<br><i class="fa-solid fa-check tick"></i> Spam block & recording</p>
+        </div>
+        <div class="card reveal tilt">
+          <div class="icon"><i class="fa-solid fa-brain"></i></div>
+          <h3>AI Budget Optimizer</h3>
+          <p>Shift spend to winners daily. Risk-aware models keep CPA and quality in harmony.</p>
+          <p style="margin-top:12px;color:#c5cae0"><i class="fa-solid fa-check tick"></i> ROAS targets<br><i class="fa-solid fa-check tick"></i> Auto-pause underperformers</p>
+        </div>
+        <div class="card reveal tilt">
+          <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3>Unified Analytics</h3>
+          <p>One truth across clicks, calls, funnels, and revenue. Collaborate without spreadsheets.</p>
+          <p style="margin-top:12px;color:#c5cae0"><i class="fa-solid fa-check tick"></i> Cohorts & journeys<br><i class="fa-solid fa-check tick"></i> Team alerts</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOGO MARQUEE ===== -->
+  <section class="section" id="integrations">
+    <div class="container">
+      <div class="head">
+        <div>
+          <div class="kicker">Integrations</div>
+          <h2 class="h2">Plays perfectly with your stack.</h2>
+          <p class="lead">Google, Meta, TikTok, HubSpot, Salesforce, Ringba, Segment—plus webhooks for anything else.</p>
+        </div>
+        <a class="btn btn-ghost magnetic" href="#contact"><span><i class="fa-solid fa-plug"></i> Request an integration</span></a>
+      </div>
+
+      <div class="rail reveal">
+        <div class="rail-track" id="rail">
+          <!-- Repeat twice for seamless loop -->
+          <div class="logo-tile"><img alt="Google Ads" src="https://dummyimage.com/150x40/ffffff/000000&text=Google+Ads"></div>
+          <div class="logo-tile"><img alt="Meta" src="https://dummyimage.com/120x40/ffffff/000000&text=Meta"></div>
+          <div class="logo-tile"><img alt="TikTok" src="https://dummyimage.com/120x40/ffffff/000000&text=TikTok"></div>
+          <div class="logo-tile"><img alt="HubSpot" src="https://dummyimage.com/120x40/ffffff/000000&text=HubSpot"></div>
+          <div class="logo-tile"><img alt="Salesforce" src="https://dummyimage.com/150x40/ffffff/000000&text=Salesforce"></div>
+          <div class="logo-tile"><img alt="Slack" src="https://dummyimage.com/120x40/ffffff/000000&text=Slack"></div>
+          <div class="logo-tile"><img alt="Ringba" src="https://dummyimage.com/120x40/ffffff/000000&text=Ringba"></div>
+          <div class="logo-tile"><img alt="Segment" src="https://dummyimage.com/120x40/ffffff/000000&text=Segment"></div>
+          <div class="logo-tile"><img alt="Zapier" src="https://dummyimage.com/120x40/ffffff/000000&text=Zapier"></div>
+
+          <div class="logo-tile"><img alt="Google Ads" src="https://dummyimage.com/150x40/ffffff/000000&text=Google+Ads"></div>
+          <div class="logo-tile"><img alt="Meta" src="https://dummyimage.com/120x40/ffffff/000000&text=Meta"></div>
+          <div class="logo-tile"><img alt="TikTok" src="https://dummyimage.com/120x40/ffffff/000000&text=TikTok"></div>
+          <div class="logo-tile"><img alt="HubSpot" src="https://dummyimage.com/120x40/ffffff/000000&text=HubSpot"></div>
+          <div class="logo-tile"><img alt="Salesforce" src="https://dummyimage.com/150x40/ffffff/000000&text=Salesforce"></div>
+          <div class="logo-tile"><img alt="Slack" src="https://dummyimage.com/120x40/ffffff/000000&text=Slack"></div>
+          <div class="logo-tile"><img alt="Ringba" src="https://dummyimage.com/120x40/ffffff/000000&text=Ringba"></div>
+          <div class="logo-tile"><img alt="Segment" src="https://dummyimage.com/120x40/ffffff/000000&text=Segment"></div>
+          <div class="logo-tile"><img alt="Zapier" src="https://dummyimage.com/120x40/ffffff/000000&text=Zapier"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== JOURNEY MOCK ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="mock reveal">
+        <div class="mock-top">
+          <span class="dot"></span><span class="dot y"></span><span class="dot g"></span>
+          <strong style="margin-left:10px;color:#cfd3e6">Acquisition → Call → Outcome → Revenue</strong>
+        </div>
+        <div class="container" style="padding:16px 16px 24px;">
+          <div class="grid cols-4">
+            <div class="card tilt"><strong>Ad Click</strong><p style="margin-top:8px;color:#cfd3e6">UTMs & params scrubbed and normalized on arrival.</p></div>
+            <div class="card tilt"><strong>Landing</strong><p style="margin-top:8px;color:#cfd3e6">DNI swaps by source; sessions bound to callers.</p></div>
+            <div class="card tilt"><strong>Call</strong><p style="margin-top:8px;color:#cfd3e6">Recording + agent scoring + outcome tags.</p></div>
+            <div class="card tilt"><strong>Revenue</strong><p style="margin-top:8px;color:#cfd3e6">Downstream sales stitched to original click.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING ===== -->
+  <section id="pricing" class="section">
+    <div class="container">
+      <div class="head">
+        <div>
+          <div class="kicker">Pricing</div>
+          <h2 class="h2">Start light. Scale without friction.</h2>
+          <p class="lead">Transparent plans for serious teams. Cancel anytime.</p>
+        </div>
+        <label class="switch">
+          <span style="font-weight:700;color:#cfd3e6;margin:0 6px">Monthly</span>
+          <input id="toggleYearly" type="checkbox" aria-label="Toggle yearly billing">
+          <span style="font-weight:700;color:#cfd3e6;margin:0 6px">Yearly <span style="color:var(--grad-3)">-20%</span></span>
+        </label>
+      </div>
+
+      <div class="pricing">
+        <div class="card price-card reveal tilt">
+          <div class="eyebrow" style="background:var(--glass);border-color:rgba(255,255,255,.2);color:#dcdff2">Starter</div>
+          <div class="price" data-m="29" data-y="23"><span class="price-num">$29</span><span style="font-size:16px">/mo</span></div>
+          <ul style="margin:14px 0 16px;padding-left:18px;color:#cfd3e6">
+            <li><i class="fa-solid fa-check tick"></i> 2 numbers, 3 integrations</li>
+            <li><i class="fa-solid fa-check tick"></i> 5k tracked clicks</li>
+            <li><i class="fa-solid fa-check tick"></i> Email support</li>
+          </ul>
+          <a class="btn btn-primary magnetic" href="#contact"><span>Choose Starter</span></a>
+        </div>
+
+        <div class="card price-card reveal tilt" style="outline:1px solid rgba(255,255,255,.18)">
+          <div class="best">Most Popular</div>
+          <div class="eyebrow" style="background:var(--glass);border-color:rgba(255,255,255,.2);color:#dcdff2"><i class="fa-solid fa-rocket"></i> Growth</div>
+          <div class="price" data-m="99" data-y="79"><span class="price-num">$99</span><span style="font-size:16px">/mo</span></div>
+          <ul style="margin:14px 0 16px;padding-left:18px;color:#cfd3e6">
+            <li><i class="fa-solid fa-check tick"></i> 10 numbers, 10 integrations</li>
+            <li><i class="fa-solid fa-check tick"></i> 50k tracked clicks</li>
+            <li><i class="fa-solid fa-check tick"></i> Priority support + SLA</li>
+          </ul>
+          <a class="btn btn-primary magnetic" href="#contact"><span>Choose Growth</span></a>
+        </div>
+
+        <div class="card price-card reveal tilt">
+          <div class="eyebrow" style="background:var(--glass);border-color:rgba(255,255,255,.2);color:#dcdff2"><i class="fa-solid fa-building"></i> Enterprise</div>
+          <div class="price"><span class="price-num">Custom</span></div>
+          <ul style="margin:14px 0 16px;padding-left:18px;color:#cfd3e6">
+            <li><i class="fa-solid fa-check tick"></i> Unlimited numbers & users</li>
+            <li><i class="fa-solid fa-check tick"></i> SSO, VPC, audit logs</li>
+            <li><i class="fa-solid fa-check tick"></i> Dedicated CSM</li>
+          </ul>
+          <a class="btn btn-ghost magnetic" href="#contact"><span>Talk to Sales</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section id="stories" class="section">
+    <div class="container">
+      <div class="head">
+        <div>
+          <div class="kicker">Customer Stories</div>
+          <h2 class="h2">Trusted by teams that need clarity.</h2>
+          <p class="lead">From lean agencies to national call centers.</p>
+        </div>
+      </div>
+      <div class="carousel" id="carousel">
+        <div class="card slide tilt">
+          <p>“We cut CPA by <b>27%</b> in 30 days. The auto budget shifter is eerily accurate.”</p>
+          <div style="margin-top:16px"><strong>Sarah L.</strong> · Growth Lead @ Finlytics</div>
+        </div>
+        <div class="card slide tilt">
+          <p>“DNI + recordings gave context we were missing. Training improved overnight.”</p>
+          <div style="margin-top:16px"><strong>Michael P.</strong> · Ops @ HealthFirst</div>
+        </div>
+        <div class="card slide tilt">
+          <p>“One dashboard for every channel. Reporting time down <b>80%</b>.”</p>
+          <div style="margin-top:16px"><strong>Richa K.</strong> · Agency Founder</div>
+        </div>
+        <div class="card slide tilt">
+          <p>“Attribution that sales actually trusts. We scaled without guessing.”</p>
+          <div style="margin-top:16px"><strong>Tim H.</strong> · VP Performance @ Northline</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="section">
+    <div class="container">
+      <div class="head">
+        <div>
+          <div class="kicker">FAQ</div>
+          <h2 class="h2">Quick answers, zero fluff.</h2>
+          <p class="lead">Compliance, onboarding, and limits—straight up.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q"><strong>How fast is setup?</strong><i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a">Teams connect platforms and publish DNI in ~15 minutes. Growth/Enterprise get white-glove onboarding.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q"><strong>Is recording compliant?</strong><i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a">Yes. Regional prompts, retention policies, IP allowlists, and role-based access controls are included.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q"><strong>What if we exceed limits?</strong><i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a">We’ll alert you and keep tracking. Upgrade instantly or contact sales for custom plans.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="head">
+        <div>
+          <div class="kicker">Get in touch</div>
+          <h2 class="h2">Book a demo that speaks your language.</h2>
+          <p class="lead">Tell us your goals and stack—we’ll tailor a walkthrough.</p>
+        </div>
+      </div>
+      <div class="grid cols-3">
+        <div class="card reveal" style="grid-column:span 2">
+          <form id="contactForm">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <input required name="name" placeholder="Your name">
+              <input required type="email" name="email" placeholder="Email address">
+            </div>
+            <input name="company" placeholder="Company">
+            <textarea required name="message" placeholder="Tell us about your use case…"></textarea>
+            <button class="btn btn-primary magnetic" type="submit"><span><i class="fa-regular fa-paper-plane"></i> Send message</span></button>
+            <div id="formNote" style="color:#a8b0c3;font-size:13px"></div>
+          </form>
+        </div>
+        <div class="card reveal">
+          <h3>Sales & Support</h3>
+          <p style="margin-top:12px"><i class="fa-solid fa-envelope"></i> hello@clickvs.com</p>
+          <p style="margin-top:8px"><i class="fa-brands fa-slack"></i> Slack Connect (Enterprise)</p>
+          <p style="margin-top:8px"><i class="fa-solid fa-shield-halved"></i> Security brief on request</p>
+          <p style="margin-top:20px;color:#a8b0c3">Offices: Mumbai • Delhi • Remote</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="cols">
+        <div>
+          <div class="brand"><span class="badge-logo"><i class="fa-solid fa-bolt"></i></span><span>ClickVS</span></div>
+          <p style="margin-top:12px;color:#c7ccdb;max-width:50ch">Premium attribution and call intelligence for teams that demand clarity.</p>
+        </div>
+        <div>
+          <strong>Product</strong>
+          <ul style="list-style:none;margin:12px 0 0;padding:0">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#integrations">Integrations</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <strong>Company</strong>
+          <ul style="list-style:none;margin:12px 0 0;padding:0">
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <strong>Legal</strong>
+          <ul style="list-style:none;margin:12px 0 0;padding:0">
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot">
+        <div>© <span id="year"></span> ClickVS, Inc.</div>
+        <div>
+          <a href="#" style="margin-right:12px"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" style="margin-right:12px"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script>
+/* ========= Helpers ========= */
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+/* ========= Magnetic Buttons (premium micro-interaction) ========= */
+$$('.magnetic').forEach(btn=>{
+  btn.addEventListener('mousemove', (e)=>{
+    const r = btn.getBoundingClientRect();
+    const x = e.clientX - (r.left + r.width/2);
+    const y = e.clientY - (r.top + r.height/2);
+    btn.style.transform = `translate(${x*0.08}px, ${y*0.08}px)`;
+  });
+  btn.addEventListener('mouseleave', ()=> btn.style.transform = 'translate(0,0)');
+});
+
+/* ========= Reveal on Scroll ========= */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target)}
+  });
+},{threshold:.18});
+$$('.reveal').forEach(el=>io.observe(el));
+
+/* ========= Year ========= */
+$('#year').textContent = new Date().getFullYear();
+
+/* ========= Particle Starfield (Canvas, efficient) ========= */
+(function starfield(){
+  const c = $('#stars'); if(!c) return;
+  const ctx = c.getContext('2d');
+  let w,h,pr = Math.max(1, window.devicePixelRatio||1);
+  const stars = []; const N = 160;
+  function resize(){
+    w = c.clientWidth; h = c.clientHeight;
+    c.width = w*pr; c.height = h*pr; ctx.scale(pr,pr);
+  }
+  function init(){
+    stars.length = 0;
+    for(let i=0;i<N;i++){
+      stars.push({
+        x: Math.random()*w,
+        y: Math.random()*h*0.9 + h*0.05,
+        z: Math.random()*0.6 + 0.4,
+        r: Math.random()*1.6 + .4,
+        spd: Math.random()*0.3 + 0.1
+      });
+    }
+  }
+  function tick(){
+    ctx.clearRect(0,0,w,h);
+    for(const s of stars){
+      ctx.globalAlpha = s.z;
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+      s.x += s.spd; if(s.x > w+10){ s.x = -10; s.y = Math.random()*h; }
+    }
+    requestAnimationFrame(tick);
+  }
+  const ro = new ResizeObserver(()=>{ resize(); init(); });
+  ro.observe(c.parentElement);
+  resize(); init(); tick();
+})();
+
+/* ========= Tiny Sparkline in Hero ========= */
+(function spark(){
+  const el = $('#spark'); if(!el) return;
+  const c = document.createElement('canvas'); el.appendChild(c);
+  const ctx = c.getContext('2d');
+  function size(){
+    const dpr = Math.max(1, devicePixelRatio||1);
+    const w = el.clientWidth, h = el.clientHeight;
+    c.width = w*dpr; c.height = h*dpr; c.style.width = w+'px'; c.style.height = h+'px'; ctx.setTransform(dpr,0,0,dpr,0,0);
+    return {w,h};
+  }
+  let t=0;
+  function draw(){
+    const {w,h} = size();
+    const N = 56; const pts=[];
+    for(let i=0;i<N;i++){
+      const x = i/(N-1)*w;
+      const y = h*0.55 + Math.sin(i*0.35+t)*18 - Math.cos(i*0.12+t*0.6)*14;
+      pts.push([x,y]);
+    }
+    const grad = ctx.createLinearGradient(0,0,w,0);
+    grad.addColorStop(0,'#805bff'); grad.addColorStop(1,'#20d0ff');
+    ctx.clearRect(0,0,w,h);
+    // area
+    ctx.beginPath(); pts.forEach(([x,y],i)=>{i?ctx.lineTo(x,y):ctx.moveTo(x,y)}); ctx.lineTo(w,h); ctx.lineTo(0,h); ctx.closePath();
+    ctx.fillStyle = 'rgba(128,91,255,.18)'; ctx.fill();
+    // line
+    ctx.beginPath(); pts.forEach(([x,y],i)=>{i?ctx.lineTo(x,y):ctx.moveTo(x,y)}); ctx.lineWidth=2; ctx.strokeStyle=grad; ctx.stroke();
+    t+=.02; requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ========= KPI counters (hero) ========= */
+(function kpis(){
+  const nice = (n)=> n.toLocaleString();
+  const animate = (el, to, pre='', suf='')=>{
+    const start=0, dur=1100, t0=performance.now();
+    function step(t){
+      const p=Math.min(1,(t-t0)/dur);
+      const v=Math.floor(start + (to-start)*p);
+      el.textContent = `${pre}${nice(v)}${suf}`;
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  };
+  setTimeout(()=>{
+    animate($('#k1'), 342);
+    animate($('#k2'), 42, '$');
+    animate($('#k3'), 18, '', '%');
+    animate($('#k4'), 92);
+  }, 500);
+})();
+
+/* ========= Card Tilt (3D) ========= */
+$$('.tilt, #tilt-hero').forEach(card=>{
+  let r;
+  card.addEventListener('mousemove', (e)=>{
+    r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left)/r.width - 0.5;
+    const y = (e.clientY - r.top)/r.height - 0.5;
+    card.style.transform = `perspective(900px) rotateY(${x*8}deg) rotateX(${-y*8}deg) translateZ(0)`;
+  });
+  card.addEventListener('mouseleave', ()=> card.style.transform = 'perspective(900px) rotateY(0) rotateX(0)');
+});
+
+/* ========= Carousel (Auto) ========= */
+(function carousel(){
+  const track = $('#carousel'); if(!track) return;
+  let scroll = 0;
+  function tick(){
+    scroll += 0.6;
+    if(scroll > track.scrollWidth - track.clientWidth) scroll = 0;
+    track.scrollLeft = scroll;
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* ========= Pricing Toggle ========= */
+(function pricing(){
+  const toggle = $('#toggleYearly'); if(!toggle) return;
+  const cards = $$('.price');
+  function apply(){
+    const yearly = toggle.checked;
+    cards.forEach(p=>{
+      const m = +p.dataset.m, y = +p.dataset.y;
+      if(!isNaN(m) && !isNaN(y)){
+        const n = p.querySelector('.price-num');
+        n.textContent = yearly ? `$${y}` : `$${m}`;
+      }
+    });
+  }
+  toggle.addEventListener('change', apply); apply();
+})();
+
+/* ========= FAQ accordion ========= */
+$$('.faq-item').forEach(item=>{
+  const q = item.querySelector('.faq-q'); const a = item.querySelector('.faq-a');
+  q.addEventListener('click', ()=>{
+    const on = a.style.display === 'block';
+    $$('.faq-a').forEach(x=>x.style.display='none');
+    $$('.faq-q i').forEach(i=>i.className='fa-solid fa-plus');
+    a.style.display = on ? 'none' : 'block';
+    q.querySelector('i').className = on ? 'fa-solid fa-plus' : 'fa-solid fa-minus';
+  });
+});
+
+/* ========= Contact (demo) ========= */
+$('#contactForm')?.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  $('#formNote').textContent = 'Thanks! We’ll get back to you within 1 business day.';
+  e.target.reset();
+});
+</script>
+</body>
+</html>
