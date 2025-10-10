@@ -34,6 +34,7 @@
         try {
           const tag = {};
           tag[RINGBA_AGE_KEY] = value;
+                    tag['newsbreak_cid'] = window.newsbreak_cid || '';
           window._rgba_tags.push(tag);
           console.log('[Ringba] pushed age:', tag, '→ _rgba_tags:', window._rgba_tags);
         } catch (e) {
