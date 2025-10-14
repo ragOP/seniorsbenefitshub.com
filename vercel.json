@@ -1,113 +1,11 @@
 {
     "rewrites": [
-      {
-        "source": "/engfe1",
-        "destination": "/first.html"
-    
-      },
-        
-         {
-        "source": "/englist1",
-        "destination": "/pan.html"
-    
-      },
-      {
-        "source": "/englf3",
-        "destination": "/englf3.html"
-    
-      }, {
+       {
         "source": "/engbpp3",
         "destination": "/engbpp3.html"
     
-      },
-      {
-        "source": "/englf40knew",
-        "destination": "/englf40knew.html"
-    
-      },
-      
-
-           {
-        "source": "/engfe25k",
-        "destination": "/second.html"
-    
-      },
-                   {
-        "source": "/engbpp1",
-        "destination": "/engsf2.html"
-    
-      },
-        {
-        "source": "/engbpp4",
-        "destination": "/engbpp4.html"
-    
-      },
-          {
-        "source": "/check",
-        "destination": "/check.html"
-    
-      },
-            {
-        "source": "/wrwr1",
-        "destination": "/diet.html"
-    
-      },
-
-           {
-        "source": "/spansf1",
-        "destination": "/span.html"
-    
-      },
-          {
-        "source": "/engsf3",
-        "destination": "/monday.html"
-    
-      },
-        
-      {
-        "source": "/engchat1",
-        "destination": "/engchat1.html"
-    
-      },
-      {
-        "source": "/engchat25k",
-        "destination": "/engchat25k.html"
-    
-      },
-      {
-        "source": "/englf1",
-        "destination": "/latest.html"
-    
-      },
-        {
-        "source": "/englf2",
-        "destination": "/new.html"
-    
-      },
-         {
-        "source": "/qualify",
-        "destination": "/fab.html"
-    
-      },
-        {
-        "source": "/englf40k",
-        "destination": "/seven.html"
-    
-      },
-      {
-        "source": "/atinsp",
-        "destination": "/car.html"
-    
-      },
-      {
-        "source": "/",
-        "destination": "/index.html"
-       
-      },
-      {
-        "source": "engtrk",
-        "destination": "/newest.html"
       }
+      
     ]
   }
   
