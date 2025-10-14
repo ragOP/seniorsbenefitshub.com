@@ -40,7 +40,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         try {
           const tag = {};
           tag[RINGBA_AGE_KEY] = value;
-                    tag['newsbreak_cid'] = window.newsbreak_cid || '';
+                    tag['newsbreak_cid'] = value || '';
           window._rgba_tags.push(tag);
           console.log('[Ringba] pushed age:', tag, '→ _rgba_tags:', window._rgba_tags);
         } catch (e) {
@@ -227,7 +227,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
    
 
     <div class="div1" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-      <p style="font-size:1.1em;">Seniors Benefits Hub</p>
+      <p style="font-size:1.3em;">Seniors Benefits Hub</p>
       <!-- <img src="./bur.png" alt="Seniors Benefits Hub" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" /> -->
     </div>
 
@@ -239,9 +239,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="div6">
       <div class="div7">
         <div class="div8" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-          Final Call For Citizens Over 50 To Claim Their $40,000 Burial Protection Plan! 
+        Final Call For Seniors Over 64 To Claim Their Spending Allowance Card Worth Thousands!
         </div>
-        <img class="div9" src="./ai.gif" alt="Money in hand" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
+        <img class="div9" src="./food2.png" alt="Money in hand" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
         <div class="div10">
           Checking your eligibility is very simple and takes just 60 seconds,
           simply answer the questions below to see if you qualify now.
@@ -260,9 +260,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="div15" id="answerOptions">
           <!-- Age options: call rbAge() via handleQuizP/N (minimal change) -->
-          <div class="div16" onclick="handleQuizP('50-65')">50-65</div>
+          <div class="div16" onclick="handleQuizP('Under 65')">Under 65</div>
           <div class="div16" onclick="handleQuizN('65-80')">65-80</div>
-          <div class="div16" id="ageOption80Plus" onclick="handleQuizP('80+')">80+</div>
+          <div class="div16" id="ageOption80Plus" onclick="handleQuizP('Over 80')">Over 80</div>
         </div>
         <div class="div17">
           <div class="div18"></div>
@@ -278,7 +278,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="div4 div5" id="congratulations">
       <div class="div19">Congratulations, You Qualify 🎉</div>
       <div class="div20">
-        Make A <span>Quick Call</span> To Claim Your $40,000 Burial Protection Plan Now!
+        Make A <span>Quick Call</span> To Claim Your Spending Allowance Worth Thousands Now!
       </div>
       <div class="div21">Spots remaining: 4</div>
       <div class="div99"><h2>Tap Below To Call Now! 👇</h2></div>
@@ -304,10 +304,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div class="div26">
-      Beware of other fraudulent & similar-looking websites that might look
-      exactly like ours, we have no affiliation with them. This is the only
-      official website to claim your Final Expense Benefit with the domain name
-       seniorsbenefitshub.com
+      Beware of other fraudulent & similar-looking websites that might look exactly like ours, we have no affiliation with them. This is the only official website to claim your Spending Allowance Benefit with the domain name seniorsbenefitshub.com
       <div class="div27">
         <a href="/terms.html">Terms & Conditions</a> |
         <a href="/privacy.html">Privacy Policy</a>
