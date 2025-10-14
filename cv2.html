@@ -325,13 +325,15 @@
       }
       .kicker {
         color: var(--muted);
-        font-weight: 700;
+        text-align: center;
+        font-weight: 800;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        font-size: 12px;
+        font-size: 28px;
       }
       .h2 {
-        font-size: clamp(28px, 4.5vw, 42px);
+        font-size: clamp(24px, 4.5vw, 32px);
+        text-align: center;
         line-height: 1.08;
         margin: 6px 0 10px;
         font-weight: 900;
@@ -499,7 +501,11 @@
       }
       .price {
         font-size: 40px;
-        font-weight: 900;
+        font-weight: 600;
+      }
+      .price-card .price p {
+        font-size: 18px;
+        line-height: 1.65;
       }
       .strike {
         color: var(--muted);
@@ -515,7 +521,7 @@
         border-radius: 30px;
         border: 1px solid var(--glass-stroke);
         background: var(--glass);
-        font-size: 12px;
+        font-size: 24px;
         color: #c9ccdb;
       }
       .best-tag {
@@ -776,23 +782,12 @@
     <section class="hero">
       <div class="container hero-grid reveal">
         <div>
-          <span class="eyebrow"
-            ><i class="fa-solid fa-wand-magic-sparkles"></i> AI-powered growth
-            engine</span
-          >
           <h1 class="title">Digital Marketing Experts</h1>
           <p class="subtitle">
             We accelerate and scale brands to new heights using our proprietary
             technology and world-class marketing team.
           </p>
-          <div class="hero-cta">
-            <a href="#pricing" class="btn btn-primary"
-              ><i class="fa-solid fa-rocket"></i> Start free trial</a
-            >
-            <a href="#features" class="btn btn-ghost"
-              ><i class="fa-solid fa-circle-play"></i> See how it works</a
-            >
-          </div>
+          
           <div class="badges">
             <span class="badge">Paid</span>
             <span class="badge">Creaive</span>
@@ -803,53 +798,8 @@
             <span class="badge">Branding</span>
           </div>
         </div>
-
-        <div class="hero-card">
-          <div class="mock">
-            <div class="mock-top">
-              <span class="dot"></span><span class="dot y"></span
-              ><span class="dot g"></span>
-              <strong style="margin-left: 10px; color: #cfd3e6"
-                >Live Performance</strong
-              >
-            </div>
-            <div class="mock-body">
-              <div class="mock-side">
-                <div class="mock-kpi">
-                  <span>Today’s Calls</span><strong id="kpi1">0</strong>
-                </div>
-                <div class="mock-kpi">
-                  <span>CPA</span><strong id="kpi2">$—</strong>
-                </div>
-                <div class="mock-kpi">
-                  <span>Conversion Rate</span><strong id="kpi3">—%</strong>
-                </div>
-                <div class="mock-kpi">
-                  <span>Quality Score</span><strong id="kpi4">—</strong>
-                </div>
-              </div>
-              <div class="mock-chart">
-                <div class="spark"><canvas id="spark"></canvas></div>
-                <div class="mt-16">
-                  <span class="pill"
-                    ><i class="fa-solid fa-bolt"></i> Auto-optimize bids</span
-                  >
-                  <span class="pill"
-                    ><i class="fa-solid fa-layer-group"></i> Multi-channel</span
-                  >
-                  <span class="pill"
-                    ><i class="fa-solid fa-lock"></i> Private by design</span
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <p class="note mt-12">
-            Synthetic demo data shown. Hook your accounts to watch this graph
-            dance in real time.
-          </p>
-        </div>
-      </div>
+          <img src="digital marketing.png" alt="">
+      
     </section>
 
     <!-- FEATURES -->
@@ -865,9 +815,7 @@
               beginning to end.
             </h2>
           </div>
-          <a class="btn btn-ghost" href="#pricing"
-            ><i class="fa-solid fa-rocket"></i> Try it now</a
-          >
+          
         </div>
 
         <div class="grid cols-3">
@@ -929,36 +877,20 @@
             <span class="dot"></span><span class="dot y"></span
             ><span class="dot g"></span>
             <strong style="margin-left: 10px; color: #cfd3e6"
-              >Journey Map</strong
+              >Socila Revenue</strong
             >
           </div>
           <div class="container" style="padding: 16px 16px 24px">
             <div class="grid cols-4">
               <div class="card">
-                <strong>Ad Click</strong>
+                <strong>Precise Audience Targeting</strong>
                 <p class="mt-8">
-                  Source, campaign, keyword captured with UTM sanity checks.
+                  We prioritize audience targeting to provide the most qualified
+                  leads to our clients. This approach ensures low CPAs and
+                  maximizes revenue.
                 </p>
               </div>
-              <div class="card">
-                <strong>Landing</strong>
-                <p class="mt-8">
-                  DNI swaps numbers; session IDs bind clicks to calls.
-                </p>
-              </div>
-              <div class="card">
-                <strong>Call</strong>
-                <p class="mt-8">
-                  Agent scoring + recording + outcome tagging post-call.
-                </p>
-              </div>
-              <div class="card">
-                <strong>Revenue</strong>
-                <p class="mt-8">
-                  Downstream events stitched back to the original click.
-                </p>
-              </div>
-            </div>
+              <div class="card"><img src="Screenshot 2025-10-14 154837.png" alt=""></div>
           </div>
         </div>
       </div>
@@ -976,9 +908,7 @@
               API, we probably support it.
             </p>
           </div>
-          <a class="btn btn-ghost" href="#contact"
-            ><i class="fa-solid fa-plug"></i> Request an integration</a
-          >
+          
         </div>
         <div class="integrations reveal">
           <div class="logo-tile">
@@ -1015,75 +945,96 @@
     <!-- PRICING -->
     <section id="pricing" class="section">
       <div class="container">
-        <div class="head">
-          <div>
-            <div class="kicker">Simple pricing</div>
-            <h2 class="h2">Start free. Scale as you grow.</h2>
-            <p class="lead">
-              Transparent plans for startups and scale-ups. No lock-in, cancel
-              anytime.
-            </p>
-          </div>
-          <div class="pill">
-            <i class="fa-regular fa-clock"></i> 14-day free trial · No credit
-            card
-          </div>
+        <div>
+            <h2 class="h2">Our Core Products.</h2>
         </div>
 
         <div class="pricing">
           <div class="card price-card reveal">
-            <div class="pill"><i class="fa-regular fa-gem"></i> Starter</div>
+            <div class="pill">Medicare</div>
             <div class="price mt-12">
-              $29<span style="font-size: 16px">/mo</span>
+              <p>
+                A health insurance program for people aged 65 or older, and for
+                younger individuals with disabilities.
+              </p>
             </div>
-            <ul class="list mt-12">
-              <li>
-                <i class="fa-solid fa-check tick"></i> 2 numbers, 3 integrations
-              </li>
-              <li><i class="fa-solid fa-check tick"></i> 5k tracked clicks</li>
-              <li><i class="fa-solid fa-check tick"></i> Email support</li>
-            </ul>
-            <a class="btn btn-primary" href="#contact">Choose Starter</a>
           </div>
 
           <div
             class="card price-card reveal"
             style="outline: 1px solid rgba(255, 255, 255, 0.15)"
           >
-            <div class="best-tag">Most Popular</div>
-            <div class="pill"><i class="fa-solid fa-rocket"></i> Growth</div>
+            <div class="pill">Personal Injury</div>
             <div class="price mt-12">
-              $99<span style="font-size: 16px">/mo</span>
-              <span class="strike">$129</span>
+              <p>
+                Connecting individuals seeking legal action for personal
+                injuries, particularly related to motor vehicle accidents.
+              </p>
             </div>
-            <ul class="list mt-12">
-              <li>
-                <i class="fa-solid fa-check tick"></i> 10 numbers, 10
-                integrations
-              </li>
-              <li><i class="fa-solid fa-check tick"></i> 50k tracked clicks</li>
-              <li>
-                <i class="fa-solid fa-check tick"></i> Priority support + SLA
-              </li>
-            </ul>
-            <a class="btn btn-primary" href="#contact">Choose Growth</a>
           </div>
 
           <div class="card price-card reveal">
-            <div class="pill">
-              <i class="fa-solid fa-building"></i> Enterprise
+            <div class="pill">Final Expense</div>
+            <div class="price mt-12">
+              <p>
+                A life insurance policy designed to cover end of life expenses
+                for beneficiaries.
+              </p>
             </div>
-            <div class="price mt-12">Custom</div>
-            <ul class="list mt-12">
-              <li>
-                <i class="fa-solid fa-check tick"></i> Unlimited numbers & users
-              </li>
-              <li>
-                <i class="fa-solid fa-check tick"></i> SSO, VPC, audit logs
-              </li>
-              <li><i class="fa-solid fa-check tick"></i> Dedicated CSM</li>
-            </ul>
-            <a class="btn btn-ghost" href="#contact">Talk to sales</a>
+          </div>
+          <div class="card price-card reveal">
+            <div class="pill">Home Services</div>
+            <div class="price mt-12">
+              <p>
+                Home renovation services including window replacement, gutter
+                repair, solar panel installation, roofing repair/replacement,
+                and bathtub remodeling.
+              </p>
+            </div>
+          </div>
+          <div class="card price-card reveal">
+            <div class="pill">Debt Settlement</div>
+            <div class="price mt-12">
+              <p>
+                Negotiations with debt collectors to reduce payments for credit
+                card debt, personal loans, and medical bills.
+              </p>
+            </div>
+          </div>
+          <div class="card price-card reveal">
+            <div class="pill">Auto Insurance</div>
+            <div class="price mt-12">
+              <p>
+                We help millions of drivers each year find the most affordable
+                rates for coverage from top level carriers.
+              </p>
+            </div>
+          </div>
+          <div class="card price-card reveal">
+            <div class="pill">Personal Loans</div>
+            <div class="price mt-12">
+              <p>
+                Linking people to financial solutions that cover a variety of
+                personal expenses.
+              </p>
+            </div>
+          </div>
+          <div class="card price-card reveal">
+            <div class="pill">Life Insurance</div>
+            <div class="price mt-12">
+              <p>
+                Displaying various policies for consumers to insure ones life.
+              </p>
+            </div>
+          </div>
+          <div class="card price-card reveal">
+            <div class="pill">Ecommerce</div>
+            <div class="price mt-12">
+              <p>
+                Connecting consumers with diverse online platforms offering a
+                wide range of products for personal, business, and other needs.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -1094,41 +1045,42 @@
       <div class="container">
         <div class="head">
           <div>
-            <div class="kicker">Customer stories</div>
-            <h2 class="h2">Teams ship faster with ClickVS.</h2>
+            <div class="kicker">Measure results</div>
+            <h2 class="h2">With Custom Perfomance Tracker</h2>
             <p class="lead">
-              From lean agencies to national call centers—join operators who
-              turned data chaos into clarity.
+              To ensure the highest leads quality leads and calls, We use custom trackers to monitor KPIs daily and make necessary adjustments.
             </p>
           </div>
         </div>
         <div class="carousel">
           <div class="card reveal">
-            <p>
-              “We cut our CPA by 27% in 30 days. The automated budget shifts
-              were spot on.”
-            </p>
             <div class="mt-16">
-              <strong>Sarah L.</strong> · Growth Lead @ Finlytics
+             <span>Paid Search</span>
             </div>
+            <p>
+              We manage large-scale pay-per-click campaigns for clients in highly competitive industries.
+            </p>
+          </div>
+
+          <div class="card reveal">
+            <div class="mt-16">
+              Social Media Marketing
+            </div>
+            <p>
+              From establishing your social media pillars to leveraging social advertising for lead generation and sales.
+            </p>
           </div>
           <div class="card reveal">
-            <p>
-              “DNI + recordings gave us the context we were missing. Sales
-              training improved overnight.”
-            </p>
             <div class="mt-16">
-              <strong>Michael P.</strong> · Ops @ HealthFirst
+              Web Design & Development
             </div>
-          </div>
-          <div class="card reveal">
             <p>
-              “Finally, one dashboard for every channel. Our weekly reporting
-              time dropped 80%.”
+              We create responsive websites micro sites and landing pages.
+              Delivering custom development projects fro maximum results.
             </p>
-            <div class="mt-16"><strong>Richa K.</strong> · Agency Founder</div>
-          </div>
         </div>
+
+          
       </div>
     </section>
 
@@ -1138,41 +1090,40 @@
         <div class="head">
           <div>
             <div class="kicker">You’re wondering</div>
-            <h2 class="h2">Frequently asked questions.</h2>
+            <h2 class="h2">Social media marketing FAQs.</h2>
             <p class="lead">
-              Quick answers to the most common questions about setup,
-              compliance, and pricing.
+              Straightforward answers about strategy, content, ads, and how we scale results.
             </p>
           </div>
         </div>
         <div class="faq-item reveal">
           <div class="faq-q">
-            <strong>How hard is the setup?</strong
+            <strong>How do you build a winning social strategy?</strong
             ><i class="fa-solid fa-plus"></i>
           </div>
           <div class="faq-a">
-            Most teams connect their ad accounts and publish DNI in under 15
-            minutes. We offer white-glove onboarding for Growth & Enterprise.
+            We audit your brand, audience, and competitors, then define content pillars,
+            posting cadence, and KPI targets. We align organic and paid for compounding growth.
           </div>
         </div>
         <div class="faq-item reveal">
           <div class="faq-q">
-            <strong>Is call recording compliant?</strong
+            <strong>Do you create content or just run ads?</strong
             ><i class="fa-solid fa-plus"></i>
           </div>
           <div class="faq-a">
-            Yes. You can enable recording with regional prompts and retention
-            policies. We also provide IP allowlists and access controls.
+            Both. We handle strategy, creative production (short‑form video, statics, carousels),
+            community management, and full‑funnel paid social across Meta, TikTok, and more.
           </div>
         </div>
         <div class="faq-item reveal">
           <div class="faq-q">
-            <strong>What if I exceed plan limits?</strong
+            <strong>How soon can we see results?</strong
             ><i class="fa-solid fa-plus"></i>
           </div>
           <div class="faq-a">
-            We’ll notify you and keep things running. You can upgrade instantly
-            or chat with sales about custom plans.
+            Expect early signal in 2–4 weeks as we test creatives and audiences. Clear, scalable
+            performance typically emerges by weeks 6–10 once winners are validated and scaled.
           </div>
         </div>
       </div>
@@ -1246,8 +1197,9 @@
         <div class="cols">
           <div>
             <div class="brand">
-              <span class="logo"><i class="fa-solid fa-bolt"></i></span
-              ><span>ClickVS</span>
+              <span class="logo"
+                ><img src="biglogo-removebg-preview.png" alt="ClickVS"
+              /></span>
             </div>
             <p class="mt-12" style="color: #c7ccdb; max-width: 50ch">
               Modern attribution and call intelligence for performance teams who
