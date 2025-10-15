@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Seniors Benefits Hub</title>
+
+    <!-- Your external stylesheet (kept) -->
     <link rel="stylesheet" href="englf3.css" />
+
+    <!-- Font Awesome (kept) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -12,13 +16,17 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KC9BXK73');</script>
-<!-- End Google Tag Manager -->
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-KC9BXK73');
+    </script>
+    <!-- End Google Tag Manager -->
+
     <!-- ========= RINGBA ========= -->
     <script
       id="ringba-script"
@@ -28,60 +36,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       onerror="window.__ringbaBlocked=true; console.warn('[Ringba] script blocked or failed to load');"
     ></script>
 
-    <!-- Tiny helper to safely push AGE and verify in console -->
     <script>
-      // Prevent errors if Ringba loads late / is blocked
+      // ---- Safe Ringba tag queue ----
       window._rgba_tags = window._rgba_tags || [];
 
-      // CASE-SENSITIVE: change to 'Age' if that's your exact Tag Pipe key
+      // Keys (case-sensitive — adjust if your Tag Pipe uses different casing)
       const RINGBA_AGE_KEY = 'age';
+      const RINGBA_AB_KEY  = 'ab';
 
-      function rbAge(value) {
+      // Generic pusher
+      function rbPushTag(key, value) {
         try {
           const tag = {};
-          tag[RINGBA_AGE_KEY] = value;
-                    tag['newsbreak_cid'] = value || '';
+          tag[key] = value;
+          // also echo value into newsbreak_cid as requested earlier
+          tag['newsbreak_cid'] = value || '';
           window._rgba_tags.push(tag);
-          console.log('[Ringba] pushed age:', tag, '→ _rgba_tags:', window._rgba_tags);
+          console.log('[Ringba] pushed:', tag, '→ _rgba_tags:', window._rgba_tags);
         } catch (e) {
-          console.warn('[Ringba] age push failed', e);
+          console.warn('[Ringba] push failed', e);
         }
       }
+
+      // Specific helpers
+      function rbAge(value) { rbPushTag(RINGBA_AGE_KEY, value); }
+      function rbAB(value)  { rbPushTag(RINGBA_AB_KEY, value); }
     </script>
     <!-- ========= END RINGBA ========= -->
 
-
-<script>
-  // ---- NB RAW_CALL Event (fires only when call button clicked) ----
-  function fireNbRawCall() {
-    try {
-      if (typeof nbpix === 'function') {
-        nbpix('event', 'raw_call');
-        console.log('[NB Pixel] ✅ raw_call fired successfully');
-      } else {
-        console.warn('[NB Pixel] nbpix not ready yet');
-      }
-    } catch (err) {
-      console.error('[NB Pixel] raw_call failed', err);
-    }
-  }
-
-  // ---- Attach listener to your call button ----
-  window.addEventListener('DOMContentLoaded', function () {
-    const callButton = document.getElementById('callLink');
-    if (!callButton) return;
-
-    callButton.addEventListener('click', function () {
-      fireNbRawCall();
-    });
-  });
-</script>
-
-    <!-- End NB Pixel Snippet -->
-
     <!-- ===== NB "raw_call" INSTRUMENTATION (UI + console verification) ===== -->
     <style>
-      /* Make the entire CTA a block-level anchor (clickable everywhere) */
+      /* CTA anchor styling so the whole block is clickable */
       .div22 {
         display: block;
         width: 100%;
@@ -99,69 +84,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         cursor: pointer;
         transition: transform 0.06s ease, box-shadow 0.2s ease, filter 0.2s ease;
       }
-      .div22:hover {
-        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
-        filter: brightness(1.03);
-      }
-      .div22:active {
-        transform: translateY(1px) scale(0.995);
-      }
-      .div22 * {
-        color: inherit;
-        text-decoration: none !important;
-        pointer-events: none; /* ensures inner spans/icons don't "steal" the click */
-      }
+      .div22:hover { box-shadow: 0 16px 30px rgba(0,0,0,0.18); filter: brightness(1.03); }
+      .div22:active { transform: translateY(1px) scale(0.995); }
+      .div22 * { color: inherit; text-decoration: none !important; pointer-events: none; }
 
-      /* Optional shimmer/glow helpers if you used them */
-      .glow {
-        box-shadow: 0 0 0 rgba(27, 176, 111, 0.5), 0 10px 24px rgba(0, 0, 0, 0.15);
-      }
-      .shimmer {
-        position: relative;
-        overflow: hidden;
-        isolation: isolate;
-      }
+      .glow { box-shadow: 0 0 0 rgba(27,176,111,0.5), 0 10px 24px rgba(0,0,0,0.15); }
+      .shimmer { position: relative; overflow: hidden; isolation: isolate; }
       .shimmer::after {
-        content: "";
-        position: absolute;
-        inset: 0 -150% 0 0;
-        transform: skewX(-20deg);
-        background: linear-gradient(
-          90deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0.22) 50%,
-          transparent 100%
-        );
+        content: ""; position: absolute; inset: 0 -150% 0 0; transform: skewX(-20deg);
+        background: linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.22) 50%,transparent 100%);
         animation: sh 2.2s infinite;
       }
-      @keyframes sh {
-        0% {
-          transform: translateX(-100%) skewX(-20deg);
-        }
-        100% {
-          transform: translateX(100%) skewX(-20deg);
-        }
+      @keyframes sh { 0%{transform:translateX(-100%) skewX(-20deg);} 100%{transform:translateX(100%) skewX(-20deg);} }
+
+      /* NB chip */
+      #nb-chip {
+        position: fixed; right: 12px; bottom: 12px; z-index: 99999;
+        padding: 8px 12px; font-size: 12px; font-weight: 700;
+        border-radius: 999px; background: rgba(20,180,90,0.95); color: #fff;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2); display: none; pointer-events: none;
       }
 
-      /* Small chip used for NB verify */
-      #nb-chip {
-        position: fixed;
-        right: 12px;
-        bottom: 12px;
-        z-index: 99999;
-        padding: 8px 12px;
-        font-size: 12px;
-        font-weight: 700;
-        border-radius: 999px;
-        background: rgba(20, 180, 90, 0.95);
-        color: #fff;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        display: none;
-        pointer-events: none;
-      }
+      /* Responsive desktop/mobile logos */
+      .logo-desktop, .logo-mobile { display: none !important; max-width: 100%; height: auto; }
+      @media (min-width: 769px) { .logo-desktop { display: block !important; width: auto; } }
+      @media (max-width: 768px) { .logo-mobile  { display: block !important; width: auto; } }
     </style>
+
     <script>
-      // Local log of the NB events we fire from UI actions
+      // Local NB log
       window.__nb_events = window.__nb_events || [];
 
       function showNbChip(text) {
@@ -170,38 +121,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         chip.textContent = text;
         chip.style.display = 'inline-block';
         clearTimeout(window.__nb_chip_to);
-        window.__nb_chip_to = setTimeout(function () {
-          chip.style.display = 'none';
-        }, 2000);
+        window.__nb_chip_to = setTimeout(function(){ chip.style.display='none'; }, 2000);
       }
 
       // Fire raw_call safely and visibly
       function fireNbRawCall() {
         try {
-          // 1) our local log for quick verification
           window.__nb_events.push({ event: 'raw_call', at: new Date().toISOString() });
-
-          // 2) console verification
           console.log('[NB Pixel] Firing raw_call', window.__nb_events[window.__nb_events.length - 1]);
 
-          // 3) actual NB Pixel event
           if (typeof nbpix === 'function') {
             nbpix('event', 'raw_call');
           } else {
-            console.warn('[NB Pixel] nbpix not ready yet; queuing via fallback');
-            // Fallback queue in case nbpix is not defined yet
+            console.warn('[NB Pixel] nbpix not ready; queueing');
             window.__nb_fallback_queue = window.__nb_fallback_queue || [];
             window.__nb_fallback_queue.push(['event', 'raw_call']);
           }
 
-          // 4) small on-screen chip
           showNbChip('NB: raw_call sent');
         } catch (e) {
-          console.warn('[NB Pixel] raw_call fire failed', e);
+          console.warn('[NB Pixel] raw_call failed', e);
         }
       }
 
-      // If we had to queue any NB calls before nbpix loaded, flush them
+      // Flush queued NB events once ready
       window.addEventListener('load', function () {
         if (window.__nb_fallback_queue && typeof nbpix === 'function') {
           window.__nb_fallback_queue.forEach(function (args) {
@@ -210,71 +153,54 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           window.__nb_fallback_queue.length = 0;
         }
       });
-
-      // Quick devtools helpers you can run:
-      //   window.__nb_events.slice(-5)    -> last few NB events we fired
-      //   Performance: check Network tab for requests to "nbpixel" after click
     </script>
     <!-- ===== END NB INSTRUMENTATION ===== -->
   </head>
 
   <body>
-   
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KC9BXK73"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-   
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KC9BXK73"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="nb-chip">NB: raw_call sent</div>
 
     <div class="div1" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
       <p style="font-size:1.3em;">Seniors Benefits Hub</p>
-      <!-- <img src="./bur.png" alt="Seniors Benefits Hub" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" /> -->
-    </div>
-
-    <div class="div2" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-      <img src="./live.png" alt="Live" />
-      <span><strong id="counter">22,563</strong> Seniors Enrolled In Last 24 Hours!</span>
     </div>
 
     <div class="div6">
       <div class="div7">
         <div class="div8" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-        Final Call For Seniors Over 64 To Claim Their Spending Allowance Card Worth Thousands!
+          Final Call For Seniors Over 64 To Claim Their Spending Allowance Card Worth Thousands!
         </div>
         <img class="div9" src="./food2.png" alt="Money in hand" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
         <div class="div10">
           Checking your eligibility is very simple and takes just 60 seconds,
           simply answer the questions below to see if you qualify now.
         </div>
-        <div class="arrow-section">
-          <i class="fa-solid fa-angle-down"></i>
-        </div>
-        <div class="div11">
-          <div class="div12">Answer The Question Below To Proceed:</div>
-        </div>
+        <div class="arrow-section"><i class="fa-solid fa-angle-down"></i></div>
+        <div class="div11"><div class="div12">Answer The Question Below To Proceed:</div></div>
       </div>
 
       <div class="div13">
-        <div class="div14">
-          <span id="quizQuestion">1. What's Your Age Range?</span>
-        </div>
+        <div class="div14"><span id="quizQuestion">1. What's Your Age Range?</span></div>
         <div class="div15" id="answerOptions">
-          <!-- Age options: call rbAge() via handleQuizP/N (minimal change) -->
-          <div class="div16" onclick="handleQuizP('Under 65')">Under 65</div>
-          <div class="div16" onclick="handleQuizN('65-80')">65-80</div>
-          <div class="div16" id="ageOption80Plus" onclick="handleQuizP('Over 80')">Over 80</div>
-        </div>
-        <div class="div17">
-          <div class="div18"></div>
-          <span><em><span id="claim">72</span> People Are Claiming Right Now!</em></span>
+          <!-- Q1: Age options (pushes Ringba age) -->
+          <div class="div16" onclick="answerAge('Under 64')">Under 64</div>
+          <div class="div16" onclick="answerAge('64-69')">64-69</div>
+          <div class="div16" onclick="answerAge('70-74')">70-74</div>
+          <div class="div16" onclick="answerAge('75+')">75+</div>
         </div>
       </div>
     </div>
 
+    <!-- STATUS (verification) -->
     <div class="div4 div5" id="status">
       <span id="statusMessage"></span>
     </div>
 
+    <!-- CONGRATS -->
     <div class="div4 div5" id="congratulations">
       <div class="div19">Congratulations, You Qualify 🎉</div>
       <div class="div20">
@@ -283,14 +209,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="div21">Spots remaining: 4</div>
       <div class="div99"><h2>Tap Below To Call Now! 👇</h2></div>
 
-      <!-- ✅ WHOLE DIV CLICKABLE: anchor itself styled as the green block -->
-      <a
-        href="tel:+13236897861"
-        id="callLink"
-        class="div22 glow shimmer"
-        onpointerdown="fireNbRawCall()"
-        >CALL (321) 485-8035</a>
-      <!-- No nested <a> inside; this anchor IS the button -->
+      <!-- WHOLE DIV CLICKABLE: single anchor -->
+      <a href="tel:+13236897861" id="callLink" class="div22 glow shimmer" onpointerdown="fireNbRawCall()">CALL (323) 689-7861</a>
 
       <div class="div23">
         Due to high call volume, your official agent is waiting for only
@@ -303,7 +223,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
+    <!-- Footer + responsive logos -->
     <div class="div26">
+      <img src="./dis-desktop.png" class="logo-desktop" alt="Desktop Logo" />
+      <img src="./dis-mobile.png" class="logo-mobile" alt="Mobile Logo" />
+      This website is operated by a marketing and lead generation company. We are not a government agency, insurance provider, or financial institution. Our role is to connect consumers with licensed professionals, carriers, or service providers who can discuss available options. We do not make eligibility determinations or provide coverage, financing, or government benefits directly.
+      <br />
       Beware of other fraudulent & similar-looking websites that might look exactly like ours, we have no affiliation with them. This is the only official website to claim your Spending Allowance Benefit with the domain name seniorsbenefitshub.com
       <div class="div27">
         <a href="/terms.html">Terms & Conditions</a> |
@@ -315,38 +240,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img src="baarish.GIF" alt="" />
     </div>
 
-    <!-- ====== (Optional) Quick state debug in console only ====== -->
+    <!-- ====== Console helpers ====== -->
     <script>
-      // Quick utility you can run from console:
-      //   window._rgba_tags.slice(-3)   → see last few Ringba tags
-      //   window.__nb_events.slice(-5)  → see last few NB events we fired
+      // Devtools:
+      //   window._rgba_tags.slice(-5)  -> last Ringba tags
+      //   window.__nb_events.slice(-5) -> last NB events fired
     </script>
 
+    <!-- ====== Quiz logic (Q1 -> Q2 -> Q3 -> Verify -> Congrats) ====== -->
     <script>
-      // ===== Your original logic (with only minimal edits in handleQuizP/N) =====
-      let step = "process";
-      let quizQuestion = "1. Are you over the age of 64?";
-      const statusDiv = document.getElementById("status");
-      const statusMessage = document.getElementById("statusMessage");
+      // Elements
+      const statusDiv          = document.getElementById("status");
+      const statusMessage      = document.getElementById("statusMessage");
       const congratulationsDiv = document.getElementById("congratulations");
-      const quizText = document.getElementById("quizQuestion");
-      const answerOptions = document.getElementById("answerOptions");
-      const minutesEl = document.getElementById("minutes");
-      const secondsEl = document.getElementById("seconds");
-      const counter = document.getElementById("counter");
-      const claim = document.getElementById("claim");
-      const imageContainer = document.getElementById("image-container");
+      const quizText           = document.getElementById("quizQuestion");
+      const answerOptions      = document.getElementById("answerOptions");
+      const minutesEl          = document.getElementById("minutes");
+      const secondsEl          = document.getElementById("seconds");
+      const imageContainer     = document.getElementById("image-container");
 
-      // Attach robust click handler to ensure NB event fires before tel: navigation (redundant safety)
+      // Steps: 1=Age, 2=Citizen, 3=Medicare A/B (Yes/No), then verify
+      let currentStep = 1;
+
+      // Counters (if you still use them elsewhere)
+      const counter = document.getElementById("counter");
+      const claim   = document.getElementById("claim");
+
+      // Ensure NB fires before tel: navigation (extra-safe)
       (function attachCallHandler() {
         const link = document.getElementById('callLink');
         if (!link) return;
         link.addEventListener('click', function () {
           try { fireNbRawCall(); } catch (_) {}
-          // Let tel: proceed immediately (no preventDefault)
         }, { passive: true });
       })();
 
+      // Demo counters, kept
       setInterval(() => {
         if (counter) {
           let previousNumber = parseInt(counter.innerText.replace(/,/g, ""));
@@ -364,83 +293,66 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
       }, 3000);
 
-      // MINIMAL CHANGE: push age if provided, then continue as before
-      function handleQuizP(ageValue) {
-        if (ageValue) rbAge(ageValue); // <--- new single line to push age
-
-        if (quizQuestion === "1. Are you over the age of 64?") {
-          quizQuestion = "2. Are you a U.S. Citizen?";
-          quizText.textContent = quizQuestion;
-          setYesNoOptions();
-          smoothScrollToTop(1000, 432);
-        } else {
-          stepProcess("yes");
-        }
-      }
-
-      function handleQuizN(ageValue) {
-        if (ageValue) rbAge(ageValue); // <--- new single line to push age
-
-        if (quizQuestion === "1. Are you over the age of 64?") {
-          quizQuestion = "2. Are you a U.S. Citizen?";
-          quizText.textContent = quizQuestion;
-          setYesNoOptions();
-          smoothScrollToTop(1000, 632);
-        } else {
-          stepProcess("no");
-        }
-      }
-
-      function setYesNoOptions() {
+      // ---- Navigation helpers ----
+      function setYesNoOptionsForCitizen() {
         answerOptions.innerHTML = `
-          <div class="div16" onclick="stepProcess('yes','Above-25K')">Yes</div>
-          <div class="div16" onclick="stepProcess('no','No')">No</div>
+          <div class="div16" onclick="answerCitizen('Yes')">Yes</div>
+          <div class="div16" onclick="answerCitizen('No')">No</div>
         `;
       }
 
-      function smoothScrollToTop(duration, targetPosition = 0) {
-        const startPosition = window.pageYOffset;
-        const distance = targetPosition - startPosition;
-        let startTime = null;
-        function animation(currentTime) {
-          if (startTime === null) startTime = currentTime;
-          const timeElapsed = currentTime - startTime;
-          const run = ease(timeElapsed, startPosition, distance, duration);
-          window.scrollTo(0, run);
-          if (timeElapsed < duration) requestAnimationFrame(animation);
-        }
-        function ease(t, b, c, d) {
-          t /= d / 2;
-          if (t < 1) return (c / 2) * t * t + b;
-          t--;
-          return (-c / 2) * (t * (t - 2) - 1) + b;
-        }
-        requestAnimationFrame(animation);
+      function setYesNoOptionsForAB() {
+        // Q3 text and options (Ringba 'ab' sent on click)
+        quizText.textContent = "3. Are You Currently Enrolled in Medicare Part A or Part B?";
+        answerOptions.innerHTML = `
+          <div class="div16" onclick="answerAB('Yes')">Yes</div>
+          <div class="div16" onclick="answerAB('No')">No</div>
+        `;
       }
 
-      const stepProcess = (answer, value) => {
-        smoothScrollToTop(1000);
+      // ---- Q1: Age ----
+      function answerAge(ageValue) {
+        if (ageValue) rbAge(ageValue); // push Ringba 'age'
+        currentStep = 2;
+        quizText.textContent = "2. Are you a U.S. Citizen?";
+        setYesNoOptionsForCitizen();
+        smoothScrollToTop(900, 432);
+      }
+
+      // ---- Q2: Citizen ----
+      function answerCitizen(val) {
+        // (No Ringba push for this step per your spec)
+        currentStep = 3;
+        setYesNoOptionsForAB();
+        smoothScrollToTop(900, 432);
+      }
+
+      // ---- Q3: Part A/B enrollment (Yes/No) ----
+      function answerAB(val) {
+        // Push Ringba 'ab' with selected option ("Yes" or "No")
+        rbAB(val);
+        // Proceed to verify and then show congrats
+        stepProcess();
+      }
+
+      // Verification + transition
+      const stepProcess = () => {
+        smoothScrollToTop(800);
         const mainContent = document.querySelector(".div6");
-        mainContent.classList.add("div5");
+        if (mainContent) mainContent.classList.add("div5");
         statusDiv.classList.remove("div5");
+
         statusMessage.textContent = "Reviewing Your Answers...";
         setTimeout(() => {
           statusMessage.textContent = "Verifying Availability...";
           setTimeout(() => {
             statusMessage.textContent = "Confirming Eligibility...";
             setTimeout(() => {
-              setStep("completed");
-            }, 1500);
-          }, 1500);
-        }, 1500);
+              showCongratulations();
+            }, 1200);
+          }, 1200);
+        }, 1200);
       };
-
-      function setStep(newStep) {
-        step = newStep;
-        if (step === "completed") {
-          showCongratulations();
-        }
-      }
 
       function showCongratulations() {
         statusDiv.classList.add("div5");
@@ -465,8 +377,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }, 1000);
       }
 
+      // Smooth scroll helper
+      function smoothScrollToTop(duration, targetPosition = 0) {
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
+        function animation(currentTime) {
+          if (startTime === null) startTime = currentTime;
+          const timeElapsed = currentTime - startTime;
+          const run = ease(timeElapsed, startPosition, distance, duration);
+          window.scrollTo(0, run);
+          if (timeElapsed < duration) requestAnimationFrame(animation);
+        }
+        function ease(t, b, c, d) {
+          t /= d / 2;
+          if (t < 1) return (c / 2) * t * t + b;
+          t--;
+          return (-c / 2) * (t * (t - 2) - 1) + b;
+        }
+        requestAnimationFrame(animation);
+      }
+
+      // No-op kept if referenced elsewhere
       function handleCall() {}
-      // ===== End logic =====
     </script>
   </body>
 </html>
