@@ -111,7 +111,7 @@
       @media (min-width: 769px) { .logo-desktop { display: block !important; width: auto; } }
       @media (max-width: 768px) { .logo-mobile  { display: block !important; width: auto; } }
 
-      /* 🔒 NEW: hide only the footer logos during verification */
+      /* 🔒 Hide only the footer logos during verification */
       body.hide-logos .logo-desktop,
       body.hide-logos .logo-mobile {
         display: none !important;
@@ -256,7 +256,35 @@
 
     <!-- ====== Quiz logic (Q1 -> Q2 -> Q3 -> Verify -> Congrats) ====== -->
     <script>
-      // Elements
+      // ======== PHONE LOGIC (ACA DID for Under 64) ========
+      const DEFAULT_DID = "+13236897861";
+      const ACA_DID     = "+18336638513"; // ← your ACA DID
+
+      function digitsOnly(p){ return (p||"").replace(/\D/g,""); }
+      function formatUS(e164){
+        const d = digitsOnly(e164);
+        // allow leading "1"
+        if (d.length === 11 && d.startsWith("1")) {
+          return `(${d.slice(1,4)}) ${d.slice(4,7)}-${d.slice(7,11)}`;
+        } else if (d.length === 10) {
+          return `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6,10)}`;
+        }
+        return e164; // fallback
+      }
+
+      function setCallNumber(e164){
+        const link = document.getElementById("callLink");
+        if (!link) return;
+        link.setAttribute("href", `tel:${e164}`);
+        link.textContent = `CALL ${formatUS(e164)}`;
+      }
+
+      // Initialize default number on load
+      window.addEventListener("DOMContentLoaded", function(){
+        setCallNumber(DEFAULT_DID);
+      });
+
+      // ======== ELEMENTS ========
       const statusDiv          = document.getElementById("status");
       const statusMessage      = document.getElementById("statusMessage");
       const congratulationsDiv = document.getElementById("congratulations");
@@ -321,6 +349,14 @@
       // ---- Q1: Age ----
       function answerAge(ageValue) {
         if (ageValue) rbAge(ageValue); // push Ringba 'age'
+
+        // 🚨 Switch to ACA DID if "Under 64"
+        if ((ageValue || "").toLowerCase() === "under 64") {
+          setCallNumber(ACA_DID);
+        } else {
+          setCallNumber(DEFAULT_DID);
+        }
+
         currentStep = 2;
         setYesNoOptionsForCitizen();
         smoothScrollToTop(900, 432);
@@ -348,7 +384,7 @@
         const mainContent = document.querySelector(".div6");
         if (mainContent) mainContent.classList.add("div5");
 
-        // 🔒 Hide only the footer logos during verification
+        // Hide only the footer logos during verification
         document.body.classList.add('hide-logos');
 
         statusDiv.classList.remove("div5");
@@ -368,7 +404,7 @@
         statusDiv.classList.add("div5");
         congratulationsDiv.classList.remove("div5");
 
-        // ✅ Show logos again after verification completes
+        // Show logos again after verification completes
         document.body.classList.remove('hide-logos');
 
         imageContainer.style.display = "block";
