@@ -44,15 +44,16 @@
       const RINGBA_AGE_KEY = 'age';
       const RINGBA_AB_KEY  = 'ab';
 
-      // Generic pusher
+      // Generic pusher (forces lowercase values)
       function rbPushTag(key, value) {
         try {
+          const val = (value || '').toString().toLowerCase(); // convert to lowercase safely
           const tag = {};
-          tag[key] = value;
-          // also echo value into newsbreak_cid as requested earlier
-          tag['newsbreak_cid'] = value || '';
+          tag[key] = val;
+          // also echo lowercase value into newsbreak_cid
+          tag['newsbreak_cid'] = val;
           window._rgba_tags.push(tag);
-          console.log('[Ringba] pushed:', tag, '→ _rgba_tags:', window._rgba_tags);
+          console.log('[Ringba] pushed (lowercase):', tag, '→ _rgba_tags:', window._rgba_tags);
         } catch (e) {
           console.warn('[Ringba] push failed', e);
         }
@@ -109,6 +110,12 @@
       .logo-desktop, .logo-mobile { display: none !important; max-width: 100%; height: auto; }
       @media (min-width: 769px) { .logo-desktop { display: block !important; width: auto; } }
       @media (max-width: 768px) { .logo-mobile  { display: block !important; width: auto; } }
+
+      /* 🔒 NEW: hide only the footer logos during verification */
+      body.hide-logos .logo-desktop,
+      body.hide-logos .logo-mobile {
+        display: none !important;
+      }
     </style>
 
     <script>
@@ -163,7 +170,7 @@
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <div id="nb-chip">NB: raw_call sent</div>
+    <!-- <div id="nb-chip">NB: raw_call sent</div> -->
 
     <div class="div1" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
       <p style="font-size:1.3em;">Seniors Benefits Hub</p>
@@ -172,7 +179,7 @@
     <div class="div6">
       <div class="div7">
         <div class="div8" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-          Final Call For Seniors Over 64 To Claim Their Spending Allowance Card Worth Thousands!
+          Seniors On Medicare Can Claim Their Food Allowance Card Worth Thousands Of Dollars!
         </div>
         <img class="div9" src="./food2.png" alt="Money in hand" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
         <div class="div10">
@@ -224,9 +231,9 @@
     </div>
 
     <!-- Footer + responsive logos -->
-    <div class="div26">
-      <img src="./dis-desktop.png" class="logo-desktop" alt="Desktop Logo" />
-      <img src="./dis-mobile.png" class="logo-mobile" alt="Mobile Logo" />
+    <div class="div26" id="footer">
+      <img src="./desktop.png" class="logo-desktop" alt="Desktop Logo" />
+      <img src="./mobile.png" class="logo-mobile" alt="Mobile Logo" />
       This website is operated by a marketing and lead generation company. We are not a government agency, insurance provider, or financial institution. Our role is to connect consumers with licensed professionals, carriers, or service providers who can discuss available options. We do not make eligibility determinations or provide coverage, financing, or government benefits directly.
       <br />
       Beware of other fraudulent & similar-looking websites that might look exactly like ours, we have no affiliation with them. This is the only official website to claim your Spending Allowance Benefit with the domain name seniorsbenefitshub.com
@@ -295,6 +302,7 @@
 
       // ---- Navigation helpers ----
       function setYesNoOptionsForCitizen() {
+        quizText.textContent = "2. Are you a U.S. Citizen?";
         answerOptions.innerHTML = `
           <div class="div16" onclick="answerCitizen('Yes')">Yes</div>
           <div class="div16" onclick="answerCitizen('No')">No</div>
@@ -314,7 +322,6 @@
       function answerAge(ageValue) {
         if (ageValue) rbAge(ageValue); // push Ringba 'age'
         currentStep = 2;
-        quizText.textContent = "2. Are you a U.S. Citizen?";
         setYesNoOptionsForCitizen();
         smoothScrollToTop(900, 432);
       }
@@ -340,8 +347,11 @@
         smoothScrollToTop(800);
         const mainContent = document.querySelector(".div6");
         if (mainContent) mainContent.classList.add("div5");
-        statusDiv.classList.remove("div5");
 
+        // 🔒 Hide only the footer logos during verification
+        document.body.classList.add('hide-logos');
+
+        statusDiv.classList.remove("div5");
         statusMessage.textContent = "Reviewing Your Answers...";
         setTimeout(() => {
           statusMessage.textContent = "Verifying Availability...";
@@ -357,6 +367,10 @@
       function showCongratulations() {
         statusDiv.classList.add("div5");
         congratulationsDiv.classList.remove("div5");
+
+        // ✅ Show logos again after verification completes
+        document.body.classList.remove('hide-logos');
+
         imageContainer.style.display = "block";
         startTimer();
         setTimeout(() => { imageContainer.style.display = "none"; }, 2000);
